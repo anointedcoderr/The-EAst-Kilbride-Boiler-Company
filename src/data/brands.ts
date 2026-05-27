@@ -1,0 +1,88 @@
+import type { Brand } from "@/types";
+
+export const brands: Brand[] = [
+  {
+    id: "worcester-bosch",
+    name: "Worcester Bosch",
+    slug: "worcester-bosch-combi",
+    product: "Combi Boiler",
+    standardPrice: 1695,
+    premiumPrice: 1995,
+    warranty: "5-year warranty",
+    warrantyYears: 5,
+    tag: "Which? Best Boiler Award",
+    image: "/images/brands/worcester-bosch.png",
+    includes: [
+      "Free 5-year warranty",
+      "Free wireless thermostat",
+      "Free system flush",
+    ],
+    seoTitle: "Worcester Bosch Combi Boiler Installed in East Kilbride - From £1,695",
+    seoDescription:
+      "Worcester Bosch combi boiler fully installed in East Kilbride. Standard £1,695 / Premium £1,995. Free thermostat, system flush, 5yr warranty. Call 01355 459096.",
+    h1: "Worcester Bosch Combi Boiler Installed in East Kilbride - From £1,695",
+  },
+  {
+    id: "ideal",
+    name: "Ideal",
+    slug: "ideal-combi",
+    product: "Combi Boiler",
+    standardPrice: 1495,
+    premiumPrice: 1825,
+    warranty: "5-year warranty",
+    warrantyYears: 5,
+    tag: "Popular",
+    image: "/images/brands/ideal.png",
+    includes: [
+      "Free 5-year warranty",
+      "Free wireless thermostat",
+      "Free system flush",
+    ],
+    seoTitle: "Ideal Combi Boiler Installed in East Kilbride - From £1,495",
+    seoDescription:
+      "Ideal combi boiler fully installed in East Kilbride. Standard £1,495 / Premium £1,825. Free thermostat, system flush, 5yr warranty. Call 01355 459096.",
+    h1: "Ideal Combi Boiler Installed in East Kilbride - From £1,495",
+  },
+  {
+    id: "vokera",
+    name: "Vokera",
+    slug: "vokera-combi",
+    product: "Combi Boiler",
+    standardPrice: 1299,
+    premiumPrice: 1600,
+    warranty: "7-year warranty",
+    warrantyYears: 7,
+    tag: "Best Value",
+    image: "/images/brands/vokera.png",
+    includes: [
+      "Free 7-year warranty",
+      "Free wireless thermostat",
+      "Free system flush",
+    ],
+    seoTitle: "Vokera Combi Boiler Installed in East Kilbride - From £1,299 Best Value",
+    seoDescription:
+      "Vokera combi boiler fully installed in East Kilbride. Standard £1,299 / Premium £1,600. Free thermostat, system flush, 7yr warranty. Call 01355 459096.",
+    h1: "Vokera Combi Boiler Installed in East Kilbride - From £1,299 Best Value",
+  },
+  {
+    id: "navien",
+    name: "Navien",
+    slug: "navien-combi",
+    product: "Combi Boiler",
+    standardPrice: 1835,
+    premiumPrice: 2380,
+    warranty: "10-year warranty",
+    warrantyYears: 10,
+    tag: "Longest Warranty",
+    image: "/images/brands/navien.png",
+    includes: [
+      "Free 10-year warranty",
+      "Free wireless thermostat",
+      "Free system flush",
+    ],
+    seoTitle: "Navien Combi Boiler Installed in East Kilbride - Top Spec From £1,835",
+    seoDescription:
+      "Navien combi boiler fully installed in East Kilbride. Standard £1,835 / Premium £2,380. Free thermostat, system flush, 10yr warranty. Call 01355 459096.",
+    h1: "Navien Combi Boiler Installed in East Kilbride - Top Spec From £1,835",
+  },
+];
