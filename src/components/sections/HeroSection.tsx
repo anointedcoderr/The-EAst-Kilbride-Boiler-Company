@@ -81,9 +81,7 @@ function HeroSection() {
                 <h1 className="font-extrabold uppercase tracking-tight leading-[0.95] text-[2.25rem] sm:text-5xl lg:text-[3.75rem] xl:text-[4rem]">
                   <span className="block text-white">BOILER</span>
                   <span className="block text-white">REPLACEMENT</span>
-                  <span className="block text-mint-500 [text-shadow:0_0_24px_rgba(91,254,177,0.4)]">
-                    COMPANY
-                  </span>
+                  <span className="block text-mint-500 neon-company">COMPANY</span>
                 </h1>
                 <p className="mt-3 text-[11px] sm:text-xs font-bold uppercase tracking-[0.15em] text-white">
                   Serving all areas of East Kilbride G74/G75
