@@ -39,6 +39,15 @@ export interface PageContentBlock {
   bullets?: string[];
 }
 
+export interface PageServiceAreaProof {
+  title: string;
+  intro: string;
+  districts: string[];
+  reviewId: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+
 export interface PageContent {
   id: string;
   label: string;
@@ -61,6 +70,7 @@ export interface PageContent {
   ctaBannerTitle?: string;
   introCopy?: string;
   contentBlocks?: PageContentBlock[];
+  serviceAreaProof?: PageServiceAreaProof;
   faqs: PageFAQ[];
   internalLinks: PageInternalLink[];
   canonical: string;
@@ -103,6 +113,21 @@ const installationFAQs: PageFAQ[] = [
     answer:
       "Yes. We install Worcester Bosch from £1,695 with a 5-year warranty, Ideal from £1,495 with a 5-year warranty, Vokera from £1,299 with a 5-year warranty, and Navien from £1,835 with a 10-year warranty. Every fit is carried out by our Gas Safe Experts.",
   },
+  {
+    question: "Do you offer fixed-price quotes for installations?",
+    answer:
+      "Yes. Once we have surveyed the property, we issue a single fixed price covering the boiler, all parts, labour, VAT, the wireless thermostat and the full system flush. The figure on the quote is the figure you pay. There are no surprise costs once work begins.",
+  },
+  {
+    question: "Do you dispose of the old boiler?",
+    answer:
+      "Yes. Removal of the old boiler, any old hot water tank in the loft and the associated scrap metal is included in the fixed installation price. We leave the property tidy and recycle the metal responsibly.",
+  },
+  {
+    question: "Will you need to replace my radiators as well?",
+    answer:
+      "Usually not. During the survey, we check the existing radiators and pipework for sludge, output and condition. Most East Kilbride homes can keep their existing radiators with a new A-rated combi, helped by the full system flush we include as standard. If a particular radiator is on its last legs we tell you on the day rather than spring it on you later.",
+  },
 ];
 
 const repairFAQs: PageFAQ[] = [
@@ -142,6 +167,11 @@ const repairFAQs: PageFAQ[] = [
     answer:
       "Check the basics first: the boiler pressure should normally sit between 1 and 1.5 bar when cold, the gas supply should be on, the thermostat should be calling for heat, and the condensate pipe should not be frozen if it runs outside. If everything looks normal, do not keep resetting it. Call us so we can diagnose the underlying fault safely.",
   },
+  {
+    question: "Are your engineers Gas Safe registered?",
+    answer:
+      "Yes. All gas work at EKBC is carried out by our own Gas Safe Experts. Every engineer carries a Gas Safe ID card on the day, and our registration can be verified directly at gassaferegister.co.uk before any work begins.",
+  },
 ];
 
 const servicingFAQs: PageFAQ[] = [
@@ -180,6 +210,11 @@ const servicingFAQs: PageFAQ[] = [
     question: "Can I book a boiler service online?",
     answer:
       "Yes. Use the online quote form to request a service and choose a date that suits you, or call 01355 204045 if you would prefer to book over the phone. Klarna 3-month interest-free is available on annual servicing.",
+  },
+  {
+    question: "Why should I service my boiler annually?",
+    answer:
+      "An annual service keeps the boiler running efficiently, supports the manufacturer warranty, and protects your family by checking the flue, combustion and carbon monoxide reading. It also catches small faults early, before they become a winter breakdown when you need heating most.",
   },
 ];
 
@@ -263,6 +298,7 @@ const installationInternalLinks: PageInternalLink[] = [
   { label: "Navien Combi", href: "/boilers/navien-combi/", group: "Brand" },
   { label: "Signs you need a new boiler", href: "/blogs/signs-you-need-a-new-boiler-east-kilbride/", group: "Guides" },
   { label: "Combi boiler cost guide", href: "/blogs/combi-boiler-cost-east-kilbride/", group: "Guides" },
+  { label: "Best boiler brands for G74 and G75", href: "/blogs/best-boiler-brands-g74-g75-east-kilbride/", group: "Guides" },
 ];
 
 const repairInternalLinks: PageInternalLink[] = [
@@ -273,6 +309,7 @@ const repairInternalLinks: PageInternalLink[] = [
   { label: "G75 hub", href: "/areas-we-serve/g75/", group: "Areas" },
   { label: "Signs you need a new boiler", href: "/blogs/signs-you-need-a-new-boiler-east-kilbride/", group: "Guides" },
   { label: "Annual boiler service guide", href: "/blogs/annual-boiler-service-east-kilbride/", group: "Guides" },
+  { label: "Repair or replacement guide", href: "/blogs/boiler-repair-or-replacement-east-kilbride/", group: "Guides" },
 ];
 
 const servicingInternalLinks: PageInternalLink[] = [
@@ -446,6 +483,21 @@ export const pageContent: Record<string, PageContent> = {
         ],
       },
     ],
+    serviceAreaProof: {
+      title: "Boiler installation across East Kilbride",
+      intro:
+        "We install new boilers across every G74 and G75 district in East Kilbride. From quick combi swaps in The Murray and Greenhills, to back-boiler conversions in The Village and Calderwood, to full-system upgrades in Stewartfield and Thorntonhall, the same Gas Safe Experts fit every job.",
+      districts: [
+        "The Murray",
+        "Greenhills",
+        "Hairmyres",
+        "Calderwood",
+        "Stewartfield",
+        "Westwood",
+      ],
+      reviewId: "5",
+      ctaLabel: "Get my fixed installation price",
+    },
     faqs: installationFAQs,
     internalLinks: installationInternalLinks,
     canonical: "/services/new-boiler-installation/",
@@ -561,6 +613,21 @@ export const pageContent: Record<string, PageContent> = {
         ],
       },
     ],
+    serviceAreaProof: {
+      title: "Boiler repairs across G74 and G75",
+      intro:
+        "Same-day boiler repair coverage right across East Kilbride. Whether it is a no-heat call-out in Hairmyres, a pressure issue in The Murray, or a frozen condensate in Stewartfield during a cold snap, our Gas Safe Experts carry common spares on the van to fix the fault on the first visit wherever possible.",
+      districts: [
+        "Hairmyres",
+        "Calderwood",
+        "Stewartfield",
+        "The Murray",
+        "Lindsayfield",
+        "Thorntonhall",
+      ],
+      reviewId: "8",
+      ctaLabel: "Book my repair call-out",
+    },
     faqs: repairFAQs,
     internalLinks: repairInternalLinks,
     canonical: "/services/boiler-repair/",
@@ -663,6 +730,21 @@ export const pageContent: Record<string, PageContent> = {
         ],
       },
     ],
+    serviceAreaProof: {
+      title: "Annual boiler servicing across East Kilbride",
+      intro:
+        "We service boilers throughout every East Kilbride district. From homeowners in Nerston and Calderwood to landlords with portfolios across The Village, Stewartfield, Greenhills and Mossneuk, every service follows the same Gas Safe checklist and is fixed price regardless of brand.",
+      districts: [
+        "Nerston",
+        "Calderwood",
+        "The Village",
+        "Stewartfield",
+        "Greenhills",
+        "Mossneuk",
+      ],
+      reviewId: "7",
+      ctaLabel: "Book my annual service",
+    },
     faqs: servicingFAQs,
     internalLinks: servicingInternalLinks,
     canonical: "/services/boiler-servicing/",
@@ -765,6 +847,21 @@ export const pageContent: Record<string, PageContent> = {
         ],
       },
     ],
+    serviceAreaProof: {
+      title: "Fixed boiler prices for East Kilbride homes",
+      intro:
+        "Every fitted boiler price on this page covers all of East Kilbride. From Vokera at £1,299 for one-bathroom flats in The Murray and Westwood, to Navien at £1,835 for larger detached homes in Stewartfield and Thorntonhall, the figure on the quote is the figure you pay. No extra travel charge for any G74 or G75 postcode.",
+      districts: [
+        "Westwood",
+        "Stewartfield",
+        "The Murray",
+        "Calderwood",
+        "Hairmyres",
+        "Thorntonhall",
+      ],
+      reviewId: "3",
+      ctaLabel: "Get my fixed price",
+    },
     faqs: boilerPricesFAQs,
     internalLinks: boilersInternalLinks,
     canonical: "/boilers/",
@@ -777,7 +874,7 @@ export const pageContent: Record<string, PageContent> = {
     pageType: "blog-index",
     status: "live-sample",
     parentSilo: "Blogs",
-    childCount: 3,
+    childCount: 5,
     schemaTypes: ["CollectionPage", "FAQPage", "BreadcrumbList"],
     metaTitle:
       "East Kilbride Boiler Blog | EKBC - Heating Guides for G74 & G75",

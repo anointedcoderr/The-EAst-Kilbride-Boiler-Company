@@ -5,6 +5,7 @@ import { SiloLinks } from "@/components/sections/SiloLinks";
 import { EeatBlock } from "@/components/sections/EeatBlock";
 import { TrustBadgesBar } from "@/components/sections/TrustBadgesBar";
 import { ReviewsCarousel } from "@/components/sections/ReviewsCarousel";
+import { ServiceAreaProof } from "@/components/sections/ServiceAreaProof";
 import { CTABanner, NeedBoilerCTA } from "@/components/sections/CTABanner";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { serviceSchema, faqSchema } from "@/lib/schemas";
@@ -69,6 +70,10 @@ export function ServicePageTemplate({
       )}
 
       <EeatBlock />
+
+      {page.serviceAreaProof && (
+        <ServiceAreaProof proof={page.serviceAreaProof} />
+      )}
 
       <ReviewsCarousel />
 

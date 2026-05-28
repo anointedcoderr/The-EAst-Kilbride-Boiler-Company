@@ -170,3 +170,91 @@ Stage 2 delivers technical readiness, full local SEO content, schema, sitemap an
 - No generic AI-looking content, no placeholder text, no unfinished sections
 - Carbon Mint theme stays, neon mint glow stays
 - Admin route stays noindex and disallowed
+
+---
+
+## Stage 1 revision two - addressing Fraser's deeper feedback
+
+This revision answered the second round of Fraser feedback after he asked for
+the Stage 1 samples to feel more unique, more local, and more clearly geared
+for SEO and E-E-A-T before sign-off.
+
+### FAQ additions
+
+- /services/new-boiler-installation/ now also answers fixed-price quotes, old boiler disposal, and whether radiators need replacing during a swap.
+- /services/boiler-repair/ now also confirms Gas Safe registered engineers, with a direct verify link to gassaferegister.co.uk.
+- /services/boiler-servicing/ now also covers why an annual service matters for efficiency, warranty and carbon monoxide safety.
+
+### Service Area and Social Proof section
+
+A new reusable `ServiceAreaProof` section renders on every service page and
+the boiler prices page. Each instance is driven by a `serviceAreaProof`
+block in `pageContent.ts` so the wording is unique per page:
+
+- Installation page calls out The Murray, Greenhills, Hairmyres, Calderwood, Stewartfield, Westwood.
+- Repair page calls out Hairmyres, Calderwood, Stewartfield, The Murray, Lindsayfield, Thorntonhall.
+- Servicing page calls out Nerston, Calderwood, The Village, Stewartfield, Greenhills, Mossneuk.
+- Boiler prices page calls out Westwood, Stewartfield, The Murray, Calderwood, Hairmyres, Thorntonhall.
+
+Each section shows district chips, a real review from `reviews.ts` for that
+page type, a click-to-call panel, a Gas Safe Register verify panel, and
+visible links into the G74 and G75 hubs.
+
+### Blog index expanded to five posts
+
+Fraser asked for a minimum of five posts before going live. The blog now lists:
+
+1. Signs you need a new boiler in East Kilbride
+2. Combi boiler cost in East Kilbride
+3. Annual boiler service guide for East Kilbride homes
+4. Best boiler brands for G74 and G75 homes (new)
+5. Boiler repair or replacement, which is better? (new)
+
+The new posts are linked into the relevant service pages so they show up in
+the `SiloLinks` section as well as the blog index.
+
+---
+
+## Stage 2 keyword strategy - top 10 money keywords
+
+These keywords are the Stage 2 geo focus for district pages and the postcode
+hubs. They are stored in code at `src/data/stage2Keywords.ts` so the Stage 2
+geo page generator can read them directly. Do not stuff them into Stage 1
+pages - Stage 1 stays on the natural local copy that lives in pageContent.ts.
+
+Placeholders: `{Area}` is replaced with the district name (e.g. The Murray,
+Calderwood). `{Postcode}` is replaced with G74 or G75.
+
+1. Boiler Replacement {Area}
+2. Central Heating Installation {Area}
+3. New Boiler Installation {Area}
+4. Combi Boiler Upgrade {Area} / {Postcode}
+5. Gas Safe Boiler Installer {Area}
+6. Emergency Boiler Replacement {Area}
+7. Full Heating System Upgrade {Area}
+8. Fixed Price Boiler Installation {Area}
+9. Central Heating Engineers {Area}
+10. Best Boiler Installation Deals {Area}
+
+### Stage 2 geo / district template sections
+
+The district page template in Stage 2 must support the following sections,
+each tied back to the keywords above:
+
+- Boiler Replacement in {Area}
+- New Boiler Installation in {Area}
+- Combi Boiler Upgrade in {Area}
+- Central Heating Installation in {Area}
+- Full Heating System Upgrade in {Area}
+- Fixed Price Boiler Installation in {Area}
+- Gas Safe Boiler Installer serving {Area}
+- Emergency Boiler Replacement in {Area}
+- Best Boiler Installation Deals in {Area}
+- Local FAQs using {Area} and {Postcode}
+
+### Ranking caveat
+
+Stage 2 delivers the technical and content foundation to target these
+searches. We do not guarantee Google rankings, Google Map Pack top 3
+placement, or visibility in AI answer engines. Indexation and ranking depend
+on Google's algorithm and timeline.

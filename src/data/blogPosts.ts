@@ -99,4 +99,90 @@ export const blogPosts: BlogPost[] = [
       { label: "G75 hub", href: "/areas-we-serve/g75/" },
     ],
   },
+  {
+    slug: "best-boiler-brands-g74-g75-east-kilbride",
+    title: "Best boiler brands for G74 and G75 homes",
+    h1: "The best boiler brands for G74 and G75 homes",
+    excerpt:
+      "Worcester Bosch, Ideal, Vokera and Navien compared for East Kilbride properties. Which brand suits a terraced home in Calderwood, a flat in The Murray, or a detached in Stewartfield?",
+    metaTitle:
+      "Best Boiler Brands for G74 and G75 Homes | EKBC Buying Guide",
+    metaDescription:
+      "Which boiler brand suits a G74 or G75 East Kilbride home? Worcester Bosch, Ideal, Vokera and Navien compared by EKBC Gas Safe Experts. Fixed prices from £1,299.",
+    date: "2026-04-08",
+    readMinutes: 6,
+    category: "Buying advice",
+    tags: [
+      "Buying advice",
+      "Worcester Bosch",
+      "Ideal",
+      "Vokera",
+      "Navien",
+      "G74",
+      "G75",
+    ],
+    body: [
+      "Picking a boiler brand is part budget, part property, and part how long you plan to stay in the home. Across G74 and G75 we fit four brands as standard: Worcester Bosch, Ideal, Vokera and Navien. Each one suits a different kind of East Kilbride home.",
+      "Worcester Bosch from £1,695 fitted is the Which? Best Boiler Award winner and the most-requested brand on the street. It is our top pick for semi-detached and detached homes in Calderwood, Stewartfield, Whitemoss and Hairmyres. The 5-year warranty as standard and the build quality is the reason it keeps winning awards.",
+      "Ideal from £1,495 fitted is our most popular fit across East Kilbride. It is a strong mid-range option, comes with a 5-year warranty, and is a great match for terraced and semi-detached properties in Calderwood, Stewartfield, Lindsayfield and Jackton. If you want a reliable A-rated combi without paying for the badge, Ideal is hard to beat.",
+      "Vokera from £1,299 fitted is our best value pick with a 5-year warranty. It is a reliable build that suits one-bathroom flats and smaller terraced homes across The Murray, Greenhills, Westwood and Mossneuk. The price is lower because the badge is less premium, not because the boiler is short on quality.",
+      "Navien from £1,835 fitted is the premium choice, with the longest standard warranty on the market at 10 years and the strongest flow rate for two-bathroom homes. It is our recommended fit for larger detached properties in Stewartfield, Thorntonhall and Whitemoss where high demand at peak times matters.",
+      "All four brands come with the boiler, installation, parts, labour, VAT, a free wireless thermostat and a full system flush included. There are no separate call-out fees and no extras added on the day. If you are not sure which one suits your home, get a 60-second online quote or call our Gas Safe Experts on 01355 204045.",
+    ],
+    internalLinks: [
+      { label: "Boiler Prices", href: "/boilers/" },
+      {
+        label: "New Boiler Installation",
+        href: "/services/new-boiler-installation/",
+      },
+      { label: "Boiler Repair", href: "/services/boiler-repair/" },
+      { label: "G74 hub", href: "/areas-we-serve/g74/" },
+      { label: "G75 hub", href: "/areas-we-serve/g75/" },
+    ],
+  },
+  {
+    slug: "boiler-repair-or-replacement-east-kilbride",
+    title: "Boiler repair or replacement, which is better?",
+    h1: "Boiler repair or replacement in East Kilbride - which is better?",
+    excerpt:
+      "When to fix the boiler you have and when to replace it. Honest guidance from EKBC Gas Safe Experts, written for East Kilbride homes in G74 and G75.",
+    metaTitle:
+      "Boiler Repair or Replacement | EKBC East Kilbride Honest Guide",
+    metaDescription:
+      "Repair or replace your boiler? Honest, jargon-free guidance for G74 and G75 East Kilbride homes from EKBC Gas Safe Experts. Same-day call-out from 01355 204045.",
+    date: "2026-03-25",
+    readMinutes: 5,
+    category: "Repair vs replacement",
+    tags: [
+      "Repair vs replacement",
+      "Repair",
+      "Replacement",
+      "Buying advice",
+      "G74",
+      "G75",
+    ],
+    body: [
+      "Repair or replace is the single most common question we hear on East Kilbride doorsteps. There is no one correct answer for every home, but there is a clear framework that gives you an honest one in two minutes. Below is the same framework we use at every G74 and G75 visit.",
+      "Step one is the age of the boiler. If your boiler is under 8 years old and this is the first major fault, a repair is almost always the right call. Spares are available, the warranty may still apply, and the underlying unit has plenty of life left.",
+      "Step two is the repair history. If the boiler is between 8 and 12 years old and has needed three or four call-outs in the last 18 months, we walk through the maths with you on the day. The cost of the next repair plus the next service is often inside one winter of the cost of a new A-rated combi.",
+      "Step three is efficiency. A boiler fitted before 2010 is usually a G or D-rated unit. A modern A-rated combi runs up to 30 percent more efficiently, which shows up directly on the gas bill. For a typical East Kilbride home, that often clears the cost of a new install inside two to three winters.",
+      "Step four is the fault itself. Heat exchanger failure, repeat PCB problems, or repeated leaks from the casing usually mean a replacement is the more honest answer. A new thermostat, a stuck valve or a frozen condensate pipe is a repair, not a replacement.",
+      "Whichever way it lands, you get both options up front. We give you a fixed repair quote and a fixed replacement quote at the same visit, with no pressure either way. Klarna 3-month interest-free applies to repair call-outs only - new boiler installations are quoted as a single fixed price.",
+      "Want an honest answer for your boiler today? Call 01355 204045 for a same-day call-out, or get a 60-second fixed-price replacement quote on the homepage.",
+    ],
+    internalLinks: [
+      { label: "Boiler Repair", href: "/services/boiler-repair/" },
+      {
+        label: "New Boiler Installation",
+        href: "/services/new-boiler-installation/",
+      },
+      { label: "Boiler Prices", href: "/boilers/" },
+      {
+        label: "Signs you need a new boiler",
+        href: "/blogs/signs-you-need-a-new-boiler-east-kilbride/",
+      },
+      { label: "G74 hub", href: "/areas-we-serve/g74/" },
+      { label: "G75 hub", href: "/areas-we-serve/g75/" },
+    ],
+  },
 ];
