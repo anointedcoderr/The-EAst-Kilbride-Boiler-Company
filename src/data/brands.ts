@@ -11,7 +11,7 @@ export const brands: Brand[] = [
     warranty: "5-year warranty",
     warrantyYears: 5,
     tag: "Which? Best Boiler Award",
-    image: "/images/boilers/worcester-bosch.jpg",
+    image: "/images/boilers/worcester-bosch.png",
     includes: [
       "Free 5-year warranty",
       "Free wireless thermostat",
@@ -32,7 +32,7 @@ export const brands: Brand[] = [
     warranty: "5-year warranty",
     warrantyYears: 5,
     tag: "Popular",
-    image: "/images/boilers/ideal.jpg",
+    image: "/images/boilers/ideal.png",
     includes: [
       "Free 5-year warranty",
       "Free wireless thermostat",
@@ -53,7 +53,7 @@ export const brands: Brand[] = [
     warranty: "7-year warranty",
     warrantyYears: 7,
     tag: "Best Value",
-    image: "/images/boilers/vokera.jpg",
+    image: "/images/boilers/vokera.png",
     includes: [
       "Free 7-year warranty",
       "Free wireless thermostat",
@@ -74,7 +74,7 @@ export const brands: Brand[] = [
     warranty: "10-year warranty",
     warrantyYears: 10,
     tag: "Longest Warranty",
-    image: "/images/boilers/navien.jpg",
+    image: "/images/boilers/navien.png",
     includes: [
       "Free 10-year warranty",
       "Free wireless thermostat",

@@ -1,5 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
-import { MapPin, Phone, Mail, Shield, ArrowRight } from "lucide-react";
+import { MapPin, Phone, Mail, ArrowRight } from "lucide-react";
 import { siteSettings } from "@/data/siteSettings";
 import { Logo } from "@/components/ui/Logo";
 
@@ -69,12 +70,25 @@ export default function Footer() {
           <div>
             <Logo size="md" className="mb-4" />
 
-            <div className="flex items-center gap-2 mb-4 mt-4">
-              <div className="flex items-center justify-center w-10 h-10 bg-gold rounded-sm">
-                <Shield className="h-6 w-6 text-carbon-900" />
-              </div>
-              <span className="text-sm font-semibold text-gold">Gas Safe</span>
-            </div>
+            <a
+              href="https://www.gassaferegister.co.uk"
+              target="_blank"
+              rel="nofollow noopener"
+              aria-label="Gas Safe Register"
+              className="inline-flex items-center gap-3 mt-4 mb-4 transition-all hover:drop-shadow-[0_0_12px_rgba(91,254,177,0.35)]"
+            >
+              <Image
+                src="/images/gas-safe.png"
+                alt="Gas Safe Register"
+                width={64}
+                height={80}
+                className="h-14 w-auto"
+              />
+              <span className="text-xs uppercase tracking-wider text-carbon-300 leading-tight">
+                Verify our<br />
+                <span className="font-bold text-mint-400">Gas Safe Experts</span>
+              </span>
+            </a>
 
             <p className="text-xs uppercase tracking-wide text-white font-bold mb-2">
               East Kilbride&apos;s #1 Boiler Replacement Company

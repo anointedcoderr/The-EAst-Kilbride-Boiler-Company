@@ -43,14 +43,23 @@ function PricingCards() {
         <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {brands.map((brand, index) => (
             <ScrollReveal key={brand.id} direction="up" delay={index * 0.1}>
-              <div className="hover-card group flex h-full flex-col overflow-hidden rounded-2xl border border-carbon-600 bg-carbon-800 transition-colors hover:border-mint-500/50">
-                <div className="relative h-48 overflow-hidden">
+              <div className="hover-card group flex h-full flex-col overflow-hidden rounded-2xl border border-carbon-600 bg-carbon-800 transition-colors hover:border-mint-500/50 hover:shadow-[0_0_30px_rgba(91,254,177,0.2)]">
+                <div className="relative h-56 overflow-hidden bg-[radial-gradient(ellipse_at_center,_rgba(91,254,177,0.18)_0%,_rgba(91,254,177,0.04)_50%,_transparent_85%),linear-gradient(180deg,#0f1a14_0%,#0a0a0a_100%)]">
+                  <div
+                    aria-hidden="true"
+                    className="absolute inset-0 opacity-40 pointer-events-none"
+                    style={{
+                      backgroundImage:
+                        "linear-gradient(rgba(91,254,177,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(91,254,177,0.05) 1px, transparent 1px)",
+                      backgroundSize: "32px 32px",
+                    }}
+                  />
                   <Image
                     src={brand.image}
                     alt={`${brand.name} combi boiler installed by EKBC`}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                    className="object-cover object-center"
+                    className="object-contain object-center p-4 drop-shadow-[0_0_20px_rgba(91,254,177,0.25)]"
                   />
                 </div>
 
