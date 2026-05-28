@@ -161,34 +161,27 @@ body {
   text-shadow: 0 0 14px rgba(91, 254, 177, 0.65), 0 0 28px rgba(91, 254, 177, 0.35);
 }
 
-/* Heavy neon mint effect for hero COMPANY word */
+/* Soft neon mint glow for hero COMPANY word - keeps mint colour */
 .neon-company {
-  color: #ffffff;
   text-shadow:
-    0 0 6px rgba(91, 254, 177, 0.95),
-    0 0 14px rgba(91, 254, 177, 0.9),
-    0 0 28px rgba(91, 254, 177, 0.75),
-    0 0 48px rgba(91, 254, 177, 0.55),
-    0 0 80px rgba(91, 254, 177, 0.35);
-  animation: neon-pulse 3.5s ease-in-out infinite;
+    0 0 12px rgba(91, 254, 177, 0.55),
+    0 0 28px rgba(91, 254, 177, 0.3),
+    0 0 48px rgba(91, 254, 177, 0.15);
+  animation: neon-pulse 4s ease-in-out infinite;
 }
 
 @keyframes neon-pulse {
   0%, 100% {
     text-shadow:
-      0 0 6px rgba(91, 254, 177, 0.95),
-      0 0 14px rgba(91, 254, 177, 0.9),
-      0 0 28px rgba(91, 254, 177, 0.75),
-      0 0 48px rgba(91, 254, 177, 0.55),
-      0 0 80px rgba(91, 254, 177, 0.35);
+      0 0 12px rgba(91, 254, 177, 0.55),
+      0 0 28px rgba(91, 254, 177, 0.3),
+      0 0 48px rgba(91, 254, 177, 0.15);
   }
   50% {
     text-shadow:
-      0 0 8px rgba(91, 254, 177, 1),
-      0 0 18px rgba(91, 254, 177, 0.95),
-      0 0 36px rgba(91, 254, 177, 0.85),
-      0 0 60px rgba(91, 254, 177, 0.65),
-      0 0 100px rgba(91, 254, 177, 0.45);
+      0 0 16px rgba(91, 254, 177, 0.7),
+      0 0 36px rgba(91, 254, 177, 0.4),
+      0 0 60px rgba(91, 254, 177, 0.2);
   }
 }
 
