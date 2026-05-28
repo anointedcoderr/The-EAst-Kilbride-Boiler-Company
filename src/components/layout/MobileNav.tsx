@@ -22,7 +22,7 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
     <div className="fixed inset-0 z-[60] bg-carbon-900/98 backdrop-blur-md">
       <div className="flex flex-col h-full">
         <div className="flex items-center justify-between p-4 border-b border-carbon-800">
-          <Logo size="sm" showTagline={false} />
+          <Logo size="sm" />
           <button
             onClick={onClose}
             className="flex h-10 w-10 items-center justify-center rounded-full text-white hover:text-mint-500 hover:bg-white/[0.06] transition-all"

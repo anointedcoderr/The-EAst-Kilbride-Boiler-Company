@@ -76,7 +76,7 @@ export default function Header() {
             )}
           >
             <div className="flex items-center justify-between h-16 sm:h-16 lg:h-[76px]">
-              <Logo showTagline />
+              <Logo size="md" priority />
 
               <div className="hidden lg:flex items-center">
                 {mainNav.map((item) =>
