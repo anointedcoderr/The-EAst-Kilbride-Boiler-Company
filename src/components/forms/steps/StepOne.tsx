@@ -1,4 +1,4 @@
-import { Zap, Wrench, Clock, Droplets } from "lucide-react";
+import { Zap, Wrench, Clock, PoundSterling } from "lucide-react";
 
 interface StepOneProps {
   value: string | null;
@@ -9,7 +9,7 @@ const options = [
   { id: "new-boiler", label: "New Boiler", icon: Zap },
   { id: "repair", label: "Repair", icon: Wrench },
   { id: "annual-service", label: "Annual Service", icon: Clock },
-  { id: "power-flush", label: "Power Flush", icon: Droplets },
+  { id: "pricing-advice", label: "Pricing Advice", icon: PoundSterling },
 ];
 
 function StepOne({ value, onChange }: StepOneProps) {

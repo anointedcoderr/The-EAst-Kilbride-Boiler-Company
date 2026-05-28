@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Shield, CheckCircle, Phone } from "lucide-react";
+import { Shield, CheckCircle, Phone, Award, Star, Wrench } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { siteSettings } from "@/data/siteSettings";
@@ -38,11 +38,68 @@ function WhyTrustUs() {
         <div className="grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
           <ScrollReveal direction="left">
             <div>
-              <div className="aspect-video overflow-hidden rounded-xl bg-carbon-700">
-                <div className="flex h-full items-center justify-center">
-                  <p className="text-lg text-carbon-400">
-                    Engineer image placeholder
-                  </p>
+              <div className="relative overflow-hidden rounded-2xl border border-carbon-600 bg-gradient-to-br from-carbon-700 via-carbon-800 to-carbon-900">
+                <div className="absolute inset-0 opacity-30" style={{
+                  backgroundImage: "radial-gradient(circle at 30% 20%, rgba(91, 254, 177, 0.18) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(91, 254, 177, 0.08) 0%, transparent 40%)"
+                }} />
+
+                <div className="relative p-6 sm:p-8">
+                  <div className="flex items-center gap-2 rounded-full border border-mint-500/40 bg-mint-500/10 px-3 py-1.5 w-fit">
+                    <Award className="h-3.5 w-3.5 text-mint-500" />
+                    <span className="text-[11px] font-semibold uppercase tracking-wider text-mint-400">
+                      Which? Best Boiler Award
+                    </span>
+                  </div>
+
+                  <div className="mt-8 flex items-center justify-between gap-4">
+                    <div>
+                      <p className="text-5xl sm:text-6xl font-extrabold text-white leading-none">
+                        EKBC
+                      </p>
+                      <p className="mt-2 text-sm font-semibold uppercase tracking-widest text-mint-400">
+                        Est. 2017
+                      </p>
+                    </div>
+                    <div className="flex flex-col items-end gap-1 rounded-xl border border-mint-500/30 bg-mint-500/10 px-4 py-3">
+                      <div className="flex items-center gap-1">
+                        <span className="text-2xl font-extrabold text-mint-400">4.9</span>
+                        <Star className="h-5 w-5 fill-mint-400 text-mint-400" />
+                      </div>
+                      <span className="text-[10px] font-semibold uppercase tracking-wider text-carbon-300">
+                        8,200+ Reviews
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="mt-8 grid grid-cols-3 gap-3">
+                    <div className="flex flex-col items-center gap-2 rounded-lg border border-carbon-600 bg-carbon-900/60 p-3">
+                      <Shield className="h-5 w-5 text-mint-500" />
+                      <span className="text-[10px] text-center font-semibold uppercase tracking-wide text-carbon-200">
+                        Gas Safe Experts
+                      </span>
+                    </div>
+                    <div className="flex flex-col items-center gap-2 rounded-lg border border-carbon-600 bg-carbon-900/60 p-3">
+                      <Wrench className="h-5 w-5 text-mint-500" />
+                      <span className="text-[10px] text-center font-semibold uppercase tracking-wide text-carbon-200">
+                        20+ Yrs Experience
+                      </span>
+                    </div>
+                    <div className="flex flex-col items-center gap-2 rounded-lg border border-carbon-600 bg-carbon-900/60 p-3">
+                      <CheckCircle className="h-5 w-5 text-mint-500" />
+                      <span className="text-[10px] text-center font-semibold uppercase tracking-wide text-carbon-200">
+                        Fully Insured
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="mt-6 rounded-lg border border-mint-500/30 bg-carbon-900/80 px-4 py-3">
+                    <p className="text-sm font-bold uppercase tracking-wide text-white">
+                      Local. Trusted. Vetted.
+                    </p>
+                    <p className="mt-1 text-xs text-carbon-300">
+                      Serving every G74 and G75 postcode across East Kilbride since 2017.
+                    </p>
+                  </div>
                 </div>
               </div>
 

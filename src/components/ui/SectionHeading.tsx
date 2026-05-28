@@ -42,14 +42,14 @@ function SectionHeading({
 
   return (
     <div className={cn(center && "text-center", className)}>
-      <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-mint-500">
+      <p className="mb-3 text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] text-mint-500">
         -- {eyebrow} --
       </p>
-      <h2 className="text-3xl font-bold uppercase tracking-wide text-white sm:text-4xl lg:text-5xl">
+      <h2 className="text-2xl font-extrabold uppercase tracking-wide text-white leading-tight sm:text-4xl lg:text-5xl">
         {renderHeading()}
       </h2>
       {subtitle && (
-        <p className="mx-auto mt-4 max-w-2xl text-lg text-carbon-300">
+        <p className="mx-auto mt-4 max-w-2xl text-base sm:text-lg text-carbon-300 leading-relaxed">
           {subtitle}
         </p>
       )}

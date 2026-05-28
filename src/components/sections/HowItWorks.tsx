@@ -30,7 +30,7 @@ const steps = [
 
 function HowItWorks() {
   return (
-    <section className="bg-carbon-950 py-16 lg:py-24">
+    <section className="bg-carbon-950 py-14 sm:py-16 lg:py-24">
       <Container>
         <ScrollReveal>
           <SectionHeading
@@ -41,19 +41,19 @@ function HowItWorks() {
           />
         </ScrollReveal>
 
-        <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
+        <div className="mt-10 sm:mt-12 grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-3">
           {steps.map((step, index) => (
             <ScrollReveal key={step.number} direction="up" delay={index * 0.15}>
-              <div className="hover-card flex flex-col items-center text-center">
+              <div className="hover-card flex flex-col items-center rounded-2xl border border-carbon-700 bg-carbon-900/50 p-6 text-center">
                 <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-mint-500 text-lg font-bold text-carbon-900 animate-pulse-glow">
                   {step.number}
                 </div>
 
-                <div className="hover-icon-glow mb-4 flex h-16 w-16 items-center justify-center rounded-lg border border-mint-500/40 bg-carbon-800">
-                  <step.icon className="h-7 w-7 text-mint-500" />
+                <div className="hover-icon-glow mb-4 flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-lg border border-mint-500/40 bg-carbon-800">
+                  <step.icon className="h-6 w-6 sm:h-7 sm:w-7 text-mint-500" />
                 </div>
 
-                <h3 className="mb-2 text-base font-bold uppercase tracking-wide text-white">
+                <h3 className="mb-2 text-sm sm:text-base font-bold uppercase tracking-wide text-white">
                   {step.title}
                 </h3>
                 <p className="text-sm leading-relaxed text-carbon-300">
@@ -64,10 +64,10 @@ function HowItWorks() {
           ))}
         </div>
 
-        <div className="mt-12 text-center">
+        <div className="mt-10 sm:mt-12 text-center">
           <Link
             href="#quote"
-            className="inline-flex items-center justify-center gap-2 rounded-lg bg-mint-500 px-8 py-4 text-lg font-bold text-carbon-900 transition-colors hover:bg-mint-400"
+            className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-lg bg-mint-500 px-8 py-3.5 sm:py-4 text-base sm:text-lg font-bold text-carbon-900 transition-all hover:bg-mint-400 hover:scale-105 active:scale-95 shadow-lg shadow-mint-500/20"
           >
             START MY FREE QUOTE
           </Link>

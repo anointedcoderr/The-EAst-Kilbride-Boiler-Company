@@ -3,7 +3,6 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import AnnouncementBar from "@/components/layout/AnnouncementBar";
 import StickyMobileCTA from "@/components/layout/StickyMobileCTA";
 
 const inter = Inter({
@@ -29,8 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} antialiased`}>
-      <body className="min-h-screen flex flex-col bg-carbon-900 text-white font-sans">
-        <AnnouncementBar />
+      <body className="min-h-screen flex flex-col bg-carbon-900 text-white font-sans has-sticky-cta">
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />

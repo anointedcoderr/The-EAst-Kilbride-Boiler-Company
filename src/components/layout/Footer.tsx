@@ -46,10 +46,10 @@ function XIcon() {
 
 const services = [
   { label: "New Boiler Installation", href: "/services/new-boiler-installation/" },
-  { label: "Central Heating Installation", href: "/services/new-boiler-installation/" },
   { label: "Boiler Repair", href: "/services/boiler-repair/" },
   { label: "Annual Boiler Service", href: "/services/boiler-servicing/" },
-  { label: "Emergency Call-Out", href: "/services/boiler-repair/" },
+  { label: "Boiler Prices", href: "/boilers/" },
+  { label: "Free Quote", href: "/#quote" },
 ];
 
 const areas = [
@@ -63,8 +63,8 @@ const areas = [
 export default function Footer() {
   return (
     <footer className="bg-carbon-950 border-t border-carbon-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-8">
           <div>
             <Link href="/" className="inline-block mb-4">
               <div className="leading-none">

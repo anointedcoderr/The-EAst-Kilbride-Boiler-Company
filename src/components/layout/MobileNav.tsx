@@ -87,9 +87,9 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
             {siteSettings.phone}
           </a>
           <Link
-            href="/get-a-quote/"
+            href="/#quote"
             onClick={onClose}
-            className="block w-full text-center bg-mint-500 text-carbon-900 font-bold py-3 rounded text-lg uppercase tracking-wide hover:bg-mint-400 transition-colors"
+            className="block w-full text-center bg-mint-500 text-carbon-900 font-bold py-3 rounded-lg text-lg uppercase tracking-wide hover:bg-mint-400 transition-colors"
           >
             Get Quote
           </Link>

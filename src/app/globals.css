@@ -27,6 +27,7 @@
 
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -35,6 +36,39 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Bottom padding for sticky mobile CTA + iOS safe area */
+.has-sticky-cta {
+  padding-bottom: calc(72px + env(safe-area-inset-bottom));
+}
+
+@media (min-width: 768px) {
+  .has-sticky-cta {
+    padding-bottom: 0;
+  }
+}
+
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Map background pattern for static map panel */
+.map-grid-bg {
+  background-color: #0d1410;
+  background-image:
+    linear-gradient(rgba(91, 254, 177, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(91, 254, 177, 0.05) 1px, transparent 1px),
+    radial-gradient(circle at 50% 50%, rgba(91, 254, 177, 0.08) 0%, transparent 60%);
+  background-size: 40px 40px, 40px 40px, 100% 100%;
+}
+
+/* Boiler product card backdrop */
+.boiler-product-bg {
+  background:
+    radial-gradient(ellipse at center, rgba(91, 254, 177, 0.15) 0%, rgba(91, 254, 177, 0.03) 50%, transparent 80%),
+    linear-gradient(180deg, #1a1a1a 0%, #0f0f0f 100%);
 }
 
 ::selection {

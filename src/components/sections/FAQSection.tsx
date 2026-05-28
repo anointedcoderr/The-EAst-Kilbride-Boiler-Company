@@ -14,11 +14,11 @@ function FAQSection() {
 
   return (
     <ScrollReveal>
-      <section className="bg-carbon-950 py-20">
+      <section className="bg-carbon-950 py-14 sm:py-20">
         <Container className="max-w-3xl">
           <SectionHeading eyebrow="GOT QUESTIONS?" heading="FAQS" />
 
-          <div className="mt-12 space-y-4">
+          <div className="mt-8 sm:mt-12 space-y-2.5 sm:space-y-3">
             {homepageFaqs.map((faq, index) => (
               <AccordionItem
                 key={faq.question}

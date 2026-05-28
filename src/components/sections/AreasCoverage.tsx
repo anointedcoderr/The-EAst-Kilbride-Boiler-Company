@@ -29,39 +29,71 @@ function AreasCoverage() {
         <div className="mt-16 grid gap-12 lg:grid-cols-2">
           <ScrollReveal direction="left">
             <div>
-              <div className="mb-4 flex items-center justify-between rounded-lg bg-carbon-800 px-4 py-3">
-                <span className="text-sm font-bold uppercase tracking-wider text-white">
-                  East Kilbride - G74 - G75
+              <div className="mb-4 flex flex-wrap items-center justify-between gap-2 rounded-lg bg-carbon-800 px-4 py-3">
+                <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-white">
+                  East Kilbride, G74, G75
                 </span>
-                <span className="flex items-center gap-1.5 rounded-full border border-mint-500/50 bg-mint-500/10 px-3 py-1 text-xs font-semibold text-mint-500">
+                <span className="flex items-center gap-1.5 rounded-full border border-mint-500/50 bg-mint-500/10 px-3 py-1 text-[10px] sm:text-xs font-semibold text-mint-500">
                   <Users className="h-3 w-3" />
                   3 ENGINEERS LIVE
                 </span>
               </div>
 
-              <div className="relative flex aspect-[4/3] items-center justify-center rounded-xl bg-carbon-800">
-                <div className="text-center text-carbon-400">
-                  <MapPin className="mx-auto mb-2 h-8 w-8 text-mint-500/40" />
-                  <p>Map placeholder</p>
+              <div className="map-grid-bg relative aspect-[4/3] sm:aspect-[5/4] overflow-hidden rounded-xl border border-carbon-700">
+                <svg
+                  className="absolute inset-0 h-full w-full opacity-40"
+                  viewBox="0 0 400 320"
+                  fill="none"
+                  preserveAspectRatio="xMidYMid slice"
+                  aria-hidden="true"
+                >
+                  <path d="M 60 80 Q 120 60, 180 90 T 320 110 L 360 200 Q 300 240, 220 230 T 80 250 Z" stroke="rgba(91, 254, 177, 0.25)" strokeWidth="1.5" fill="rgba(91, 254, 177, 0.04)" />
+                  <path d="M 100 50 L 140 70 L 180 60 L 220 80 L 260 75 L 300 95" stroke="rgba(91, 254, 177, 0.2)" strokeWidth="1" fill="none" />
+                  <path d="M 50 150 L 100 170 L 150 165 L 200 185 L 250 175 L 300 195 L 360 185" stroke="rgba(91, 254, 177, 0.2)" strokeWidth="1" fill="none" />
+                  <path d="M 80 240 L 130 230 L 180 250 L 240 240 L 290 260 L 340 250" stroke="rgba(91, 254, 177, 0.2)" strokeWidth="1" fill="none" />
+                  <circle cx="200" cy="160" r="60" stroke="rgba(91, 254, 177, 0.5)" strokeWidth="1.5" strokeDasharray="4 4" fill="none" />
+                  <circle cx="200" cy="160" r="100" stroke="rgba(91, 254, 177, 0.25)" strokeWidth="1" strokeDasharray="2 4" fill="none" />
+                </svg>
+
+                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+                  <div className="relative flex h-12 w-12 items-center justify-center">
+                    <div className="absolute inset-0 animate-ping rounded-full bg-mint-500/30" />
+                    <div className="relative flex h-10 w-10 items-center justify-center rounded-full bg-mint-500 shadow-lg shadow-mint-500/40">
+                      <MapPin className="h-5 w-5 text-carbon-900" />
+                    </div>
+                  </div>
                 </div>
 
-                <div className="absolute bottom-8 left-8 rounded-lg border border-carbon-600 bg-carbon-900 p-3 shadow-lg">
+                {[
+                  { top: "22%", left: "20%" },
+                  { top: "30%", left: "70%" },
+                  { top: "55%", left: "18%" },
+                  { top: "62%", left: "78%" },
+                  { top: "75%", left: "40%" },
+                  { top: "40%", left: "85%" },
+                ].map((pos, i) => (
+                  <div
+                    key={i}
+                    className="absolute h-2 w-2 rounded-full bg-mint-500/70"
+                    style={pos}
+                  />
+                ))}
+
+                <div className="absolute bottom-4 left-4 right-4 sm:right-auto sm:max-w-[240px] rounded-lg border border-mint-500/30 bg-carbon-900/90 backdrop-blur p-3 shadow-2xl">
                   <p className="mb-1 text-sm font-bold text-mint-500">EKBC HQ</p>
-                  <p className="text-xs text-carbon-300">
-                    {siteSettings.address.street}, {siteSettings.address.city}
+                  <p className="text-xs text-carbon-300 leading-snug">
+                    {siteSettings.address.street}
+                    <br />
+                    {siteSettings.address.city}, {siteSettings.address.region}, {siteSettings.address.postcode}
                   </p>
-                  <p className="text-xs text-carbon-300">
-                    {siteSettings.address.region} - {siteSettings.address.postcode}
-                  </p>
-                  <p className="mt-1 text-xs font-semibold text-white">
+                  <a
+                    href={siteSettings.phoneHref}
+                    className="mt-1.5 inline-block text-xs font-semibold text-white hover:text-mint-400 transition-colors"
+                  >
                     {siteSettings.phone}
-                  </p>
+                  </a>
                 </div>
               </div>
-
-              <p className="mt-2 text-xs text-carbon-500">
-                Leaflet | OpenStreetMap - CARTO
-              </p>
             </div>
           </ScrollReveal>
 
