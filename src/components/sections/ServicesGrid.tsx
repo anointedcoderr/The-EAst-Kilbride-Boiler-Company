@@ -66,19 +66,24 @@ function ServicesGrid() {
           <div className="rounded-2xl border border-carbon-700 bg-carbon-900/60 backdrop-blur p-4 sm:p-6 lg:p-8">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 divide-y divide-carbon-800 sm:divide-y-0 sm:divide-x sm:[&>*:nth-child(-n+2)]:border-b sm:[&>*:nth-child(-n+2)]:border-carbon-800 lg:[&>*]:border-b-0 lg:[&>*:nth-child(-n+3)]:border-b lg:[&>*:nth-child(-n+3)]:border-carbon-800">
               {items.map((item, index) => (
-                <ScrollReveal key={item.id} direction="up" delay={index * 0.06}>
+                <ScrollReveal
+                  key={item.id}
+                  direction="up"
+                  delay={index * 0.06}
+                  className="h-full"
+                >
                   <Link
                     href={item.href}
-                    className="hover-card group flex items-center gap-4 p-4 sm:p-5 transition-colors hover:bg-carbon-800/40 min-h-[80px] h-full"
+                    className="hover-card group flex h-full min-h-[96px] items-center gap-4 p-4 sm:p-5 transition-colors hover:bg-carbon-800/40"
                   >
                     <div className="hover-icon-glow flex h-12 w-12 sm:h-14 sm:w-14 shrink-0 items-center justify-center rounded-lg border border-mint-500/40 bg-carbon-900">
                       <item.icon className="h-5 w-5 sm:h-6 sm:w-6 text-mint-500" />
                     </div>
-                    <div className="min-w-0">
-                      <p className="text-sm font-bold uppercase tracking-wide text-white group-hover:text-mint-500 transition-colors leading-tight">
+                    <div className="flex min-w-0 flex-col justify-center">
+                      <p className="text-sm font-bold uppercase tracking-wide text-white group-hover:text-mint-500 transition-colors leading-snug">
                         {item.title}
                       </p>
-                      <p className="mt-1 text-[11px] font-semibold uppercase tracking-wide text-carbon-400 leading-tight">
+                      <p className="mt-1 text-[11px] font-semibold uppercase tracking-wide text-carbon-400 leading-snug">
                         {item.subtitle}
                       </p>
                     </div>
