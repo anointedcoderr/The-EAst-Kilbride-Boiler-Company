@@ -13,7 +13,7 @@ const trustPoints = [
 
 function CTABanner() {
   return (
-    <section className="relative overflow-hidden bg-carbon-900 py-14 sm:py-20">
+    <section className="tech-grid relative overflow-hidden bg-carbon-900 py-14 sm:py-20">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(91,254,177,0.08)_0%,_transparent_70%)]" />
 
       <Container className="relative z-10">

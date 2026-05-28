@@ -44,7 +44,7 @@ function PricingCards() {
           {brands.map((brand, index) => (
             <ScrollReveal key={brand.id} direction="up" delay={index * 0.1}>
               <div className="hover-card group flex h-full flex-col overflow-hidden rounded-2xl border border-carbon-600 bg-carbon-800 transition-colors hover:border-mint-500/50">
-                <div className="relative flex h-48 items-center justify-center overflow-hidden">
+                <div className="relative h-48 overflow-hidden">
                   <Image
                     src={brand.image}
                     alt={`${brand.name} combi boiler installed by EKBC`}
@@ -52,12 +52,6 @@ function PricingCards() {
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                     className="object-cover object-center"
                   />
-                  <span className="absolute left-3 top-3 z-10 rounded-md bg-carbon-900 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-mint-400 shadow-lg">
-                    {brand.tag}
-                  </span>
-                  <span className="absolute bottom-3 right-3 z-10 rounded-md bg-carbon-900/85 backdrop-blur px-2.5 py-1 text-[10px] font-bold uppercase text-white">
-                    {brand.warranty}
-                  </span>
                 </div>
 
                 <div className="flex flex-1 flex-col p-5">
