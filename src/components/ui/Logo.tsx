@@ -8,11 +8,11 @@ interface LogoProps {
   priority?: boolean;
 }
 
-// Logo source is 385x199 (roughly 1.93:1)
+// Logo source is 192x90 (ratio 2.13:1)
 const heights = {
-  sm: 44,
-  md: 56,
-  lg: 80,
+  sm: 52,
+  md: 68,
+  lg: 96,
 } as const;
 
 function Logo({ className, size = "md", priority = false }: LogoProps) {
@@ -27,8 +27,8 @@ function Logo({ className, size = "md", priority = false }: LogoProps) {
       <Image
         src="/images/logo.png"
         alt="The East Kilbride Boiler Company"
-        width={385}
-        height={199}
+        width={192}
+        height={90}
         priority={priority}
         style={{ height: h, width: "auto" }}
         className="block"
