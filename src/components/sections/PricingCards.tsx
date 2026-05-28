@@ -1,5 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
-import { Check, Award, Flame } from "lucide-react";
+import { Check } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
@@ -43,48 +44,20 @@ function PricingCards() {
           {brands.map((brand, index) => (
             <ScrollReveal key={brand.id} direction="up" delay={index * 0.1}>
               <div className="hover-card group flex h-full flex-col overflow-hidden rounded-2xl border border-carbon-600 bg-carbon-800 transition-colors hover:border-mint-500/50">
-                <div className="boiler-product-bg relative flex h-44 items-center justify-center overflow-hidden p-5">
-                  <span className="absolute left-3 top-3 z-10 rounded-md bg-mint-500 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-carbon-900 shadow-lg shadow-mint-500/20">
+                <div className="relative flex h-48 items-center justify-center overflow-hidden">
+                  <Image
+                    src={brand.image}
+                    alt={`${brand.name} combi boiler installed by EKBC`}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    className="object-cover object-center"
+                  />
+                  <span className="absolute left-3 top-3 z-10 rounded-md bg-carbon-900 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-mint-400 shadow-lg">
                     {brand.tag}
                   </span>
-                  <span className="absolute bottom-3 right-3 z-10 rounded-md bg-carbon-900/80 backdrop-blur px-2.5 py-1 text-[10px] font-bold uppercase text-white">
+                  <span className="absolute bottom-3 right-3 z-10 rounded-md bg-carbon-900/85 backdrop-blur px-2.5 py-1 text-[10px] font-bold uppercase text-white">
                     {brand.warranty}
                   </span>
-
-                  <div className="relative flex h-full w-full items-center justify-center">
-                    <div className="relative flex h-32 w-24 flex-col items-center justify-between rounded-lg border border-carbon-500 bg-gradient-to-b from-carbon-200 to-carbon-300 p-2 shadow-2xl">
-                      <div className="flex w-full items-center justify-between">
-                        <Flame className="h-3 w-3 text-mint-700" />
-                        <span className="text-[7px] font-bold uppercase tracking-tight text-carbon-700">
-                          {brand.name.split(" ")[0]}
-                        </span>
-                      </div>
-                      <div className="flex h-10 w-full items-center justify-center rounded bg-carbon-900 px-2">
-                        <span className="text-[9px] font-mono font-bold text-mint-500">
-                          {brand.warrantyYears}YR
-                        </span>
-                      </div>
-                      <div className="flex w-full items-center justify-center gap-0.5">
-                        <div className="h-1 w-1 rounded-full bg-mint-600" />
-                        <div className="h-1 w-1 rounded-full bg-carbon-500" />
-                        <div className="h-1 w-1 rounded-full bg-carbon-500" />
-                      </div>
-                    </div>
-
-                    {brand.id === "worcester-bosch" && (
-                      <div className="absolute left-1 top-1 flex h-10 w-10 items-center justify-center rounded-full bg-carbon-900 border-2 border-mint-500/60 shadow-lg">
-                        <div className="flex flex-col items-center leading-none">
-                          <Award className="h-3 w-3 text-mint-500" />
-                          <span className="text-[6px] font-bold uppercase text-mint-400 mt-0.5">
-                            Best
-                          </span>
-                          <span className="text-[6px] font-bold uppercase text-mint-400">
-                            Boiler
-                          </span>
-                        </div>
-                      </div>
-                    )}
-                  </div>
                 </div>
 
                 <div className="flex flex-1 flex-col p-5">

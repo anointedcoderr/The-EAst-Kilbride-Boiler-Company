@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ShieldCheck, Star, Phone, ArrowRight, CheckCircle } from "lucide-react";
 import { Container } from "@/components/ui/Container";
@@ -14,13 +15,38 @@ const trustPoints = [
 
 function HeroSection() {
   return (
-    <section className="hero-bg relative overflow-hidden">
+    <section className="relative overflow-hidden bg-carbon-950">
+      <Image
+        src="/images/hero-engineer.jpg"
+        alt="EKBC engineer standing next to The East Kilbride Boiler Company branded van"
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover object-center opacity-60"
+      />
       <div
         aria-hidden="true"
-        className="absolute inset-0 opacity-20 mix-blend-overlay pointer-events-none"
+        className="absolute inset-0 bg-gradient-to-r from-carbon-950 via-carbon-950/85 to-carbon-950/50"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-gradient-to-t from-carbon-950 via-transparent to-carbon-950/30"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 opacity-40 mix-blend-overlay pointer-events-none"
         style={{
           backgroundImage:
-            "radial-gradient(circle at 75% 35%, rgba(63, 169, 245, 0.15) 0%, transparent 45%), radial-gradient(circle at 25% 75%, rgba(91, 254, 177, 0.10) 0%, transparent 45%)",
+            "radial-gradient(ellipse at 70% 50%, rgba(63, 169, 245, 0.18) 0%, transparent 50%), radial-gradient(ellipse at 20% 80%, rgba(91, 254, 177, 0.12) 0%, transparent 50%)",
+        }}
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 opacity-30 pointer-events-none"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(91, 254, 177, 0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(91, 254, 177, 0.04) 1px, transparent 1px)",
+          backgroundSize: "60px 60px",
         }}
       />
 

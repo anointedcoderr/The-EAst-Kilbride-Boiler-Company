@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { MapPin, Phone, Users } from "lucide-react";
+import { Users } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { EkbcMapClient } from "@/components/ui/EkbcMapClient";
 import { districts } from "@/data/districts";
 import { siteSettings } from "@/data/siteSettings";
 
@@ -39,60 +40,8 @@ function AreasCoverage() {
                 </span>
               </div>
 
-              <div className="map-grid-bg relative aspect-[4/3] sm:aspect-[5/4] overflow-hidden rounded-xl border border-carbon-700">
-                <svg
-                  className="absolute inset-0 h-full w-full opacity-40"
-                  viewBox="0 0 400 320"
-                  fill="none"
-                  preserveAspectRatio="xMidYMid slice"
-                  aria-hidden="true"
-                >
-                  <path d="M 60 80 Q 120 60, 180 90 T 320 110 L 360 200 Q 300 240, 220 230 T 80 250 Z" stroke="rgba(91, 254, 177, 0.25)" strokeWidth="1.5" fill="rgba(91, 254, 177, 0.04)" />
-                  <path d="M 100 50 L 140 70 L 180 60 L 220 80 L 260 75 L 300 95" stroke="rgba(91, 254, 177, 0.2)" strokeWidth="1" fill="none" />
-                  <path d="M 50 150 L 100 170 L 150 165 L 200 185 L 250 175 L 300 195 L 360 185" stroke="rgba(91, 254, 177, 0.2)" strokeWidth="1" fill="none" />
-                  <path d="M 80 240 L 130 230 L 180 250 L 240 240 L 290 260 L 340 250" stroke="rgba(91, 254, 177, 0.2)" strokeWidth="1" fill="none" />
-                  <circle cx="200" cy="160" r="60" stroke="rgba(91, 254, 177, 0.5)" strokeWidth="1.5" strokeDasharray="4 4" fill="none" />
-                  <circle cx="200" cy="160" r="100" stroke="rgba(91, 254, 177, 0.25)" strokeWidth="1" strokeDasharray="2 4" fill="none" />
-                </svg>
-
-                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-                  <div className="relative flex h-12 w-12 items-center justify-center">
-                    <div className="absolute inset-0 animate-ping rounded-full bg-mint-500/30" />
-                    <div className="relative flex h-10 w-10 items-center justify-center rounded-full bg-mint-500 shadow-lg shadow-mint-500/40">
-                      <MapPin className="h-5 w-5 text-carbon-900" />
-                    </div>
-                  </div>
-                </div>
-
-                {[
-                  { top: "22%", left: "20%" },
-                  { top: "30%", left: "70%" },
-                  { top: "55%", left: "18%" },
-                  { top: "62%", left: "78%" },
-                  { top: "75%", left: "40%" },
-                  { top: "40%", left: "85%" },
-                ].map((pos, i) => (
-                  <div
-                    key={i}
-                    className="absolute h-2 w-2 rounded-full bg-mint-500/70"
-                    style={pos}
-                  />
-                ))}
-
-                <div className="absolute bottom-4 left-4 right-4 sm:right-auto sm:max-w-[240px] rounded-lg border border-mint-500/30 bg-carbon-900/90 backdrop-blur p-3 shadow-2xl">
-                  <p className="mb-1 text-sm font-bold text-mint-500">EKBC HQ</p>
-                  <p className="text-xs text-carbon-300 leading-snug">
-                    {siteSettings.address.street}
-                    <br />
-                    {siteSettings.address.city}, {siteSettings.address.region}, {siteSettings.address.postcode}
-                  </p>
-                  <a
-                    href={siteSettings.phoneHref}
-                    className="mt-1.5 inline-block text-xs font-semibold text-white hover:text-mint-400 transition-colors"
-                  >
-                    {siteSettings.phone}
-                  </a>
-                </div>
+              <div className="relative aspect-[4/3] sm:aspect-[5/4] overflow-hidden rounded-xl border border-carbon-700 bg-carbon-900">
+                <EkbcMapClient />
               </div>
             </div>
           </ScrollReveal>

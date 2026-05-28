@@ -78,21 +78,29 @@ export default function Header() {
             <div className="flex items-center justify-between h-16 sm:h-16 lg:h-[76px]">
               <Logo showTagline />
 
-              <div className="hidden lg:flex items-center gap-0.5">
-                {mainNav.map((item) =>
+              <div className="hidden lg:flex items-center">
+                {mainNav.map((item, idx) =>
                   item.children ? (
                     <div
                       key={item.label}
-                      className="relative"
+                      className="relative flex items-center"
                       onMouseEnter={() => handleDropdownEnter(item.label)}
                       onMouseLeave={handleDropdownLeave}
                     >
+                      {idx > 0 && (
+                        <span
+                          aria-hidden="true"
+                          className="text-carbon-600 text-xs px-0.5 select-none"
+                        >
+                          |
+                        </span>
+                      )}
                       <Link
                         href={item.href}
                         className={cn(
-                          "inline-flex items-center gap-1 px-2.5 py-2 rounded-full text-[11px] uppercase tracking-widest font-medium transition-all duration-200",
-                          "text-white/80 hover:text-white hover:bg-white/[0.06]",
-                          openDropdown === item.label && "text-mint-400 bg-white/[0.06]"
+                          "inline-flex items-center gap-1 px-3 py-2 text-[11px] uppercase tracking-[0.12em] font-medium transition-colors duration-200",
+                          "text-white/90 hover:text-mint-400",
+                          openDropdown === item.label && "text-mint-400"
                         )}
                       >
                         {item.label}
@@ -125,13 +133,22 @@ export default function Header() {
                       </div>
                     </div>
                   ) : (
-                    <Link
-                      key={item.label}
-                      href={item.href}
-                      className="px-2.5 py-2 rounded-full text-[11px] uppercase tracking-widest font-medium text-white/80 hover:text-white hover:bg-white/[0.06] transition-all duration-200"
-                    >
-                      {item.label}
-                    </Link>
+                    <div key={item.label} className="flex items-center">
+                      {idx > 0 && (
+                        <span
+                          aria-hidden="true"
+                          className="text-carbon-600 text-xs px-0.5 select-none"
+                        >
+                          |
+                        </span>
+                      )}
+                      <Link
+                        href={item.href}
+                        className="px-3 py-2 text-[11px] uppercase tracking-[0.12em] font-medium text-white/90 hover:text-mint-400 transition-colors duration-200"
+                      >
+                        {item.label}
+                      </Link>
+                    </div>
                   )
                 )}
               </div>
