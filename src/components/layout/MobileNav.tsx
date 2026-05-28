@@ -6,6 +6,7 @@ import { X, ChevronDown, Phone } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { siteSettings } from "@/data/siteSettings";
 import { mainNav } from "@/data/navigation";
+import { Logo } from "@/components/ui/Logo";
 
 interface MobileNavProps {
   isOpen: boolean;
@@ -13,42 +14,45 @@ interface MobileNavProps {
 }
 
 export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
-  const [servicesExpanded, setServicesExpanded] = useState(false);
+  const [expanded, setExpanded] = useState<string | null>(null);
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 bg-carbon-900/98 backdrop-blur-md">
+    <div className="fixed inset-0 z-[60] bg-carbon-900/98 backdrop-blur-md">
       <div className="flex flex-col h-full">
-        <div className="flex items-center justify-end p-4">
+        <div className="flex items-center justify-between p-4 border-b border-carbon-800">
+          <Logo size="sm" showTagline={false} />
           <button
             onClick={onClose}
-            className="p-2 text-white hover:text-mint-500 transition-colors"
+            className="flex h-10 w-10 items-center justify-center rounded-full text-white hover:text-mint-500 hover:bg-white/[0.06] transition-all"
             aria-label="Close menu"
           >
             <X className="h-6 w-6" />
           </button>
         </div>
 
-        <nav className="flex-1 overflow-y-auto px-6 py-4">
+        <nav className="flex-1 overflow-y-auto px-6 py-6">
           <ul className="space-y-1">
             {mainNav.map((item) =>
               item.children ? (
                 <li key={item.label}>
                   <button
-                    onClick={() => setServicesExpanded(!servicesExpanded)}
-                    className="flex items-center justify-between w-full py-3 text-xl uppercase tracking-widest text-white hover:text-mint-500 transition-colors"
+                    onClick={() =>
+                      setExpanded(expanded === item.label ? null : item.label)
+                    }
+                    className="flex items-center justify-between w-full py-3 text-lg uppercase tracking-widest text-white hover:text-mint-500 transition-colors"
                   >
                     {item.label}
                     <ChevronDown
                       className={cn(
                         "h-5 w-5 transition-transform",
-                        servicesExpanded && "rotate-180"
+                        expanded === item.label && "rotate-180"
                       )}
                     />
                   </button>
-                  {servicesExpanded && (
-                    <ul className="pl-4 pb-2 space-y-1">
+                  {expanded === item.label && (
+                    <ul className="pl-4 pb-2 space-y-1 border-l border-mint-500/30 ml-1">
                       {item.children.map((child) => (
                         <li key={child.href}>
                           <Link
@@ -68,7 +72,7 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
                   <Link
                     href={item.href}
                     onClick={onClose}
-                    className="block py-3 text-xl uppercase tracking-widest text-white hover:text-mint-500 transition-colors"
+                    className="block py-3 text-lg uppercase tracking-widest text-white hover:text-mint-500 transition-colors"
                   >
                     {item.label}
                   </Link>
@@ -78,10 +82,10 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
           </ul>
         </nav>
 
-        <div className="px-6 pb-8 space-y-4">
+        <div className="px-6 pb-8 pt-4 border-t border-carbon-800 space-y-3">
           <a
             href={siteSettings.phoneHref}
-            className="flex items-center justify-center gap-3 py-3 text-mint-500 text-lg font-bold"
+            className="flex items-center justify-center gap-3 py-3.5 rounded-lg border border-mint-500/40 bg-mint-500/10 text-mint-400 text-base font-bold transition-all hover:bg-mint-500/20"
           >
             <Phone className="h-5 w-5" />
             {siteSettings.phone}
@@ -89,9 +93,9 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
           <Link
             href="/#quote"
             onClick={onClose}
-            className="block w-full text-center bg-mint-500 text-carbon-900 font-bold py-3 rounded-lg text-lg uppercase tracking-wide hover:bg-mint-400 transition-colors"
+            className="block w-full text-center bg-mint-500 text-carbon-900 font-bold py-3.5 rounded-lg text-base uppercase tracking-wide hover:bg-mint-400 transition-colors shadow-lg shadow-mint-500/20"
           >
-            Get Quote
+            Get Free Quote
           </Link>
         </div>
       </div>

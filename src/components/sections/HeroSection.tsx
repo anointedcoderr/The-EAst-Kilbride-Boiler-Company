@@ -1,11 +1,5 @@
 import Link from "next/link";
-import {
-  ShieldCheck,
-  Star,
-  Phone,
-  ArrowRight,
-  CheckCircle,
-} from "lucide-react";
+import { ShieldCheck, Star, Phone, ArrowRight, CheckCircle } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { QuoteForm } from "@/components/forms/QuoteForm";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
@@ -20,40 +14,52 @@ const trustPoints = [
 
 function HeroSection() {
   return (
-    <section className="relative overflow-hidden bg-carbon-950">
-      <div className="absolute inset-0 bg-gradient-to-br from-carbon-900 via-carbon-950 to-carbon-900" />
-      <div className="absolute inset-0 bg-gradient-to-t from-mint-500/5 to-transparent" />
+    <section className="hero-bg relative overflow-hidden">
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 opacity-20 mix-blend-overlay pointer-events-none"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle at 75% 35%, rgba(63, 169, 245, 0.15) 0%, transparent 45%), radial-gradient(circle at 25% 75%, rgba(91, 254, 177, 0.10) 0%, transparent 45%)",
+        }}
+      />
 
       <Container className="relative z-10 py-10 sm:py-16 lg:py-24">
-        <div className="grid items-center gap-8 sm:gap-12 lg:grid-cols-2 lg:gap-16">
+        <div className="grid items-center gap-8 sm:gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-12 xl:gap-16">
           <div className="flex flex-col gap-5 sm:gap-6">
             <ScrollReveal direction="up" delay={0}>
-              <div className="inline-flex w-fit items-center gap-2 rounded-full border border-mint-500/30 bg-mint-500/10 px-3 py-1.5 sm:px-4 sm:py-2">
-                <ShieldCheck className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-mint-500" />
-                <span className="text-xs sm:text-sm font-medium text-mint-400">
-                  East Kilbride&apos;s #1 Boiler Company
+              <div className="inline-flex w-full items-center justify-between gap-3 rounded-full border border-mint-500/40 bg-carbon-900/60 px-4 py-2 backdrop-blur sm:w-fit sm:gap-5">
+                <span className="flex items-center gap-2">
+                  <ShieldCheck className="h-4 w-4 shrink-0 text-mint-500" />
+                  <span className="text-xs sm:text-sm font-medium text-mint-400 whitespace-nowrap">
+                    East Kilbride&apos;s #1 Boiler Company
+                  </span>
                 </span>
-                <div className="flex gap-0.5">
+                <span className="h-4 w-px bg-carbon-600 hidden sm:block" />
+                <span className="flex gap-0.5 shrink-0">
                   {Array.from({ length: 5 }).map((_, i) => (
                     <Star
                       key={i}
-                      className="h-3 w-3 sm:h-3.5 sm:w-3.5 fill-gold text-gold"
+                      className="h-3.5 w-3.5 fill-gold text-gold"
                     />
                   ))}
-                </div>
+                </span>
               </div>
             </ScrollReveal>
 
             <ScrollReveal direction="up" delay={0.1}>
               <div>
-                <h1 className="text-[2rem] font-extrabold uppercase tracking-tight leading-[1.05] sm:text-5xl lg:text-6xl xl:text-7xl">
-                  <span className="text-white">EAST KILBRIDE&apos;S #1</span>
-                  <br />
-                  <span className="text-white">BOILER REPLACEMENT</span>
-                  <br />
-                  <span className="text-mint-500">COMPANY</span>
+                <p className="mb-1 text-sm sm:text-base font-bold uppercase tracking-[0.15em] text-white/90">
+                  East Kilbride&apos;s #1
+                </p>
+                <h1 className="text-[2.5rem] font-extrabold uppercase tracking-tight leading-[1] sm:text-6xl lg:text-[4.5rem] xl:text-[5rem]">
+                  <span className="block text-white">BOILER</span>
+                  <span className="block text-white">REPLACEMENT</span>
+                  <span className="block text-mint-500 [text-shadow:0_0_24px_rgba(91,254,177,0.4)]">
+                    COMPANY
+                  </span>
                 </h1>
-                <p className="mt-3 text-xs sm:text-sm font-semibold uppercase tracking-widest text-white">
+                <p className="mt-4 text-xs sm:text-sm font-bold uppercase tracking-[0.15em] text-white">
                   Serving all areas of East Kilbride G74/G75
                 </p>
               </div>
@@ -63,7 +69,7 @@ function HeroSection() {
               <p className="max-w-lg text-base sm:text-lg text-carbon-300 leading-relaxed">
                 New boiler installations, replacements and repairs across all 35
                 areas of East Kilbride. Unbeatable fixed-price quotes with no
-                hidden extras, East Kilbride&apos;s boiler experts you can trust.
+                hidden extras. East Kilbride&apos;s boiler experts you can trust.
               </p>
             </ScrollReveal>
 
@@ -71,16 +77,16 @@ function HeroSection() {
               <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
                 <a
                   href={siteSettings.phoneHref}
-                  className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-lg bg-mint-500 px-6 py-3 text-base font-bold text-carbon-900 transition-all hover:bg-mint-400 hover:scale-[1.02] active:scale-95 shadow-lg shadow-mint-500/20"
+                  className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-lg bg-mint-500 px-6 py-3 text-base font-bold text-carbon-900 transition-all hover:bg-mint-400 hover:scale-[1.02] active:scale-95 shadow-lg shadow-mint-500/30"
                 >
                   <Phone className="h-5 w-5" />
-                  CALL {siteSettings.phone}
+                  Call Now
                 </a>
                 <Link
                   href="#quote"
-                  className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-lg border border-mint-500 px-6 py-3 text-base font-semibold text-mint-500 transition-all hover:bg-mint-500/10 hover:scale-[1.02] active:scale-95"
+                  className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-lg border border-mint-500 bg-carbon-900/40 px-6 py-3 text-base font-semibold text-mint-500 transition-all hover:bg-mint-500/10 hover:scale-[1.02] active:scale-95"
                 >
-                  Get my fixed price
+                  Get Quote
                   <ArrowRight className="h-5 w-5" />
                 </Link>
               </div>
@@ -91,7 +97,7 @@ function HeroSection() {
                 <ScrollReveal key={point} direction="up" delay={0.3 + index * 0.05}>
                   <div className="flex items-center gap-2">
                     <CheckCircle className="h-4 w-4 shrink-0 text-mint-500" />
-                    <span className="text-xs font-semibold uppercase tracking-wide text-white">
+                    <span className="text-[11px] sm:text-xs font-semibold uppercase tracking-wide text-white leading-tight">
                       {point}
                     </span>
                   </div>

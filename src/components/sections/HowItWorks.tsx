@@ -44,12 +44,18 @@ function HowItWorks() {
         <div className="mt-10 sm:mt-12 grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-3">
           {steps.map((step, index) => (
             <ScrollReveal key={step.number} direction="up" delay={index * 0.15}>
-              <div className="hover-card flex flex-col items-center rounded-2xl border border-carbon-700 bg-carbon-900/50 p-6 text-center">
-                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-mint-500 text-lg font-bold text-carbon-900 animate-pulse-glow">
+              <div
+                className={`hover-card relative flex flex-col items-center rounded-2xl border p-6 text-center transition-colors ${
+                  index === 0
+                    ? "border-mint-500 bg-carbon-900/60 shadow-[0_0_30px_rgba(91,254,177,0.15)]"
+                    : "border-carbon-700 bg-carbon-900/50"
+                }`}
+              >
+                <div className="absolute -top-5 left-1/2 -translate-x-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-mint-500 text-lg font-bold text-carbon-900 shadow-lg shadow-mint-500/30 animate-pulse-glow">
                   {step.number}
                 </div>
 
-                <div className="hover-icon-glow mb-4 flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-lg border border-mint-500/40 bg-carbon-800">
+                <div className="hover-icon-glow mt-2 mb-4 flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-lg border border-mint-500/40 bg-carbon-800">
                   <step.icon className="h-6 w-6 sm:h-7 sm:w-7 text-mint-500" />
                 </div>
 

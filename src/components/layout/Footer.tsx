@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { MapPin, Phone, Mail, Shield, ArrowRight } from "lucide-react";
 import { siteSettings } from "@/data/siteSettings";
+import { Logo } from "@/components/ui/Logo";
 
 const iconClass = "h-5 w-5 fill-current";
 
@@ -66,22 +67,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-8">
           <div>
-            <Link href="/" className="inline-block mb-4">
-              <div className="leading-none">
-                <span className="block text-[9px] uppercase tracking-[0.2em] text-carbon-300 font-medium">
-                  The
-                </span>
-                <span className="block text-sm font-bold tracking-tight text-white border-b-2 border-mint-500 inline">
-                  EAST KILBRIDE
-                </span>
-                <span className="block text-base font-extrabold tracking-tight text-white">
-                  BOILER
-                </span>
-                <span className="block text-[9px] uppercase tracking-[0.2em] text-carbon-300 font-medium">
-                  Company
-                </span>
-              </div>
-            </Link>
+            <Logo size="md" showTagline={false} className="mb-4" />
 
             <div className="flex items-center gap-2 mb-4 mt-4">
               <div className="flex items-center justify-center w-10 h-10 bg-gold rounded-sm">

@@ -20,6 +20,9 @@
   --color-mint-800: #1a7a4d;
   --color-mint-900: #0a3d26;
 
+  --color-brand-blue: #3FA9F5;
+  --color-brand-blue-bright: #5BB8FF;
+
   --color-gold: #FBBF24;
 
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;
@@ -78,6 +81,32 @@ body {
   background:
     radial-gradient(ellipse at center, rgba(91, 254, 177, 0.15) 0%, rgba(91, 254, 177, 0.03) 50%, transparent 80%),
     linear-gradient(180deg, #1a1a1a 0%, #0f0f0f 100%);
+}
+
+/* Hero background - layered dark with engineer/van suggestion */
+.hero-bg {
+  background:
+    linear-gradient(180deg, rgba(10, 10, 10, 0.85) 0%, rgba(10, 10, 10, 0.75) 50%, rgba(10, 10, 10, 0.95) 100%),
+    radial-gradient(ellipse at 70% 40%, rgba(91, 254, 177, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 80%, rgba(63, 169, 245, 0.05) 0%, transparent 50%),
+    linear-gradient(135deg, #0d1218 0%, #0a0a0a 50%, #111418 100%);
+}
+
+.hero-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(91, 254, 177, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(91, 254, 177, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* Brand blue glow */
+.brand-blue-glow {
+  text-shadow: 0 0 12px rgba(63, 169, 245, 0.5), 0 0 24px rgba(63, 169, 245, 0.25);
 }
 
 ::selection {
