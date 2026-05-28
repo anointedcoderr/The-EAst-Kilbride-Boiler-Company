@@ -2,6 +2,7 @@ import Link from "next/link";
 import { FileText, Calendar, Home } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 const steps = [
   {
@@ -31,34 +32,35 @@ function HowItWorks() {
   return (
     <section className="bg-carbon-950 py-16 lg:py-24">
       <Container>
-        <SectionHeading
-          eyebrow="SIMPLE PROCESS"
-          heading="HOW IT WORKS"
-          highlightedWord="WORKS"
-          subtitle="From quote to warm home in as little as 24 hours."
-        />
+        <ScrollReveal>
+          <SectionHeading
+            eyebrow="SIMPLE PROCESS"
+            heading="HOW IT WORKS"
+            highlightedWord="WORKS"
+            subtitle="From quote to warm home in as little as 24 hours."
+          />
+        </ScrollReveal>
 
         <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
-          {steps.map((step) => (
-            <div
-              key={step.number}
-              className="flex flex-col items-center text-center"
-            >
-              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-mint-500 text-lg font-bold text-carbon-900">
-                {step.number}
-              </div>
+          {steps.map((step, index) => (
+            <ScrollReveal key={step.number} direction="up" delay={index * 0.15}>
+              <div className="hover-card flex flex-col items-center text-center">
+                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-mint-500 text-lg font-bold text-carbon-900 animate-pulse-glow">
+                  {step.number}
+                </div>
 
-              <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-lg border border-mint-500/40 bg-carbon-800">
-                <step.icon className="h-7 w-7 text-mint-500" />
-              </div>
+                <div className="hover-icon-glow mb-4 flex h-16 w-16 items-center justify-center rounded-lg border border-mint-500/40 bg-carbon-800">
+                  <step.icon className="h-7 w-7 text-mint-500" />
+                </div>
 
-              <h3 className="mb-2 text-base font-bold uppercase tracking-wide text-white">
-                {step.title}
-              </h3>
-              <p className="text-sm leading-relaxed text-carbon-300">
-                {step.description}
-              </p>
-            </div>
+                <h3 className="mb-2 text-base font-bold uppercase tracking-wide text-white">
+                  {step.title}
+                </h3>
+                <p className="text-sm leading-relaxed text-carbon-300">
+                  {step.description}
+                </p>
+              </div>
+            </ScrollReveal>
           ))}
         </div>
 

@@ -8,6 +8,7 @@ import {
   MessageSquare,
 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 const items = [
   {
@@ -50,33 +51,36 @@ const items = [
 
 function ServicesGrid() {
   return (
-    <section className="bg-carbon-900 py-12">
-      <Container>
-        <div className="rounded-xl border border-carbon-600 bg-carbon-800 p-6 sm:p-8">
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {items.map((item) => (
-              <Link
-                key={item.title}
-                href={item.href}
-                className="group flex items-center gap-4 rounded-lg p-3 transition-colors hover:bg-carbon-700/50"
-              >
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg border border-mint-500/40 bg-carbon-900">
-                  <item.icon className="h-6 w-6 text-mint-500" />
-                </div>
-                <div>
-                  <p className="text-sm font-bold uppercase tracking-wide text-white">
-                    {item.title}
-                  </p>
-                  <p className="text-xs font-semibold uppercase tracking-wide text-carbon-400">
-                    {item.subtitle}
-                  </p>
-                </div>
-              </Link>
-            ))}
+    <ScrollReveal>
+      <section className="bg-carbon-900 py-12">
+        <Container>
+          <div className="rounded-xl border border-carbon-600 bg-carbon-800 p-6 sm:p-8">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {items.map((item, index) => (
+                <ScrollReveal key={item.title} direction="up" delay={index * 0.1}>
+                  <Link
+                    href={item.href}
+                    className="hover-card group flex items-center gap-4 rounded-lg p-3 transition-colors hover:bg-carbon-700/50"
+                  >
+                    <div className="hover-icon-glow flex h-14 w-14 shrink-0 items-center justify-center rounded-lg border border-mint-500/40 bg-carbon-900">
+                      <item.icon className="h-6 w-6 text-mint-500" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-bold uppercase tracking-wide text-white group-hover:text-mint-500 transition-colors">
+                        {item.title}
+                      </p>
+                      <p className="text-xs font-semibold uppercase tracking-wide text-carbon-400">
+                        {item.subtitle}
+                      </p>
+                    </div>
+                  </Link>
+                </ScrollReveal>
+              ))}
+            </div>
           </div>
-        </div>
-      </Container>
-    </section>
+        </Container>
+      </section>
+    </ScrollReveal>
   );
 }
 
