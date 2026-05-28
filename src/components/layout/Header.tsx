@@ -48,11 +48,14 @@ export default function Header() {
     <>
       <div className="fixed top-0 left-0 right-0 z-50">
         <div className="bg-carbon-950 border-b border-carbon-800 overflow-hidden">
-          <div className="animate-marquee flex whitespace-nowrap py-1.5">
-            {[...trustPoints, ...trustPoints, ...trustPoints].map((point, i) => (
+          <div
+            className="animate-marquee flex w-max whitespace-nowrap py-1.5"
+            aria-hidden="true"
+          >
+            {[...trustPoints, ...trustPoints].map((point, i) => (
               <span
                 key={i}
-                className="inline-flex items-center mx-5 text-[11px] sm:text-xs"
+                className="inline-flex shrink-0 items-center mx-5 text-[11px] sm:text-xs"
               >
                 <Check className="h-3 w-3 text-mint-500 mr-1.5 shrink-0" />
                 <span className="text-white">{point}</span>
