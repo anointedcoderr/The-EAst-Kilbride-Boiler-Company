@@ -3,9 +3,10 @@ import type { SiteSettings } from "@/types";
 export const siteSettings: SiteSettings = {
   businessName: "The East Kilbride Boiler Company",
   shortName: "EKBC",
-  phone: "01355 459096",
-  phoneHref: "tel:01355459096",
+  phone: "01355 204045",
+  phoneHref: "tel:01355204045",
   email: "info@eastkilbrideboilercompany.co.uk",
+  formRecipient: "info@eastkilbrideboilercompany.co.uk",
   address: {
     street: "14 Stroud Road",
     city: "East Kilbride",

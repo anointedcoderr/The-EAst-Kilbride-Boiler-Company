@@ -19,7 +19,7 @@ export const brands: Brand[] = [
     ],
     seoTitle: "Worcester Bosch Combi Boiler Installed in East Kilbride - From £1,695",
     seoDescription:
-      "Worcester Bosch combi boiler fully installed in East Kilbride. Standard £1,695 / Premium £1,995. Free thermostat, system flush, 5yr warranty. Call 01355 459096.",
+      "Worcester Bosch combi boiler fully installed in East Kilbride. Standard £1,695 / Premium £1,995. Free thermostat, system flush, 5yr warranty. Call 01355 204045.",
     h1: "Worcester Bosch Combi Boiler Installed in East Kilbride - From £1,695",
   },
   {
@@ -40,7 +40,7 @@ export const brands: Brand[] = [
     ],
     seoTitle: "Ideal Combi Boiler Installed in East Kilbride - From £1,495",
     seoDescription:
-      "Ideal combi boiler fully installed in East Kilbride. Standard £1,495 / Premium £1,825. Free thermostat, system flush, 5yr warranty. Call 01355 459096.",
+      "Ideal combi boiler fully installed in East Kilbride. Standard £1,495 / Premium £1,825. Free thermostat, system flush, 5yr warranty. Call 01355 204045.",
     h1: "Ideal Combi Boiler Installed in East Kilbride - From £1,495",
   },
   {
@@ -61,7 +61,7 @@ export const brands: Brand[] = [
     ],
     seoTitle: "Vokera Combi Boiler Installed in East Kilbride - From £1,299 Best Value",
     seoDescription:
-      "Vokera combi boiler fully installed in East Kilbride. Standard £1,299 / Premium £1,600. Free thermostat, system flush, 5yr warranty. Call 01355 459096.",
+      "Vokera combi boiler fully installed in East Kilbride. Standard £1,299 / Premium £1,600. Free thermostat, system flush, 5yr warranty. Call 01355 204045.",
     h1: "Vokera Combi Boiler Installed in East Kilbride - From £1,299 Best Value",
   },
   {
@@ -82,7 +82,7 @@ export const brands: Brand[] = [
     ],
     seoTitle: "Navien Combi Boiler Installed in East Kilbride - Top Spec From £1,835",
     seoDescription:
-      "Navien combi boiler fully installed in East Kilbride. Standard £1,835 / Premium £2,380. Free thermostat, system flush, 10yr warranty. Call 01355 459096.",
+      "Navien combi boiler fully installed in East Kilbride. Standard £1,835 / Premium £2,380. Free thermostat, system flush, 10yr warranty. Call 01355 204045.",
     h1: "Navien Combi Boiler Installed in East Kilbride - Top Spec From £1,835",
   },
 ];

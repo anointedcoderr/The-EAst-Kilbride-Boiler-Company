@@ -9,10 +9,16 @@ import { ReviewsCarousel } from "@/components/sections/ReviewsCarousel";
 import { AreasCoverage } from "@/components/sections/AreasCoverage";
 import { FAQSection } from "@/components/sections/FAQSection";
 import { CTABanner, NeedBoilerCTA } from "@/components/sections/CTABanner";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { localBusinessSchema, faqSchema } from "@/lib/schemas";
+import { faqs } from "@/data/faqs";
 
 export default function HomePage() {
+  const homepageFaqs = faqs.filter((faq) => faq.pageTypes.includes("homepage"));
+
   return (
     <>
+      <JsonLd data={[localBusinessSchema(), faqSchema(homepageFaqs)]} />
       <HeroSection />
       <ServicesGrid />
       <TrustBadgesBar />

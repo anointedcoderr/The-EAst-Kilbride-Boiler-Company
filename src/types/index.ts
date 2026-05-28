@@ -4,6 +4,7 @@ export interface SiteSettings {
   phone: string;
   phoneHref: string;
   email: string;
+  formRecipient: string;
   address: {
     street: string;
     city: string;
@@ -92,6 +93,16 @@ export interface FAQ {
   question: string;
   answer: string;
   pageTypes: string[];
+}
+
+export interface BlogPost {
+  slug: string;
+  title: string;
+  excerpt: string;
+  date: string;
+  readMinutes: number;
+  category: string;
+  body: string[];
 }
 
 export interface NavItem {

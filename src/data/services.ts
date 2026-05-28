@@ -12,7 +12,7 @@ export const services: Service[] = [
     priceNote: "From £1,299",
     seoTitle: "New Boiler Installation in East Kilbride | EKBC - Fixed Price From £1,299",
     seoDescription:
-      "Professional new boiler installation across all 35 East Kilbride districts. Gas Safe Experts, fixed-price quotes, no hidden extras. Call 01355 459096 today.",
+      "Professional new boiler installation across all 35 East Kilbride districts. Gas Safe Experts, fixed-price quotes, no hidden extras. Call 01355 204045 today.",
     h1: "New Boiler Installation in East Kilbride - Fixed Price From £1,299",
     klarnaAvailable: false,
   },
@@ -26,7 +26,7 @@ export const services: Service[] = [
     priceNote: "Fast Response",
     seoTitle: "Boiler Repair East Kilbride | EKBC - Gas Safe Experts, Same-Day Call-Out",
     seoDescription:
-      "Professional boiler repair across all 35 East Kilbride districts. Gas Safe Experts, fixed-price quotes, no hidden extras. Call 01355 459096 today.",
+      "Professional boiler repair across all 35 East Kilbride districts. Gas Safe Experts, fixed-price quotes, no hidden extras. Call 01355 204045 today.",
     h1: "Boiler Repair East Kilbride - Gas Safe Experts, Same-Day Call-Out",
     klarnaAvailable: true,
   },
@@ -40,7 +40,7 @@ export const services: Service[] = [
     priceNote: "Gas Safe Checked",
     seoTitle: "Annual Boiler Service East Kilbride | EKBC - Worcester, Ideal, Vokera, Navien",
     seoDescription:
-      "Professional annual boiler servicing across all 35 East Kilbride districts. Gas Safe Experts, fixed-price quotes, no hidden extras. Call 01355 459096 today.",
+      "Professional annual boiler servicing across all 35 East Kilbride districts. Gas Safe Experts, fixed-price quotes, no hidden extras. Call 01355 204045 today.",
     h1: "Annual Boiler Service East Kilbride - Worcester, Ideal, Vokera, Navien",
     klarnaAvailable: true,
   },

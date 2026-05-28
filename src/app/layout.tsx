@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
-import StickyMobileCTA from "@/components/layout/StickyMobileCTA";
+import { SiteChrome } from "@/components/layout/SiteChrome";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -18,7 +16,7 @@ export const metadata: Metadata = {
     template: "%s | East Kilbride Boiler Company",
   },
   description:
-    "East Kilbride's #1 boiler replacement company. Fixed-price installations across 35 EK areas. Gas Safe Experts, up to 12-year warranties. Call 01355 459096.",
+    "East Kilbride's #1 boiler replacement company. Fixed-price installations across 35 EK areas. Gas Safe Experts, up to 12-year warranties. Call 01355 204045.",
 };
 
 export default function RootLayout({
@@ -29,10 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} antialiased`}>
       <body className="min-h-screen flex flex-col bg-carbon-900 text-white font-sans has-sticky-cta">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <StickyMobileCTA />
+        <SiteChrome>{children}</SiteChrome>
       </body>
     </html>
   );
