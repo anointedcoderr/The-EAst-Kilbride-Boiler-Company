@@ -68,75 +68,87 @@ export default function Header() {
           </div>
         </div>
 
-        <header className="px-3 py-2 sm:px-6 sm:py-3 lg:px-8">
-          <nav
-            className={cn(
-              "glass-strong mx-auto max-w-7xl rounded-2xl px-3 transition-all duration-300 sm:px-4 lg:px-6 lg:rounded-full",
-              scrolled && "!bg-[rgba(10,10,10,0.92)] shadow-2xl shadow-black/30"
-            )}
-          >
-            <div className="flex items-center justify-between h-16 sm:h-16 lg:h-[76px]">
+        <header
+          className={cn(
+            "bg-carbon-950 border-b border-carbon-800 transition-all duration-300",
+            scrolled && "shadow-2xl shadow-black/40"
+          )}
+        >
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between gap-4 h-16 lg:h-[84px]">
               <Logo size="md" priority />
 
-              <div className="hidden lg:flex items-center">
-                {mainNav.map((item) =>
-                  item.children ? (
-                    <div
-                      key={item.label}
-                      className="relative"
-                      onMouseEnter={() => handleDropdownEnter(item.label)}
-                      onMouseLeave={handleDropdownLeave}
-                    >
-                      <Link
-                        href={item.href}
-                        className={cn(
-                          "inline-flex items-center gap-1 whitespace-nowrap px-2.5 py-2 text-[11px] uppercase tracking-[0.1em] font-medium transition-colors duration-200",
-                          "text-white/90 hover:text-mint-400",
-                          openDropdown === item.label && "text-mint-400"
-                        )}
+              <nav
+                aria-label="Primary"
+                className="hidden lg:flex items-center rounded-full border border-carbon-700 bg-carbon-900/60 px-2 py-1.5 backdrop-blur"
+              >
+                {mainNav.map((item, idx) => (
+                  <div key={item.label} className="flex items-center">
+                    {idx > 0 && (
+                      <span
+                        aria-hidden="true"
+                        className="text-carbon-600 text-[10px] px-0.5 select-none"
                       >
-                        {item.label}
-                        <ChevronDown
-                          className={cn(
-                            "h-3 w-3 transition-transform duration-200",
-                            openDropdown === item.label && "rotate-180"
-                          )}
-                        />
-                      </Link>
+                        |
+                      </span>
+                    )}
+                    {item.children ? (
                       <div
-                        className={cn(
-                          "absolute top-full left-1/2 -translate-x-1/2 pt-3 transition-all duration-200",
-                          openDropdown === item.label
-                            ? "opacity-100 translate-y-0 pointer-events-auto"
-                            : "opacity-0 -translate-y-2 pointer-events-none"
-                        )}
+                        className="relative"
+                        onMouseEnter={() => handleDropdownEnter(item.label)}
+                        onMouseLeave={handleDropdownLeave}
                       >
-                        <div className="glass-strong rounded-2xl py-2 min-w-[240px] shadow-2xl shadow-black/40">
-                          {item.children.map((child) => (
-                            <Link
-                              key={child.href}
-                              href={child.href}
-                              className="block whitespace-nowrap px-5 py-2.5 text-sm text-white/80 hover:text-mint-400 hover:bg-white/[0.04] transition-colors duration-150"
-                            >
-                              {child.label}
-                            </Link>
-                          ))}
+                        <Link
+                          href={item.href}
+                          className={cn(
+                            "inline-flex items-center gap-1 whitespace-nowrap rounded-full px-2.5 py-1.5 text-[11px] uppercase tracking-[0.08em] font-medium transition-colors duration-200",
+                            "text-white/90 hover:text-mint-400",
+                            openDropdown === item.label &&
+                              "text-mint-400 bg-white/[0.04]"
+                          )}
+                        >
+                          {item.label}
+                          <ChevronDown
+                            className={cn(
+                              "h-3 w-3 transition-transform duration-200",
+                              openDropdown === item.label && "rotate-180"
+                            )}
+                          />
+                        </Link>
+                        <div
+                          className={cn(
+                            "absolute top-full left-1/2 -translate-x-1/2 pt-3 transition-all duration-200",
+                            openDropdown === item.label
+                              ? "opacity-100 translate-y-0 pointer-events-auto"
+                              : "opacity-0 -translate-y-2 pointer-events-none"
+                          )}
+                        >
+                          <div className="rounded-2xl border border-carbon-700 bg-carbon-950/95 backdrop-blur py-2 min-w-[240px] shadow-2xl shadow-black/40">
+                            {item.children.map((child) => (
+                              <Link
+                                key={child.href}
+                                href={child.href}
+                                className="block whitespace-nowrap px-5 py-2.5 text-sm text-white/80 hover:text-mint-400 hover:bg-white/[0.04] transition-colors duration-150"
+                              >
+                                {child.label}
+                              </Link>
+                            ))}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ) : (
-                    <Link
-                      key={item.label}
-                      href={item.href}
-                      className="whitespace-nowrap px-2.5 py-2 text-[11px] uppercase tracking-[0.1em] font-medium text-white/90 hover:text-mint-400 transition-colors duration-200"
-                    >
-                      {item.label}
-                    </Link>
-                  )
-                )}
-              </div>
+                    ) : (
+                      <Link
+                        href={item.href}
+                        className="whitespace-nowrap rounded-full px-2.5 py-1.5 text-[11px] uppercase tracking-[0.08em] font-medium text-white/90 hover:text-mint-400 transition-colors duration-200"
+                      >
+                        {item.label}
+                      </Link>
+                    )}
+                  </div>
+                ))}
+              </nav>
 
-              <div className="hidden lg:flex items-center gap-4 pr-1">
+              <div className="hidden lg:flex items-center gap-4">
                 <a
                   href={siteSettings.phoneHref}
                   className="group/phone flex items-center gap-2.5 transition-all duration-200"
@@ -179,11 +191,11 @@ export default function Header() {
                 </button>
               </div>
             </div>
-          </nav>
+          </div>
         </header>
       </div>
 
-      <div className="h-[92px] sm:h-[104px] lg:h-[116px]" aria-hidden="true" />
+      <div className="h-[88px] lg:h-[120px]" aria-hidden="true" />
 
       <MobileNav isOpen={mobileNavOpen} onClose={() => setMobileNavOpen(false)} />
     </>
