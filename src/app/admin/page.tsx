@@ -1,7 +1,24 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Phone, Mail, MapPin, Users, Star, Layers, Newspaper } from "lucide-react";
+import Link from "next/link";
+import {
+  Phone,
+  Mail,
+  MapPin,
+  Users,
+  Star,
+  Layers,
+  Newspaper,
+  ArrowUpRight,
+  Check,
+  FileText,
+  Network,
+  Globe,
+  ShieldCheck,
+  Plus,
+  Trash2,
+} from "lucide-react";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { AdminCard } from "@/components/admin/AdminCard";
 import { AdminInput, AdminTextarea } from "@/components/admin/AdminInput";
@@ -10,8 +27,15 @@ import { siteSettings } from "@/data/siteSettings";
 import { brands } from "@/data/brands";
 import { services } from "@/data/services";
 import { blogPosts } from "@/data/blogPosts";
-import { districts } from "@/data/districts";
+import { districts, g74Districts, g75Districts } from "@/data/districts";
 import { reviews } from "@/data/reviews";
+import {
+  editablePageList,
+  pageContent,
+  type PageContent,
+  type PageStatus,
+} from "@/data/pageContent";
+import { cn } from "@/lib/utils";
 
 interface BrandRow {
   id: string;
@@ -35,12 +59,277 @@ interface QuoteFormState {
   propertyTypes: string;
 }
 
-const seoPages = [
-  { id: "home", label: "Home", title: "East Kilbride Boiler Company | EKBC - Boiler Replacement G74 / G75", description: "East Kilbride's #1 boiler replacement company. Fixed-price installations across 35 EK areas. Gas Safe Experts, up to 12-year warranties. Call 01355 204045." },
-  ...services.map((s) => ({ id: s.slug, label: s.name, title: s.seoTitle, description: s.seoDescription })),
-  { id: "boilers", label: "Boiler Prices", title: "Boiler Prices in East Kilbride | EKBC - Fixed Price From £1,299", description: "Fixed-price combi boiler installations across East Kilbride. Worcester Bosch, Ideal, Vokera and Navien. Up to 12-year warranty. Call 01355 204045 for a no-obligation quote." },
-  { id: "blogs", label: "Blogs", title: "Blog | East Kilbride Boiler Company - Heating advice for G74 & G75", description: "Practical boiler buying, repair and servicing advice from East Kilbride's Gas Safe Experts. Worcester Bosch, Ideal, Vokera, Navien and more." },
+interface EditablePageState {
+  metaTitle: string;
+  metaDescription: string;
+  h1: string;
+  heroSubtitle: string;
+  heroDescription: string;
+  ctaPrimaryLabel: string;
+  ctaBannerTitle: string;
+  introCopy: string;
+  faqs: { question: string; answer: string }[];
+  internalLinks: { label: string; href: string }[];
+}
+
+function pageToState(page: PageContent): EditablePageState {
+  return {
+    metaTitle: page.metaTitle,
+    metaDescription: page.metaDescription,
+    h1: page.h1,
+    heroSubtitle: page.heroSubtitle,
+    heroDescription: page.heroDescription,
+    ctaPrimaryLabel: page.ctaPrimaryLabel,
+    ctaBannerTitle: page.ctaBannerTitle ?? "",
+    introCopy: page.introCopy ?? "",
+    faqs: page.faqs.map((f) => ({ question: f.question, answer: f.answer })),
+    internalLinks: page.internalLinks.map((l) => ({
+      label: l.label,
+      href: l.href,
+    })),
+  };
+}
+
+const statusLabel: Record<PageStatus, string> = {
+  "live-sample": "Live sample",
+  "stage-2-pending": "Stage 2 pending",
+  stub: "Stub",
+  "ready-from-data": "Ready from data",
+};
+
+const statusClasses: Record<PageStatus, string> = {
+  "live-sample":
+    "border-mint-500/40 bg-mint-500/10 text-mint-400",
+  "stage-2-pending":
+    "border-yellow-500/40 bg-yellow-500/10 text-yellow-300",
+  stub: "border-carbon-500 bg-carbon-800 text-carbon-300",
+  "ready-from-data":
+    "border-brand-blue/40 bg-brand-blue/10 text-brand-blue-bright",
+};
+
+interface SiloNode {
+  label: string;
+  url?: string;
+  status: PageStatus;
+  pageType: string;
+  childCount?: number;
+  children?: SiloNode[];
+}
+
+const siloTree: SiloNode[] = [
+  {
+    label: "Homepage",
+    url: "/",
+    status: "live-sample",
+    pageType: "homepage",
+    children: [
+      {
+        label: "Services",
+        url: "/services/new-boiler-installation/",
+        status: "live-sample",
+        pageType: "service hub",
+        childCount: 3,
+        children: [
+          {
+            label: "New Boiler Installation",
+            url: "/services/new-boiler-installation/",
+            status: "live-sample",
+            pageType: "service",
+          },
+          {
+            label: "Boiler Repair",
+            url: "/services/boiler-repair/",
+            status: "live-sample",
+            pageType: "service",
+          },
+          {
+            label: "Annual Boiler Service",
+            url: "/services/boiler-servicing/",
+            status: "live-sample",
+            pageType: "service",
+          },
+        ],
+      },
+      {
+        label: "Boilers",
+        url: "/boilers/",
+        status: "live-sample",
+        pageType: "price hub",
+        childCount: 4,
+        children: brands.map((brand) => ({
+          label: `${brand.name} Combi`,
+          url: `/boilers/${brand.slug}/`,
+          status: "stage-2-pending" as PageStatus,
+          pageType: "brand detail",
+        })),
+      },
+      {
+        label: "Areas We Serve",
+        url: "/areas-we-serve/",
+        status: "stub",
+        pageType: "areas hub",
+        childCount: 2,
+        children: [
+          {
+            label: "G74 - North & Central",
+            url: "/areas-we-serve/g74/",
+            status: "stub",
+            pageType: "postcode hub",
+            childCount: g74Districts.length,
+            children: g74Districts.map((d) => ({
+              label: d.name,
+              url: `/areas-we-serve/${d.slug}/`,
+              status: "ready-from-data" as PageStatus,
+              pageType: "district",
+            })),
+          },
+          {
+            label: "G75 - South & West",
+            url: "/areas-we-serve/g75/",
+            status: "stub",
+            pageType: "postcode hub",
+            childCount: g75Districts.length,
+            children: g75Districts.map((d) => ({
+              label: d.name,
+              url: `/areas-we-serve/${d.slug}/`,
+              status: "ready-from-data" as PageStatus,
+              pageType: "district",
+            })),
+          },
+        ],
+      },
+      {
+        label: "Blogs",
+        url: "/blogs/",
+        status: "live-sample",
+        pageType: "blog index",
+        childCount: blogPosts.length,
+        children: blogPosts.map((post) => ({
+          label: post.title,
+          url: `/blogs/${post.slug}/`,
+          status: "live-sample" as PageStatus,
+          pageType: "blog post",
+        })),
+      },
+      {
+        label: "About",
+        url: "/about/",
+        status: "stub",
+        pageType: "static",
+      },
+      {
+        label: "Contact",
+        url: "/contact/",
+        status: "stub",
+        pageType: "static",
+      },
+      {
+        label: "FAQ",
+        url: "/faq/",
+        status: "stub",
+        pageType: "static",
+      },
+    ],
+  },
 ];
+
+const seoPages = [
+  {
+    id: "home",
+    label: "Home",
+    title: pageContent.home.metaTitle,
+    description: pageContent.home.metaDescription,
+  },
+  ...services.map((s) => ({
+    id: s.slug,
+    label: s.name,
+    title: s.seoTitle,
+    description: s.seoDescription,
+  })),
+  {
+    id: "boilers",
+    label: "Boiler Prices",
+    title: pageContent.boilers.metaTitle,
+    description: pageContent.boilers.metaDescription,
+  },
+  {
+    id: "blogs",
+    label: "Blogs",
+    title: pageContent.blogs.metaTitle,
+    description: pageContent.blogs.metaDescription,
+  },
+];
+
+function SiloTreeNode({
+  node,
+  depth = 0,
+}: {
+  node: SiloNode;
+  depth?: number;
+}) {
+  const indent = depth * 16;
+  return (
+    <div>
+      <div
+        className="flex items-center justify-between gap-3 rounded-lg border border-carbon-800 bg-carbon-900 px-3 py-2.5"
+        style={{ marginLeft: indent }}
+      >
+        <div className="flex min-w-0 flex-1 items-center gap-2.5">
+          <span
+            className={cn(
+              "inline-flex h-1.5 w-1.5 shrink-0 rounded-full",
+              node.status === "live-sample"
+                ? "bg-mint-500"
+                : node.status === "stage-2-pending"
+                  ? "bg-yellow-400"
+                  : node.status === "ready-from-data"
+                    ? "bg-brand-blue-bright"
+                    : "bg-carbon-500"
+            )}
+            aria-hidden="true"
+          />
+          <span className="truncate text-sm font-semibold text-white">
+            {node.label}
+          </span>
+          {node.url && (
+            <span className="hidden truncate text-[11px] text-carbon-400 sm:inline">
+              {node.url}
+            </span>
+          )}
+        </div>
+        <div className="flex shrink-0 items-center gap-2">
+          <span className="hidden text-[10px] uppercase tracking-wider text-carbon-400 lg:inline">
+            {node.pageType}
+          </span>
+          {typeof node.childCount === "number" && (
+            <span className="rounded-full border border-carbon-700 bg-carbon-950 px-2 py-0.5 text-[10px] font-semibold text-carbon-300">
+              {node.childCount} child
+            </span>
+          )}
+          <span
+            className={cn(
+              "rounded-full border px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider",
+              statusClasses[node.status]
+            )}
+          >
+            {statusLabel[node.status]}
+          </span>
+        </div>
+      </div>
+      {node.children && node.children.length > 0 && (
+        <div className="mt-1.5 space-y-1.5">
+          {node.children.map((child) => (
+            <SiloTreeNode
+              key={`${child.label}-${child.url ?? ""}`}
+              node={child}
+              depth={depth + 1}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function AdminPage() {
   const [activeSection, setActiveSection] = useState("overview");
@@ -92,15 +381,84 @@ export default function AdminPage() {
     [seoPageId]
   );
 
+  const [selectedPageId, setSelectedPageId] = useState(
+    editablePageList[0].id
+  );
+  const selectedPage = useMemo(
+    () =>
+      editablePageList.find((p) => p.id === selectedPageId) ??
+      editablePageList[0],
+    [selectedPageId]
+  );
+  const [pageState, setPageState] = useState<
+    Record<string, EditablePageState>
+  >(() =>
+    Object.fromEntries(editablePageList.map((p) => [p.id, pageToState(p)]))
+  );
+
+  function updatePage(updater: (state: EditablePageState) => EditablePageState) {
+    setPageState((prev) => ({
+      ...prev,
+      [selectedPageId]: updater(prev[selectedPageId]),
+    }));
+  }
+
+  function resetPage() {
+    setPageState((prev) => ({
+      ...prev,
+      [selectedPageId]: pageToState(selectedPage),
+    }));
+    setToastMessage(`${selectedPage.label} reset to live content.`);
+  }
+
+  const current = pageState[selectedPageId];
+
   const stats = useMemo(
     () => [
-      { label: "Pages live", value: 12, icon: Layers, hint: "Homepage + 5 sample + 6 navigation" },
-      { label: "Brands", value: brands.length, icon: Star, hint: "Worcester Bosch, Ideal, Vokera, Navien" },
-      { label: "Districts", value: districts.length, icon: MapPin, hint: "Full G74 and G75 silo prepared" },
-      { label: "Reviews", value: reviews.length, icon: Users, hint: "Verified 5-star featured reviews" },
+      {
+        label: "Sample pages live",
+        value: editablePageList.length + blogPosts.length,
+        icon: Layers,
+        hint: "Homepage, services, boilers, blog index, posts",
+      },
+      {
+        label: "Brands",
+        value: brands.length,
+        icon: Star,
+        hint: "Worcester Bosch, Ideal, Vokera, Navien",
+      },
+      {
+        label: "Districts ready",
+        value: districts.length,
+        icon: MapPin,
+        hint: "Full G74 and G75 silo prepared",
+      },
+      {
+        label: "Reviews",
+        value: reviews.length,
+        icon: Users,
+        hint: "Verified 5-star featured reviews",
+      },
     ],
     []
   );
+
+  const sitemapRoutes = useMemo(() => {
+    const live: string[] = [
+      "/",
+      "/boilers/",
+      "/blogs/",
+      "/about/",
+      "/contact/",
+      "/faq/",
+      "/areas-we-serve/",
+      "/areas-we-serve/g74/",
+      "/areas-we-serve/g75/",
+    ];
+    services.forEach((s) => live.push(`/services/${s.slug}/`));
+    blogPosts.forEach((p) => live.push(`/blogs/${p.slug}/`));
+    return live;
+  }, []);
 
   function notifySave(scope: string) {
     setToastMessage(
@@ -146,6 +504,55 @@ export default function AdminPage() {
           </AdminCard>
 
           <AdminCard
+            title="Quick links"
+            description="Jump straight to the new Stage 1 admin tools."
+          >
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {[
+                {
+                  id: "pages",
+                  label: "Pages (Content Manager)",
+                  desc: "Edit any page like the homepage",
+                  Icon: FileText,
+                },
+                {
+                  id: "silo",
+                  label: "Silo Preview",
+                  desc: "See the URL tree for the full site",
+                  Icon: Network,
+                },
+                {
+                  id: "sitemap",
+                  label: "Sitemap & Crawling",
+                  desc: "sitemap.xml and robots.txt",
+                  Icon: Globe,
+                },
+                {
+                  id: "schema",
+                  label: "SEO & Schema Foundation",
+                  desc: "Schema, meta, canonical at a glance",
+                  Icon: ShieldCheck,
+                },
+              ].map(({ id, label, desc, Icon }) => (
+                <button
+                  key={id}
+                  type="button"
+                  onClick={() => setActiveSection(id)}
+                  className="hover-card flex h-full flex-col items-start gap-3 rounded-xl border border-carbon-700 bg-carbon-900 p-4 text-left transition-colors hover:border-mint-500/40"
+                >
+                  <div className="hover-icon-glow flex h-10 w-10 items-center justify-center rounded-full border border-mint-500/40 bg-carbon-950">
+                    <Icon className="h-4 w-4 text-mint-500" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-bold text-white">{label}</p>
+                    <p className="mt-1 text-[11px] text-carbon-400">{desc}</p>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </AdminCard>
+
+          <AdminCard
             title="Recent activity"
             description="Most recent content changes and content waiting to be published."
           >
@@ -173,6 +580,649 @@ export default function AdminPage() {
             </ul>
           </AdminCard>
         </>
+      )}
+
+      {activeSection === "pages" && (
+        <>
+          <AdminCard
+            title="Pages (Content Manager)"
+            description="Pick a page from the list and edit its title, meta, H1, hero subtitle, intro, CTA, FAQs and internal links. Stage 1 preview only - persistence connects in Stage 2."
+          >
+            <div className="rounded-lg border border-mint-500/30 bg-mint-500/5 px-4 py-3 text-[12px] leading-relaxed text-mint-300">
+              Stage 1 CMS preview. In Stage 2, these fields will connect to the live CMS storage so approved updates can feed the website.
+            </div>
+
+            <div className="mt-5 grid gap-5 lg:grid-cols-[260px_minmax(0,1fr)]">
+              <aside>
+                <p className="mb-2 text-[10px] font-bold uppercase tracking-wider text-mint-400">
+                  All pages
+                </p>
+                <ul className="space-y-1.5">
+                  {editablePageList.map((page) => (
+                    <li key={page.id}>
+                      <button
+                        type="button"
+                        onClick={() => setSelectedPageId(page.id)}
+                        className={cn(
+                          "flex w-full items-center justify-between gap-2 rounded-lg border px-3 py-2 text-left transition-colors",
+                          selectedPageId === page.id
+                            ? "border-mint-500/50 bg-mint-500/10 text-mint-400"
+                            : "border-carbon-800 bg-carbon-900 text-white hover:border-carbon-700"
+                        )}
+                      >
+                        <span className="min-w-0">
+                          <span className="block truncate text-sm font-semibold">
+                            {page.label}
+                          </span>
+                          <span className="block truncate text-[11px] text-carbon-400">
+                            {page.url}
+                          </span>
+                        </span>
+                        <span
+                          className={cn(
+                            "shrink-0 rounded-full border px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider",
+                            statusClasses[page.status]
+                          )}
+                        >
+                          {statusLabel[page.status]}
+                        </span>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+
+                <p className="mt-5 mb-2 text-[10px] font-bold uppercase tracking-wider text-mint-400">
+                  Blog posts
+                </p>
+                <ul className="space-y-1.5">
+                  {blogPosts.map((post) => (
+                    <li
+                      key={post.slug}
+                      className="flex items-center justify-between rounded-lg border border-carbon-800 bg-carbon-900 px-3 py-2"
+                    >
+                      <span className="min-w-0">
+                        <span className="block truncate text-sm font-semibold text-white">
+                          {post.title}
+                        </span>
+                        <span className="block truncate text-[11px] text-carbon-400">
+                          /blogs/{post.slug}/
+                        </span>
+                      </span>
+                      <span className="shrink-0 rounded-full border border-mint-500/40 bg-mint-500/10 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-mint-400">
+                        Live
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+
+                <p className="mt-5 mb-2 text-[10px] font-bold uppercase tracking-wider text-mint-400">
+                  Coming in Stage 2
+                </p>
+                <ul className="space-y-1.5 text-[12px] text-carbon-400">
+                  <li>Areas We Serve - G74 hub (Stage 2)</li>
+                  <li>Areas We Serve - G75 hub (Stage 2)</li>
+                  <li>35 district pages (Stage 2)</li>
+                  <li>4 brand detail pages (Stage 2)</li>
+                </ul>
+              </aside>
+
+              <div className="space-y-5">
+                <div className="rounded-xl border border-carbon-700 bg-carbon-900 p-4">
+                  <header className="mb-4 flex flex-wrap items-start justify-between gap-3">
+                    <div>
+                      <p className="text-[10px] font-bold uppercase tracking-wider text-mint-400">
+                        Editing
+                      </p>
+                      <h3 className="mt-1 text-base font-bold text-white">
+                        {selectedPage.label}
+                      </h3>
+                      <p className="text-[11px] text-carbon-400">
+                        URL: {selectedPage.url} · Schema:{" "}
+                        {selectedPage.schemaTypes.join(", ") || "n/a"}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Link
+                        href={selectedPage.url}
+                        target="_blank"
+                        className="inline-flex items-center gap-1 rounded-lg border border-carbon-700 px-3 py-2 text-[11px] font-bold uppercase tracking-wider text-carbon-200 hover:border-mint-500/40 hover:text-mint-400"
+                      >
+                        View live
+                        <ArrowUpRight className="h-3.5 w-3.5" />
+                      </Link>
+                      <button
+                        type="button"
+                        onClick={resetPage}
+                        className="inline-flex items-center rounded-lg border border-carbon-700 px-3 py-2 text-[11px] font-bold uppercase tracking-wider text-carbon-200 hover:border-mint-500/40 hover:text-mint-400"
+                      >
+                        Reset
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => notifySave(`${selectedPage.label} content`)}
+                        className="inline-flex items-center justify-center rounded-lg bg-mint-500 px-3 py-2 text-[11px] font-bold uppercase tracking-wider text-carbon-900 shadow-lg shadow-mint-500/20 transition-all hover:bg-mint-400 active:scale-95"
+                      >
+                        Save changes
+                      </button>
+                    </div>
+                  </header>
+
+                  <div className="grid gap-4">
+                    <AdminInput
+                      label="Page title (browser tab)"
+                      value={current.metaTitle}
+                      onChange={(e) =>
+                        updatePage((s) => ({ ...s, metaTitle: e.target.value }))
+                      }
+                      hint={`${current.metaTitle.length} characters`}
+                    />
+                    <AdminTextarea
+                      label="Meta description"
+                      value={current.metaDescription}
+                      onChange={(e) =>
+                        updatePage((s) => ({
+                          ...s,
+                          metaDescription: e.target.value,
+                        }))
+                      }
+                      hint={`${current.metaDescription.length} characters`}
+                    />
+                    <AdminInput
+                      label="H1 - main page heading"
+                      value={current.h1}
+                      onChange={(e) =>
+                        updatePage((s) => ({ ...s, h1: e.target.value }))
+                      }
+                    />
+                    <AdminInput
+                      label="Hero subtitle"
+                      value={current.heroSubtitle}
+                      onChange={(e) =>
+                        updatePage((s) => ({
+                          ...s,
+                          heroSubtitle: e.target.value,
+                        }))
+                      }
+                    />
+                    <AdminTextarea
+                      label="Hero description / main intro"
+                      value={current.heroDescription}
+                      onChange={(e) =>
+                        updatePage((s) => ({
+                          ...s,
+                          heroDescription: e.target.value,
+                        }))
+                      }
+                    />
+                    <AdminTextarea
+                      label="Intro copy (below hero, above content blocks)"
+                      value={current.introCopy}
+                      onChange={(e) =>
+                        updatePage((s) => ({
+                          ...s,
+                          introCopy: e.target.value,
+                        }))
+                      }
+                    />
+                    <div className="grid gap-3 sm:grid-cols-2">
+                      <AdminInput
+                        label="Primary CTA label"
+                        value={current.ctaPrimaryLabel}
+                        onChange={(e) =>
+                          updatePage((s) => ({
+                            ...s,
+                            ctaPrimaryLabel: e.target.value,
+                          }))
+                        }
+                      />
+                      <AdminInput
+                        label="CTA banner title"
+                        value={current.ctaBannerTitle}
+                        onChange={(e) =>
+                          updatePage((s) => ({
+                            ...s,
+                            ctaBannerTitle: e.target.value,
+                          }))
+                        }
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="rounded-xl border border-carbon-700 bg-carbon-900 p-4">
+                  <header className="mb-3 flex items-center justify-between gap-3">
+                    <div>
+                      <p className="text-[10px] font-bold uppercase tracking-wider text-mint-400">
+                        FAQs ({current.faqs.length})
+                      </p>
+                      <h4 className="mt-1 text-sm font-bold text-white">
+                        Page-specific FAQ section
+                      </h4>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        updatePage((s) => ({
+                          ...s,
+                          faqs: [
+                            ...s.faqs,
+                            { question: "New question", answer: "" },
+                          ],
+                        }))
+                      }
+                      className="inline-flex items-center gap-1.5 rounded-lg border border-mint-500/40 bg-mint-500/10 px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider text-mint-400"
+                    >
+                      <Plus className="h-3.5 w-3.5" />
+                      Add FAQ
+                    </button>
+                  </header>
+
+                  <div className="space-y-3">
+                    {current.faqs.length === 0 && (
+                      <p className="text-[11px] text-carbon-400">
+                        No page-specific FAQs yet.
+                      </p>
+                    )}
+                    {current.faqs.map((faq, faqIndex) => (
+                      <div
+                        key={faqIndex}
+                        className="rounded-lg border border-carbon-800 bg-carbon-950 p-3"
+                      >
+                        <div className="mb-2 flex items-center justify-between">
+                          <span className="text-[10px] font-bold uppercase tracking-wider text-carbon-400">
+                            Question {faqIndex + 1}
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() =>
+                              updatePage((s) => ({
+                                ...s,
+                                faqs: s.faqs.filter((_, i) => i !== faqIndex),
+                              }))
+                            }
+                            className="inline-flex items-center gap-1 text-[11px] font-semibold text-carbon-400 hover:text-mint-400"
+                            aria-label="Remove FAQ"
+                          >
+                            <Trash2 className="h-3 w-3" />
+                            Remove
+                          </button>
+                        </div>
+                        <AdminInput
+                          label="Question"
+                          value={faq.question}
+                          onChange={(e) =>
+                            updatePage((s) => ({
+                              ...s,
+                              faqs: s.faqs.map((f, i) =>
+                                i === faqIndex
+                                  ? { ...f, question: e.target.value }
+                                  : f
+                              ),
+                            }))
+                          }
+                        />
+                        <div className="mt-3">
+                          <AdminTextarea
+                            label="Answer"
+                            value={faq.answer}
+                            onChange={(e) =>
+                              updatePage((s) => ({
+                                ...s,
+                                faqs: s.faqs.map((f, i) =>
+                                  i === faqIndex
+                                    ? { ...f, answer: e.target.value }
+                                    : f
+                                ),
+                              }))
+                            }
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="rounded-xl border border-carbon-700 bg-carbon-900 p-4">
+                  <header className="mb-3 flex items-center justify-between gap-3">
+                    <div>
+                      <p className="text-[10px] font-bold uppercase tracking-wider text-mint-400">
+                        Internal links ({current.internalLinks.length})
+                      </p>
+                      <h4 className="mt-1 text-sm font-bold text-white">
+                        Silo links shown on this page
+                      </h4>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        updatePage((s) => ({
+                          ...s,
+                          internalLinks: [
+                            ...s.internalLinks,
+                            { label: "New link", href: "/" },
+                          ],
+                        }))
+                      }
+                      className="inline-flex items-center gap-1.5 rounded-lg border border-mint-500/40 bg-mint-500/10 px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider text-mint-400"
+                    >
+                      <Plus className="h-3.5 w-3.5" />
+                      Add link
+                    </button>
+                  </header>
+
+                  <ul className="space-y-2">
+                    {current.internalLinks.map((link, linkIndex) => (
+                      <li
+                        key={linkIndex}
+                        className="grid grid-cols-[1fr_1fr_auto] gap-2"
+                      >
+                        <input
+                          aria-label="Link label"
+                          value={link.label}
+                          onChange={(e) =>
+                            updatePage((s) => ({
+                              ...s,
+                              internalLinks: s.internalLinks.map((l, i) =>
+                                i === linkIndex
+                                  ? { ...l, label: e.target.value }
+                                  : l
+                              ),
+                            }))
+                          }
+                          className="rounded-lg border border-carbon-700 bg-carbon-950 px-3 py-2 text-sm text-white focus:border-mint-500 focus:outline-none"
+                        />
+                        <input
+                          aria-label="Link URL"
+                          value={link.href}
+                          onChange={(e) =>
+                            updatePage((s) => ({
+                              ...s,
+                              internalLinks: s.internalLinks.map((l, i) =>
+                                i === linkIndex
+                                  ? { ...l, href: e.target.value }
+                                  : l
+                              ),
+                            }))
+                          }
+                          className="rounded-lg border border-carbon-700 bg-carbon-950 px-3 py-2 font-mono text-xs text-carbon-200 focus:border-mint-500 focus:outline-none"
+                        />
+                        <button
+                          type="button"
+                          onClick={() =>
+                            updatePage((s) => ({
+                              ...s,
+                              internalLinks: s.internalLinks.filter(
+                                (_, i) => i !== linkIndex
+                              ),
+                            }))
+                          }
+                          className="rounded-lg border border-carbon-700 px-2 text-carbon-400 hover:border-mint-500/40 hover:text-mint-400"
+                          aria-label="Remove link"
+                        >
+                          <Trash2 className="h-3.5 w-3.5" />
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="rounded-xl border border-carbon-700 bg-carbon-900 p-4">
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-mint-400">
+                    Page-level preview
+                  </p>
+                  <div className="mt-2 rounded-lg border border-carbon-800 bg-carbon-950 p-4">
+                    <p className="text-[13px] text-carbon-300">
+                      www.eastkilbrideboilercompany.co.uk{selectedPage.url}
+                    </p>
+                    <p className="mt-1 text-base font-semibold text-mint-300 underline decoration-mint-500/30 underline-offset-2">
+                      {current.metaTitle}
+                    </p>
+                    <p className="mt-1 text-sm leading-relaxed text-carbon-200">
+                      {current.metaDescription}
+                    </p>
+                  </div>
+                  <div className="mt-3 grid gap-2 sm:grid-cols-3">
+                    <Stat label="Title length" value={`${current.metaTitle.length} chars`} />
+                    <Stat label="Description length" value={`${current.metaDescription.length} chars`} />
+                    <Stat
+                      label="FAQs / Internal links"
+                      value={`${current.faqs.length} / ${current.internalLinks.length}`}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </AdminCard>
+        </>
+      )}
+
+      {activeSection === "silo" && (
+        <>
+          <AdminCard
+            title="Silo Preview"
+            description="A clean view of the URL silo and where each page sits inside it. Use the status markers to see what is live, what is still a stub, and what is generated from data ready for Stage 2."
+          >
+            <div className="grid gap-3 sm:grid-cols-4">
+              <Legend
+                color="bg-mint-500"
+                label="Live sample"
+                hint="Working sample page on the live site"
+              />
+              <Legend
+                color="bg-yellow-400"
+                label="Stage 2 pending"
+                hint="Will be built in Stage 2"
+              />
+              <Legend
+                color="bg-brand-blue-bright"
+                label="Ready from data"
+                hint="Content data prepared, layout in Stage 2"
+              />
+              <Legend
+                color="bg-carbon-500"
+                label="Stub"
+                hint="Branded placeholder page only"
+              />
+            </div>
+
+            <div className="mt-5 space-y-2">
+              {siloTree.map((node) => (
+                <SiloTreeNode key={node.label} node={node} />
+              ))}
+            </div>
+          </AdminCard>
+
+          <AdminCard
+            title="Silo at a glance"
+            description="The four big silos and what they contain."
+          >
+            <div className="grid gap-4 lg:grid-cols-2">
+              <SiloSummary
+                title="Services silo"
+                items={[
+                  "/services/new-boiler-installation/",
+                  "/services/boiler-repair/",
+                  "/services/boiler-servicing/",
+                ]}
+                description="3 live samples linked from header and silo links blocks across the whole site."
+              />
+              <SiloSummary
+                title="Boilers silo"
+                items={[
+                  "/boilers/",
+                  ...brands.map((b) => `/boilers/${b.slug}/`),
+                ]}
+                description="Price hub live in Stage 1. Four brand pages built in Stage 2."
+              />
+              <SiloSummary
+                title="Areas silo"
+                items={[
+                  "/areas-we-serve/",
+                  "/areas-we-serve/g74/",
+                  "/areas-we-serve/g75/",
+                  `${districts.length} district pages (Stage 2)`,
+                ]}
+                description={`Hub and postcode hub stubs live. ${districts.length} districts data-ready for Stage 2.`}
+              />
+              <SiloSummary
+                title="Blogs silo"
+                items={[
+                  "/blogs/",
+                  ...blogPosts.map((p) => `/blogs/${p.slug}/`),
+                ]}
+                description="Index plus three sample posts already live. Stage 2 adds more local guides."
+              />
+            </div>
+          </AdminCard>
+        </>
+      )}
+
+      {activeSection === "sitemap" && (
+        <AdminCard
+          title="Sitemap & Crawling"
+          description="Sitemap, robots.txt and crawling status. Stage 2 will expand the sitemap to all 45 pages."
+        >
+          <div className="grid gap-4 sm:grid-cols-2">
+            <ResourceCard
+              title="sitemap.xml"
+              href="/sitemap.xml"
+              hint={`Live, auto-generated from the page list (${sitemapRoutes.length} URLs in Stage 1).`}
+            />
+            <ResourceCard
+              title="robots.txt"
+              href="/robots.txt"
+              hint="Live. /admin/ is disallowed in robots. Sitemap is linked."
+            />
+          </div>
+
+          <div className="mt-5 grid gap-3 sm:grid-cols-3">
+            <Stat
+              label="Total live routes"
+              value={`${sitemapRoutes.length}`}
+            />
+            <Stat label="Admin route" value="noindex + disallow" />
+            <Stat label="Stage 2 target" value="45 pages total" />
+          </div>
+
+          <div className="mt-5 rounded-xl border border-carbon-700 bg-carbon-950 p-4">
+            <p className="text-[10px] font-bold uppercase tracking-wider text-mint-400">
+              Sample routes in sitemap
+            </p>
+            <ul className="mt-3 grid gap-1.5 text-[12px] text-carbon-200 sm:grid-cols-2 font-mono">
+              {sitemapRoutes.map((route) => (
+                <li
+                  key={route}
+                  className="flex items-center gap-2 rounded-md border border-carbon-800 bg-carbon-900 px-2.5 py-1.5"
+                >
+                  <Check className="h-3 w-3 text-mint-500" />
+                  <span className="truncate">{route}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <p className="mt-4 rounded-lg border border-yellow-500/30 bg-yellow-500/5 px-4 py-3 text-[12px] leading-relaxed text-yellow-200">
+            Stage 2 will expand the sitemap to include all 45 pages once the G74, G75 hubs, the 35 district pages and the 4 brand detail pages are built and approved.
+          </p>
+        </AdminCard>
+      )}
+
+      {activeSection === "schema" && (
+        <AdminCard
+          title="SEO & Schema Foundation"
+          description="What is wired up across the live sample pages, and what each page exposes to Google."
+        >
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <SchemaCheck
+              label="HVACBusiness / LocalBusiness JSON-LD"
+              where="Homepage"
+              status="live"
+            />
+            <SchemaCheck
+              label="Service schema"
+              where="Each /services/ page"
+              status="live"
+            />
+            <SchemaCheck
+              label="Product + Offer schema"
+              where="/boilers/ page (per brand)"
+              status="live"
+            />
+            <SchemaCheck
+              label="FAQPage schema"
+              where="Homepage and each sample page"
+              status="live"
+            />
+            <SchemaCheck
+              label="BreadcrumbList schema"
+              where="All breadcrumbs"
+              status="live"
+            />
+            <SchemaCheck
+              label="Article schema"
+              where="Each blog post"
+              status="live"
+            />
+            <SchemaCheck
+              label="CollectionPage schema"
+              where="/blogs/"
+              status="live"
+            />
+            <SchemaCheck
+              label="Canonical URL"
+              where="Every Stage 1 page"
+              status="live"
+            />
+            <SchemaCheck
+              label="District / Brand schema"
+              where="35 district + 4 brand pages"
+              status="stage-2"
+            />
+          </div>
+
+          <div className="mt-6 rounded-xl border border-carbon-700 bg-carbon-900 p-4">
+            <p className="text-[10px] font-bold uppercase tracking-wider text-mint-400">
+              Page-level SEO snapshot
+            </p>
+            <div className="mt-3">
+              <label className="mb-1.5 block text-[11px] font-bold uppercase tracking-wider text-carbon-300">
+                Select page
+              </label>
+              <select
+                value={selectedPageId}
+                onChange={(e) => setSelectedPageId(e.target.value)}
+                className="w-full rounded-lg border border-carbon-700 bg-carbon-950 px-3.5 py-2.5 text-sm text-white focus:border-mint-500 focus:outline-none"
+              >
+                {editablePageList.map((page) => (
+                  <option key={page.id} value={page.id}>
+                    {page.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+              <Stat label="Meta title" value={current.metaTitle} small />
+              <Stat
+                label="Meta description"
+                value={current.metaDescription}
+                small
+              />
+              <Stat label="H1" value={current.h1} small />
+              <Stat label="Canonical URL" value={selectedPage.canonical} small />
+              <Stat
+                label="Schema types"
+                value={selectedPage.schemaTypes.join(", ") || "n/a"}
+                small
+              />
+              <Stat
+                label="Internal links count"
+                value={String(selectedPage.internalLinks.length)}
+                small
+              />
+            </div>
+          </div>
+        </AdminCard>
       )}
 
       {activeSection === "settings" && (
@@ -436,7 +1486,7 @@ export default function AdminPage() {
       {activeSection === "seo" && (
         <AdminCard
           title="SEO Preview"
-          description="See how each page renders in search results. Title and description are read-only here. Fields become editable per page in Stage 2."
+          description="See how each page renders in search results. Title and description are read-only here. Field editing is in the Pages (Content Manager) section."
         >
           <div className="grid gap-4">
             <div>
@@ -560,5 +1610,132 @@ export default function AdminPage() {
         />
       )}
     </AdminShell>
+  );
+}
+
+function Stat({
+  label,
+  value,
+  small,
+}: {
+  label: string;
+  value: string;
+  small?: boolean;
+}) {
+  return (
+    <div className="rounded-lg border border-carbon-800 bg-carbon-950 p-3">
+      <p className="text-[10px] font-bold uppercase tracking-wider text-carbon-400">
+        {label}
+      </p>
+      <p
+        className={cn(
+          "mt-1 text-white",
+          small ? "text-[12px] leading-relaxed" : "text-sm"
+        )}
+      >
+        {value || "(empty)"}
+      </p>
+    </div>
+  );
+}
+
+function Legend({
+  color,
+  label,
+  hint,
+}: {
+  color: string;
+  label: string;
+  hint: string;
+}) {
+  return (
+    <div className="flex items-start gap-2 rounded-lg border border-carbon-800 bg-carbon-900 p-3">
+      <span className={cn("mt-1 h-2 w-2 shrink-0 rounded-full", color)} />
+      <div>
+        <p className="text-[11px] font-bold uppercase tracking-wider text-white">
+          {label}
+        </p>
+        <p className="mt-0.5 text-[11px] leading-snug text-carbon-400">
+          {hint}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function ResourceCard({
+  title,
+  href,
+  hint,
+}: {
+  title: string;
+  href: string;
+  hint: string;
+}) {
+  return (
+    <Link
+      href={href}
+      target="_blank"
+      className="hover-card flex h-full flex-col gap-2 rounded-xl border border-carbon-700 bg-carbon-900 p-4 hover:border-mint-500/40"
+    >
+      <div className="flex items-center justify-between">
+        <span className="font-mono text-sm font-bold text-white">{title}</span>
+        <ArrowUpRight className="h-4 w-4 text-mint-500" />
+      </div>
+      <p className="text-[11px] leading-snug text-carbon-400">{hint}</p>
+    </Link>
+  );
+}
+
+function SchemaCheck({
+  label,
+  where,
+  status,
+}: {
+  label: string;
+  where: string;
+  status: "live" | "stage-2";
+}) {
+  return (
+    <div className="rounded-xl border border-carbon-700 bg-carbon-900 p-4">
+      <div className="flex items-start justify-between gap-3">
+        <p className="text-sm font-bold text-white">{label}</p>
+        <span
+          className={cn(
+            "shrink-0 rounded-full border px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider",
+            status === "live"
+              ? "border-mint-500/40 bg-mint-500/10 text-mint-400"
+              : "border-yellow-500/40 bg-yellow-500/10 text-yellow-300"
+          )}
+        >
+          {status === "live" ? "Live" : "Stage 2"}
+        </span>
+      </div>
+      <p className="mt-1 text-[11px] text-carbon-400">{where}</p>
+    </div>
+  );
+}
+
+function SiloSummary({
+  title,
+  items,
+  description,
+}: {
+  title: string;
+  items: string[];
+  description: string;
+}) {
+  return (
+    <div className="rounded-xl border border-carbon-700 bg-carbon-900 p-4">
+      <p className="text-sm font-bold text-white">{title}</p>
+      <p className="mt-1 text-[11px] text-carbon-400">{description}</p>
+      <ul className="mt-3 space-y-1 font-mono text-[12px] text-carbon-300">
+        {items.map((item) => (
+          <li key={item} className="truncate">
+            {item}
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }

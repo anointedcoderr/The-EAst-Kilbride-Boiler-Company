@@ -18,8 +18,8 @@ export async function generateMetadata({
   const post = blogPosts.find((p) => p.slug === slug);
   if (!post) return {};
   return {
-    title: `${post.title} | East Kilbride Boiler Company`,
-    description: post.excerpt,
+    title: post.metaTitle,
+    description: post.metaDescription,
     alternates: { canonical: `/blogs/${post.slug}/` },
   };
 }

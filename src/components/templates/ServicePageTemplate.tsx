@@ -1,71 +1,86 @@
 import { PageHero } from "./PageHero";
-import { ServiceFAQsClient } from "./ServiceFAQsClient";
+import { ContentBlocks } from "@/components/sections/ContentBlocks";
+import { LocalFAQSection } from "@/components/sections/LocalFAQSection";
+import { SiloLinks } from "@/components/sections/SiloLinks";
+import { EeatBlock } from "@/components/sections/EeatBlock";
 import { TrustBadgesBar } from "@/components/sections/TrustBadgesBar";
-import { WhatsIncluded } from "@/components/sections/WhatsIncluded";
-import { HowItWorks } from "@/components/sections/HowItWorks";
-import { PricingCards } from "@/components/sections/PricingCards";
 import { ReviewsCarousel } from "@/components/sections/ReviewsCarousel";
-import { AreasCoverage } from "@/components/sections/AreasCoverage";
 import { CTABanner, NeedBoilerCTA } from "@/components/sections/CTABanner";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { serviceSchema } from "@/lib/schemas";
-import { faqs } from "@/data/faqs";
-import type { Service } from "@/types";
+import { serviceSchema, faqSchema } from "@/lib/schemas";
+import { services } from "@/data/services";
+import type { PageContent } from "@/data/pageContent";
 
 interface ServicePageTemplateProps {
-  service: Service;
-  pageTypeFilter: string;
-  eyebrow: string;
-  trustPoints: string[];
-  description: string;
-  hideHowItWorks?: boolean;
-  hidePricing?: boolean;
+  page: PageContent;
+  serviceId: string;
 }
 
 export function ServicePageTemplate({
-  service,
-  pageTypeFilter,
-  eyebrow,
-  trustPoints,
-  description,
-  hideHowItWorks,
-  hidePricing,
+  page,
+  serviceId,
 }: ServicePageTemplateProps) {
-  const serviceFaqs = faqs.filter((faq) =>
-    faq.pageTypes.includes(pageTypeFilter)
-  );
+  const service = services.find((s) => s.id === serviceId);
 
   const breadcrumbs = [
     { label: "Home", href: "/" },
     { label: "Services", href: "/services/new-boiler-installation/" },
-    { label: service.name, href: `/services/${service.slug}/` },
+    { label: page.label, href: page.url },
   ];
 
-  const highlightedWord = service.priceFrom
-    ? `£${service.priceFrom.toLocaleString()}`
-    : "East Kilbride";
+  const schemas: Record<string, unknown>[] = [];
+  if (service) schemas.push(serviceSchema(service));
+  if (page.faqs.length > 0) {
+    schemas.push(
+      faqSchema(
+        page.faqs.map((f) => ({
+          question: f.question,
+          answer: f.answer,
+          pageTypes: [],
+        }))
+      )
+    );
+  }
 
   return (
     <>
-      <JsonLd data={serviceSchema(service)} />
+      {schemas.length > 0 && <JsonLd data={schemas} />}
+
       <PageHero
-        eyebrow={eyebrow}
-        h1={service.h1}
-        highlightedWord={highlightedWord}
-        description={description}
-        trustPoints={trustPoints}
+        eyebrow={page.heroEyebrow}
+        h1={page.h1}
+        highlightedWord={page.highlightedWord}
+        subtitle={page.heroSubtitle}
+        description={page.heroDescription}
+        trustPoints={page.heroTrustPoints}
         breadcrumbs={breadcrumbs}
+        primaryCtaLabel={page.ctaPrimaryLabel}
       />
 
       <TrustBadgesBar />
-      <WhatsIncluded />
-      {!hideHowItWorks && <HowItWorks />}
-      {!hidePricing && <PricingCards />}
+
+      {page.contentBlocks && page.contentBlocks.length > 0 && (
+        <ContentBlocks
+          intro={page.introCopy}
+          blocks={page.contentBlocks}
+          eyebrow={`${page.label} in East Kilbride`}
+          heading={`Everything you need to know about ${page.label.toLowerCase()} in East Kilbride`}
+        />
+      )}
+
+      <EeatBlock />
+
       <ReviewsCarousel />
 
-      {serviceFaqs.length > 0 && <ServiceFAQsClient faqs={serviceFaqs} />}
+      <LocalFAQSection
+        eyebrow={`${page.label} FAQs - East Kilbride`}
+        heading="Local boiler questions, answered"
+        intro="The questions our Gas Safe Experts hear most often from G74 and G75 homeowners. Tap any question for a clear, jargon-free answer."
+        faqs={page.faqs}
+      />
 
-      <AreasCoverage />
+      <SiloLinks links={page.internalLinks} />
+
       <CTABanner />
       <NeedBoilerCTA />
     </>

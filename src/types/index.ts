@@ -95,14 +95,24 @@ export interface FAQ {
   pageTypes: string[];
 }
 
+export interface BlogPostInternalLink {
+  label: string;
+  href: string;
+}
+
 export interface BlogPost {
   slug: string;
   title: string;
+  h1: string;
   excerpt: string;
+  metaTitle: string;
+  metaDescription: string;
   date: string;
   readMinutes: number;
   category: string;
+  tags: string[];
   body: string[];
+  internalLinks: BlogPostInternalLink[];
 }
 
 export interface NavItem {

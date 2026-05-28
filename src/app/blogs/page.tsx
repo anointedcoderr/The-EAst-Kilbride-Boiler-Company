@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { BlogTemplate } from "@/components/templates/BlogTemplate";
+import { pageContent } from "@/data/pageContent";
+
+const page = pageContent.blogs;
 
 export const metadata: Metadata = {
-  title: "Blog | East Kilbride Boiler Company - Heating advice for G74 & G75",
-  description:
-    "Practical boiler buying, repair and servicing advice from East Kilbride's Gas Safe Experts. Worcester Bosch, Ideal, Vokera, Navien and more.",
-  alternates: { canonical: "/blogs/" },
+  title: page.metaTitle,
+  description: page.metaDescription,
+  alternates: { canonical: page.canonical },
 };
 
 export default function BlogsPage() {

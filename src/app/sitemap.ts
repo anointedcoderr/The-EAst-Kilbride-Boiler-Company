@@ -1,12 +1,17 @@
 import type { MetadataRoute } from "next";
 import { services } from "@/data/services";
+import { blogPosts } from "@/data/blogPosts";
 
 const SITE_URL = "https://www.eastkilbrideboilercompany.co.uk";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
-  const staticRoutes: Array<{ path: string; priority: number; changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"] }> = [
+  const staticRoutes: Array<{
+    path: string;
+    priority: number;
+    changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"];
+  }> = [
     { path: "/", priority: 1.0, changeFrequency: "weekly" },
     { path: "/boilers/", priority: 0.9, changeFrequency: "weekly" },
     { path: "/blogs/", priority: 0.7, changeFrequency: "weekly" },
@@ -24,7 +29,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: "weekly" as const,
   }));
 
-  return [...staticRoutes, ...serviceRoutes].map((route) => ({
+  const blogRoutes = blogPosts.map((post) => ({
+    path: `/blogs/${post.slug}/`,
+    priority: 0.6,
+    changeFrequency: "monthly" as const,
+  }));
+
+  return [...staticRoutes, ...serviceRoutes, ...blogRoutes].map((route) => ({
     url: `${SITE_URL}${route.path}`,
     lastModified: now,
     changeFrequency: route.changeFrequency,

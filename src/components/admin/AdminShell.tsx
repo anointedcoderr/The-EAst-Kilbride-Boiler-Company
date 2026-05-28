@@ -11,6 +11,10 @@ import {
   Search,
   ClipboardList,
   LogOut,
+  FileText,
+  Network,
+  Globe,
+  ShieldCheck,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -22,6 +26,10 @@ interface AdminSection {
 
 const sections: AdminSection[] = [
   { id: "overview", label: "Overview", icon: LayoutDashboard },
+  { id: "pages", label: "Pages (Content Manager)", icon: FileText },
+  { id: "silo", label: "Silo Preview", icon: Network },
+  { id: "sitemap", label: "Sitemap & Crawling", icon: Globe },
+  { id: "schema", label: "SEO & Schema Foundation", icon: ShieldCheck },
   { id: "settings", label: "Global Settings", icon: Settings },
   { id: "brands", label: "Brand Pricing", icon: Tag },
   { id: "promotions", label: "Promotions", icon: Megaphone },
