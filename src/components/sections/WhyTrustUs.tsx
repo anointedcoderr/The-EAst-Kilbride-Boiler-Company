@@ -148,19 +148,19 @@ function WhyTrustUs() {
                 ))}
               </div>
 
-              <div className="mt-10 grid grid-cols-3 gap-4">
+              <div className="mt-10 grid grid-cols-3 gap-2 sm:gap-4">
                 {stats.map((stat, index) => (
                   <ScrollReveal key={stat.label} direction="up" delay={index * 0.1}>
-                    <div className="rounded-lg border border-carbon-600 bg-carbon-800 p-4 text-center">
-                      <p className="text-3xl font-extrabold text-mint-500">
+                    <div className="flex h-full min-w-0 flex-col items-center justify-center rounded-lg border border-carbon-600 bg-carbon-800 p-3 sm:p-4 text-center">
+                      <p className="text-xl sm:text-2xl lg:text-3xl font-extrabold leading-none text-mint-500">
                         {stat.value}
                         {stat.suffix && (
-                          <span className="text-lg font-semibold text-mint-400">
+                          <span className="text-sm sm:text-base lg:text-lg font-semibold text-mint-400">
                             {stat.suffix}
                           </span>
                         )}
                       </p>
-                      <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-carbon-400">
+                      <p className="mt-1.5 text-[9px] sm:text-[10px] lg:text-xs font-semibold uppercase leading-tight tracking-wide text-carbon-400">
                         {stat.label}
                       </p>
                     </div>
