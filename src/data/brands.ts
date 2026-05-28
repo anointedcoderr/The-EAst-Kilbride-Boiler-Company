@@ -50,18 +50,18 @@ export const brands: Brand[] = [
     product: "Combi Boiler",
     standardPrice: 1299,
     premiumPrice: 1600,
-    warranty: "7-year warranty",
-    warrantyYears: 7,
+    warranty: "5-year warranty",
+    warrantyYears: 5,
     tag: "Best Value",
     image: "/images/boilers/vokera.png",
     includes: [
-      "Free 7-year warranty",
+      "Free 5-year warranty",
       "Free wireless thermostat",
       "Free system flush",
     ],
     seoTitle: "Vokera Combi Boiler Installed in East Kilbride - From £1,299 Best Value",
     seoDescription:
-      "Vokera combi boiler fully installed in East Kilbride. Standard £1,299 / Premium £1,600. Free thermostat, system flush, 7yr warranty. Call 01355 459096.",
+      "Vokera combi boiler fully installed in East Kilbride. Standard £1,299 / Premium £1,600. Free thermostat, system flush, 5yr warranty. Call 01355 459096.",
     h1: "Vokera Combi Boiler Installed in East Kilbride - From £1,299 Best Value",
   },
   {
