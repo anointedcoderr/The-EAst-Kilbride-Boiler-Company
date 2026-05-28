@@ -12,20 +12,20 @@ function Logo({ className, showTagline = true, size = "md" }: LogoProps) {
     sm: {
       eyebrow: "text-[8px]",
       main: "text-[13px]",
-      company: "text-[10px]",
+      company: "text-[9px]",
       tagline: "text-[7px]",
     },
     md: {
-      eyebrow: "text-[9px] sm:text-[10px]",
-      main: "text-[15px] sm:text-base",
-      company: "text-[11px] sm:text-xs",
-      tagline: "text-[8px] sm:text-[9px]",
+      eyebrow: "text-[8px] sm:text-[9px]",
+      main: "text-[13px] sm:text-[14px]",
+      company: "text-[10px] sm:text-[11px]",
+      tagline: "text-[7px] sm:text-[8px]",
     },
     lg: {
-      eyebrow: "text-[11px]",
-      main: "text-xl",
-      company: "text-sm",
-      tagline: "text-[10px]",
+      eyebrow: "text-[10px]",
+      main: "text-lg",
+      company: "text-xs",
+      tagline: "text-[9px]",
     },
   } as const;
 
@@ -45,7 +45,12 @@ function Logo({ className, showTagline = true, size = "md" }: LogoProps) {
       >
         The
       </span>
-      <span className={cn("block font-extrabold tracking-tight", s.main)}>
+      <span
+        className={cn(
+          "block font-extrabold tracking-tight whitespace-nowrap",
+          s.main
+        )}
+      >
         <span className="text-[#3FA9F5] brand-blue-glow">EAST KILBRIDE</span>{" "}
         <span className="text-mint-500">BOILER</span>
       </span>

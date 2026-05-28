@@ -79,26 +79,18 @@ export default function Header() {
               <Logo showTagline />
 
               <div className="hidden lg:flex items-center">
-                {mainNav.map((item, idx) =>
+                {mainNav.map((item) =>
                   item.children ? (
                     <div
                       key={item.label}
-                      className="relative flex items-center"
+                      className="relative"
                       onMouseEnter={() => handleDropdownEnter(item.label)}
                       onMouseLeave={handleDropdownLeave}
                     >
-                      {idx > 0 && (
-                        <span
-                          aria-hidden="true"
-                          className="text-carbon-600 text-xs px-0.5 select-none"
-                        >
-                          |
-                        </span>
-                      )}
                       <Link
                         href={item.href}
                         className={cn(
-                          "inline-flex items-center gap-1 px-3 py-2 text-[11px] uppercase tracking-[0.12em] font-medium transition-colors duration-200",
+                          "inline-flex items-center gap-1 whitespace-nowrap px-2.5 py-2 text-[11px] uppercase tracking-[0.1em] font-medium transition-colors duration-200",
                           "text-white/90 hover:text-mint-400",
                           openDropdown === item.label && "text-mint-400"
                         )}
@@ -124,7 +116,7 @@ export default function Header() {
                             <Link
                               key={child.href}
                               href={child.href}
-                              className="block px-5 py-2.5 text-sm text-white/80 hover:text-mint-400 hover:bg-white/[0.04] transition-colors duration-150"
+                              className="block whitespace-nowrap px-5 py-2.5 text-sm text-white/80 hover:text-mint-400 hover:bg-white/[0.04] transition-colors duration-150"
                             >
                               {child.label}
                             </Link>
@@ -133,22 +125,13 @@ export default function Header() {
                       </div>
                     </div>
                   ) : (
-                    <div key={item.label} className="flex items-center">
-                      {idx > 0 && (
-                        <span
-                          aria-hidden="true"
-                          className="text-carbon-600 text-xs px-0.5 select-none"
-                        >
-                          |
-                        </span>
-                      )}
-                      <Link
-                        href={item.href}
-                        className="px-3 py-2 text-[11px] uppercase tracking-[0.12em] font-medium text-white/90 hover:text-mint-400 transition-colors duration-200"
-                      >
-                        {item.label}
-                      </Link>
-                    </div>
+                    <Link
+                      key={item.label}
+                      href={item.href}
+                      className="whitespace-nowrap px-2.5 py-2 text-[11px] uppercase tracking-[0.1em] font-medium text-white/90 hover:text-mint-400 transition-colors duration-200"
+                    >
+                      {item.label}
+                    </Link>
                   )
                 )}
               </div>

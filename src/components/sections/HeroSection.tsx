@@ -75,17 +75,17 @@ function HeroSection() {
 
             <ScrollReveal direction="up" delay={0.1}>
               <div>
-                <p className="mb-1 text-sm sm:text-base font-bold uppercase tracking-[0.15em] text-white/90">
+                <p className="mb-1 text-xs sm:text-sm font-bold uppercase tracking-[0.2em] text-white/90">
                   East Kilbride&apos;s #1
                 </p>
-                <h1 className="text-[2.5rem] font-extrabold uppercase tracking-tight leading-[1] sm:text-6xl lg:text-[4.5rem] xl:text-[5rem]">
+                <h1 className="font-extrabold uppercase tracking-tight leading-[0.95] text-[2.25rem] sm:text-5xl lg:text-[3.75rem] xl:text-[4rem]">
                   <span className="block text-white">BOILER</span>
                   <span className="block text-white">REPLACEMENT</span>
                   <span className="block text-mint-500 [text-shadow:0_0_24px_rgba(91,254,177,0.4)]">
                     COMPANY
                   </span>
                 </h1>
-                <p className="mt-4 text-xs sm:text-sm font-bold uppercase tracking-[0.15em] text-white">
+                <p className="mt-3 text-[11px] sm:text-xs font-bold uppercase tracking-[0.15em] text-white">
                   Serving all areas of East Kilbride G74/G75
                 </p>
               </div>
