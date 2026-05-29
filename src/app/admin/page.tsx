@@ -159,40 +159,40 @@ const siloTree: SiloNode[] = [
         children: brands.map((brand) => ({
           label: `${brand.name} Combi`,
           url: `/boilers/${brand.slug}/`,
-          status: "stage-2-pending" as PageStatus,
+          status: "live-sample" as PageStatus,
           pageType: "brand detail",
         })),
       },
       {
         label: "Areas We Serve",
         url: "/areas-we-serve/",
-        status: "stub",
+        status: "live-sample",
         pageType: "areas hub",
         childCount: 2,
         children: [
           {
             label: "G74 - North & Central",
             url: "/areas-we-serve/g74/",
-            status: "stub",
+            status: "live-sample",
             pageType: "postcode hub",
             childCount: g74Districts.length,
             children: g74Districts.map((d) => ({
               label: d.name,
               url: `/areas-we-serve/${d.slug}/`,
-              status: "ready-from-data" as PageStatus,
+              status: "live-sample" as PageStatus,
               pageType: "district",
             })),
           },
           {
             label: "G75 - South & West",
             url: "/areas-we-serve/g75/",
-            status: "stub",
+            status: "live-sample",
             pageType: "postcode hub",
             childCount: g75Districts.length,
             children: g75Districts.map((d) => ({
               label: d.name,
               url: `/areas-we-serve/${d.slug}/`,
-              status: "ready-from-data" as PageStatus,
+              status: "live-sample" as PageStatus,
               pageType: "district",
             })),
           },
@@ -214,19 +214,31 @@ const siloTree: SiloNode[] = [
       {
         label: "About",
         url: "/about/",
-        status: "stub",
+        status: "live-sample",
         pageType: "static",
       },
       {
         label: "Contact",
         url: "/contact/",
-        status: "stub",
+        status: "live-sample",
         pageType: "static",
       },
       {
         label: "FAQ",
         url: "/faq/",
-        status: "stub",
+        status: "live-sample",
+        pageType: "static",
+      },
+      {
+        label: "Privacy",
+        url: "/privacy/",
+        status: "live-sample",
+        pageType: "static",
+      },
+      {
+        label: "Terms",
+        url: "/terms/",
+        status: "live-sample",
         pageType: "static",
       },
     ],
@@ -381,6 +393,61 @@ export default function AdminPage() {
     [seoPageId]
   );
 
+  const [brandPageSelected, setBrandPageSelected] = useState(brands[0].id);
+  const [brandPageState, setBrandPageState] = useState<
+    Record<
+      string,
+      {
+        h1: string;
+        metaTitle: string;
+        metaDescription: string;
+        heroSubtitle: string;
+      }
+    >
+  >(() =>
+    Object.fromEntries(
+      brands.map((b) => [
+        b.id,
+        {
+          h1: b.h1,
+          metaTitle: b.seoTitle,
+          metaDescription: b.seoDescription,
+          heroSubtitle:
+            "Fitted by Gas Safe Experts across all 35 East Kilbride districts",
+        },
+      ])
+    )
+  );
+
+  const [districtSelected, setDistrictSelected] = useState(districts[0].slug);
+  const [districtPageState, setDistrictPageState] = useState<
+    Record<
+      string,
+      {
+        name: string;
+        position: string;
+        housingMix: string;
+        preferredBrands: string;
+        localAngle: string;
+        typicalJob: string;
+      }
+    >
+  >(() =>
+    Object.fromEntries(
+      districts.map((d) => [
+        d.slug,
+        {
+          name: d.name,
+          position: d.position,
+          housingMix: d.housingMix,
+          preferredBrands: d.preferredBrands.join(", "),
+          localAngle: d.localAngle,
+          typicalJob: d.typicalJob,
+        },
+      ])
+    )
+  );
+
   const [selectedPageId, setSelectedPageId] = useState(
     editablePageList[0].id
   );
@@ -451,11 +518,15 @@ export default function AdminPage() {
       "/about/",
       "/contact/",
       "/faq/",
+      "/privacy/",
+      "/terms/",
       "/areas-we-serve/",
       "/areas-we-serve/g74/",
       "/areas-we-serve/g75/",
     ];
     services.forEach((s) => live.push(`/services/${s.slug}/`));
+    brands.forEach((b) => live.push(`/boilers/${b.slug}/`));
+    districts.forEach((d) => live.push(`/areas-we-serve/${d.slug}/`));
     blogPosts.forEach((p) => live.push(`/blogs/${p.slug}/`));
     return live;
   }, []);
@@ -656,13 +727,74 @@ export default function AdminPage() {
                 </ul>
 
                 <p className="mt-5 mb-2 text-[10px] font-bold uppercase tracking-wider text-mint-400">
-                  Coming in Stage 2
+                  Brand pages
                 </p>
-                <ul className="space-y-1.5 text-[12px] text-carbon-400">
-                  <li>Areas We Serve - G74 hub (Stage 2)</li>
-                  <li>Areas We Serve - G75 hub (Stage 2)</li>
-                  <li>35 district pages (Stage 2)</li>
-                  <li>4 brand detail pages (Stage 2)</li>
+                <ul className="space-y-1.5">
+                  {brands.map((b) => (
+                    <li
+                      key={b.id}
+                      className="flex items-center justify-between rounded-lg border border-carbon-800 bg-carbon-900 px-3 py-2"
+                    >
+                      <span className="min-w-0">
+                        <span className="block truncate text-sm font-semibold text-white">
+                          {b.name} Combi
+                        </span>
+                        <span className="block truncate text-[11px] text-carbon-400">
+                          /boilers/{b.slug}/
+                        </span>
+                      </span>
+                      <span className="shrink-0 rounded-full border border-mint-500/40 bg-mint-500/10 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-mint-400">
+                        Live
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+
+                <p className="mt-5 mb-2 text-[10px] font-bold uppercase tracking-wider text-mint-400">
+                  Postcode hubs
+                </p>
+                <ul className="space-y-1.5">
+                  {(["G74", "G75"] as const).map((code) => (
+                    <li
+                      key={code}
+                      className="flex items-center justify-between rounded-lg border border-carbon-800 bg-carbon-900 px-3 py-2"
+                    >
+                      <span className="min-w-0">
+                        <span className="block truncate text-sm font-semibold text-white">
+                          {code} hub
+                        </span>
+                        <span className="block truncate text-[11px] text-carbon-400">
+                          /areas-we-serve/{code.toLowerCase()}/
+                        </span>
+                      </span>
+                      <span className="shrink-0 rounded-full border border-mint-500/40 bg-mint-500/10 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-mint-400">
+                        Live
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+
+                <p className="mt-5 mb-2 text-[10px] font-bold uppercase tracking-wider text-mint-400">
+                  District pages ({districts.length})
+                </p>
+                <p className="mb-2 text-[11px] text-carbon-400">
+                  35 generated from districts.ts. Full per-district editor opens in the District Pages section.
+                </p>
+                <ul className="space-y-1 text-[12px]">
+                  {districts.slice(0, 6).map((d) => (
+                    <li
+                      key={d.slug}
+                      className="flex items-center justify-between rounded-lg border border-carbon-800 bg-carbon-900 px-3 py-1.5"
+                    >
+                      <span className="truncate text-white">{d.name}</span>
+                      <span className="shrink-0 text-[10px] uppercase tracking-wide text-carbon-400">
+                        {d.postcodeHub}
+                      </span>
+                    </li>
+                  ))}
+                  <li className="px-3 py-1 text-carbon-400">
+                    + {districts.length - 6} more in the District Pages tab
+                  </li>
                 </ul>
               </aside>
 
@@ -1601,6 +1733,368 @@ export default function AdminPage() {
             />
           </div>
         </AdminCard>
+      )}
+
+      {activeSection === "brand-pages" && (
+        <>
+          <AdminCard
+            title="Brand Pages"
+            description="Per-brand page editor for the four boiler brand routes. Live on /boilers/{slug}/ - editable fields below are previewed locally. Stage 2 backend persistence connects when Hostinger access is confirmed."
+          >
+            <div className="rounded-lg border border-mint-500/30 bg-mint-500/5 px-4 py-3 text-[12px] leading-relaxed text-mint-300">
+              Stage 2 local preview. Brand-page-level fields (H1, meta, hero) will write to the live CMS storage in Stage 2. Brand pricing is managed under Brand Pricing.
+            </div>
+
+            <div className="mt-5 grid gap-5 lg:grid-cols-[220px_minmax(0,1fr)]">
+              <aside>
+                <p className="mb-2 text-[10px] font-bold uppercase tracking-wider text-mint-400">
+                  Brand pages ({brands.length})
+                </p>
+                <ul className="space-y-1.5">
+                  {brands.map((b) => (
+                    <li key={b.id}>
+                      <button
+                        type="button"
+                        onClick={() => setBrandPageSelected(b.id)}
+                        className={cn(
+                          "flex w-full items-center justify-between gap-2 rounded-lg border px-3 py-2 text-left transition-colors",
+                          brandPageSelected === b.id
+                            ? "border-mint-500/50 bg-mint-500/10 text-mint-400"
+                            : "border-carbon-800 bg-carbon-900 text-white hover:border-carbon-700"
+                        )}
+                      >
+                        <span className="min-w-0">
+                          <span className="block truncate text-sm font-semibold">
+                            {b.name} Combi
+                          </span>
+                          <span className="block truncate text-[11px] text-carbon-400">
+                            /boilers/{b.slug}/
+                          </span>
+                        </span>
+                        <span className="shrink-0 rounded-full border border-mint-500/40 bg-mint-500/10 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-mint-400">
+                          Live
+                        </span>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </aside>
+
+              {(() => {
+                const brand = brands.find((b) => b.id === brandPageSelected);
+                if (!brand) return null;
+                const state = brandPageState[brand.id];
+                return (
+                  <div className="space-y-5">
+                    <div className="rounded-xl border border-carbon-700 bg-carbon-900 p-4">
+                      <header className="mb-4 flex flex-wrap items-start justify-between gap-3">
+                        <div>
+                          <p className="text-[10px] font-bold uppercase tracking-wider text-mint-400">
+                            Editing
+                          </p>
+                          <h3 className="mt-1 text-base font-bold text-white">
+                            {brand.name} Combi
+                          </h3>
+                          <p className="text-[11px] text-carbon-400">
+                            URL: /boilers/{brand.slug}/ · Schema: Product, Offer, BreadcrumbList, FAQPage
+                          </p>
+                        </div>
+                        <Link
+                          href={`/boilers/${brand.slug}/`}
+                          target="_blank"
+                          className="inline-flex items-center gap-1 rounded-lg border border-carbon-700 px-3 py-2 text-[11px] font-bold uppercase tracking-wider text-carbon-200 hover:border-mint-500/40 hover:text-mint-400"
+                        >
+                          View page
+                          <ArrowUpRight className="h-3 w-3" />
+                        </Link>
+                      </header>
+
+                      <div className="space-y-4">
+                        <AdminInput
+                          label="H1"
+                          value={state.h1}
+                          onChange={(e) =>
+                            setBrandPageState((prev) => ({
+                              ...prev,
+                              [brand.id]: { ...prev[brand.id], h1: e.target.value },
+                            }))
+                          }
+                        />
+                        <AdminInput
+                          label="Meta title"
+                          value={state.metaTitle}
+                          onChange={(e) =>
+                            setBrandPageState((prev) => ({
+                              ...prev,
+                              [brand.id]: { ...prev[brand.id], metaTitle: e.target.value },
+                            }))
+                          }
+                          hint={`${state.metaTitle.length} characters`}
+                        />
+                        <AdminTextarea
+                          label="Meta description"
+                          rows={3}
+                          value={state.metaDescription}
+                          onChange={(e) =>
+                            setBrandPageState((prev) => ({
+                              ...prev,
+                              [brand.id]: { ...prev[brand.id], metaDescription: e.target.value },
+                            }))
+                          }
+                          hint={`${state.metaDescription.length} characters`}
+                        />
+                        <AdminInput
+                          label="Hero subtitle"
+                          value={state.heroSubtitle}
+                          onChange={(e) =>
+                            setBrandPageState((prev) => ({
+                              ...prev,
+                              [brand.id]: { ...prev[brand.id], heroSubtitle: e.target.value },
+                            }))
+                          }
+                        />
+                      </div>
+
+                      <div className="mt-5 flex flex-wrap gap-3">
+                        <button
+                          type="button"
+                          onClick={() => notifySave(`${brand.name} brand page`)}
+                          className="inline-flex items-center gap-2 rounded-lg bg-mint-500 px-4 py-2 text-xs font-bold uppercase tracking-wide text-carbon-900 transition-colors hover:bg-mint-400"
+                        >
+                          <Check className="h-3.5 w-3.5" />
+                          Save changes
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="rounded-xl border border-carbon-700 bg-carbon-900 p-4">
+                      <p className="text-[10px] font-bold uppercase tracking-wider text-mint-400">
+                        Read-only product fields
+                      </p>
+                      <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                        <Stat label="Fitted price" value={`£${brand.standardPrice.toLocaleString("en-GB")}`} />
+                        <Stat label="Premium price" value={`£${brand.premiumPrice.toLocaleString("en-GB")}`} />
+                        <Stat label="Warranty" value={brand.warranty} />
+                        <Stat label="Tag" value={brand.tag} />
+                      </div>
+                      <p className="mt-3 text-[11px] text-carbon-400">
+                        Pricing and warranty are edited under Brand Pricing. This keeps Brand Pages focused on page content.
+                      </p>
+                    </div>
+                  </div>
+                );
+              })()}
+            </div>
+          </AdminCard>
+        </>
+      )}
+
+      {activeSection === "district-pages" && (
+        <>
+          <AdminCard
+            title="District Pages"
+            description={`Per-district page editor for all ${districts.length} East Kilbride district routes. Content is generated from districts.ts and the district variation engine. Stage 2 backend persistence connects when Hostinger access is confirmed.`}
+          >
+            <div className="rounded-lg border border-mint-500/30 bg-mint-500/5 px-4 py-3 text-[12px] leading-relaxed text-mint-300">
+              Stage 2 local preview. Editable fields below feed the H1, intro, and 9 keyword-driven sections on each district page. Save persists in Stage 2.
+            </div>
+
+            <div className="mt-5 grid gap-5 lg:grid-cols-[260px_minmax(0,1fr)]">
+              <aside>
+                <p className="mb-2 text-[10px] font-bold uppercase tracking-wider text-mint-400">
+                  G74 districts ({g74Districts.length})
+                </p>
+                <ul className="space-y-1">
+                  {g74Districts.map((d) => (
+                    <li key={d.slug}>
+                      <button
+                        type="button"
+                        onClick={() => setDistrictSelected(d.slug)}
+                        className={cn(
+                          "flex w-full items-center justify-between gap-2 rounded-lg border px-3 py-1.5 text-left text-[12px] transition-colors",
+                          districtSelected === d.slug
+                            ? "border-mint-500/50 bg-mint-500/10 text-mint-400"
+                            : "border-carbon-800 bg-carbon-900 text-white hover:border-carbon-700"
+                        )}
+                      >
+                        <span className="truncate font-semibold">{d.name}</span>
+                        <span className="shrink-0 text-[10px] uppercase tracking-wide text-carbon-400">
+                          G74
+                        </span>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+
+                <p className="mt-4 mb-2 text-[10px] font-bold uppercase tracking-wider text-mint-400">
+                  G75 districts ({g75Districts.length})
+                </p>
+                <ul className="space-y-1">
+                  {g75Districts.map((d) => (
+                    <li key={d.slug}>
+                      <button
+                        type="button"
+                        onClick={() => setDistrictSelected(d.slug)}
+                        className={cn(
+                          "flex w-full items-center justify-between gap-2 rounded-lg border px-3 py-1.5 text-left text-[12px] transition-colors",
+                          districtSelected === d.slug
+                            ? "border-mint-500/50 bg-mint-500/10 text-mint-400"
+                            : "border-carbon-800 bg-carbon-900 text-white hover:border-carbon-700"
+                        )}
+                      >
+                        <span className="truncate font-semibold">{d.name}</span>
+                        <span className="shrink-0 text-[10px] uppercase tracking-wide text-carbon-400">
+                          G75
+                        </span>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </aside>
+
+              {(() => {
+                const district = districts.find((d) => d.slug === districtSelected);
+                if (!district) return null;
+                const state = districtPageState[district.slug];
+                return (
+                  <div className="space-y-5">
+                    <div className="rounded-xl border border-carbon-700 bg-carbon-900 p-4">
+                      <header className="mb-4 flex flex-wrap items-start justify-between gap-3">
+                        <div>
+                          <p className="text-[10px] font-bold uppercase tracking-wider text-mint-400">
+                            Editing
+                          </p>
+                          <h3 className="mt-1 text-base font-bold text-white">
+                            {district.name}, {district.postcodeHub}
+                          </h3>
+                          <p className="text-[11px] text-carbon-400">
+                            URL: /areas-we-serve/{district.slug}/ · Schema: Service, areaServed, BreadcrumbList, FAQPage
+                          </p>
+                        </div>
+                        <Link
+                          href={`/areas-we-serve/${district.slug}/`}
+                          target="_blank"
+                          className="inline-flex items-center gap-1 rounded-lg border border-carbon-700 px-3 py-2 text-[11px] font-bold uppercase tracking-wider text-carbon-200 hover:border-mint-500/40 hover:text-mint-400"
+                        >
+                          View page
+                          <ArrowUpRight className="h-3 w-3" />
+                        </Link>
+                      </header>
+
+                      <div className="space-y-4">
+                        <AdminInput
+                          label="District name"
+                          value={state.name}
+                          onChange={(e) =>
+                            setDistrictPageState((prev) => ({
+                              ...prev,
+                              [district.slug]: { ...prev[district.slug], name: e.target.value },
+                            }))
+                          }
+                        />
+                        <AdminInput
+                          label="Position in East Kilbride"
+                          value={state.position}
+                          onChange={(e) =>
+                            setDistrictPageState((prev) => ({
+                              ...prev,
+                              [district.slug]: { ...prev[district.slug], position: e.target.value },
+                            }))
+                          }
+                          hint="Used in the intro line, e.g. 'central East Kilbride'"
+                        />
+                        <AdminInput
+                          label="Housing mix"
+                          value={state.housingMix}
+                          onChange={(e) =>
+                            setDistrictPageState((prev) => ({
+                              ...prev,
+                              [district.slug]: { ...prev[district.slug], housingMix: e.target.value },
+                            }))
+                          }
+                          hint="Typical properties we install in"
+                        />
+                        <AdminInput
+                          label="Preferred brands (comma separated)"
+                          value={state.preferredBrands}
+                          onChange={(e) =>
+                            setDistrictPageState((prev) => ({
+                              ...prev,
+                              [district.slug]: { ...prev[district.slug], preferredBrands: e.target.value },
+                            }))
+                          }
+                          hint="2 brands from Worcester Bosch, Ideal, Vokera, Navien"
+                        />
+                        <AdminTextarea
+                          label="Local angle"
+                          rows={3}
+                          value={state.localAngle}
+                          onChange={(e) =>
+                            setDistrictPageState((prev) => ({
+                              ...prev,
+                              [district.slug]: { ...prev[district.slug], localAngle: e.target.value },
+                            }))
+                          }
+                          hint="One short paragraph that makes this page feel hyperlocal"
+                        />
+                        <AdminInput
+                          label="Typical job"
+                          value={state.typicalJob}
+                          onChange={(e) =>
+                            setDistrictPageState((prev) => ({
+                              ...prev,
+                              [district.slug]: { ...prev[district.slug], typicalJob: e.target.value },
+                            }))
+                          }
+                          hint="Drives the hyperlocal FAQ answer"
+                        />
+                      </div>
+
+                      <div className="mt-5 flex flex-wrap gap-3">
+                        <button
+                          type="button"
+                          onClick={() => notifySave(`${district.name} district page`)}
+                          className="inline-flex items-center gap-2 rounded-lg bg-mint-500 px-4 py-2 text-xs font-bold uppercase tracking-wide text-carbon-900 transition-colors hover:bg-mint-400"
+                        >
+                          <Check className="h-3.5 w-3.5" />
+                          Save changes
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="rounded-xl border border-carbon-700 bg-carbon-900 p-4">
+                      <p className="text-[10px] font-bold uppercase tracking-wider text-mint-400">
+                        Generated page-level summary
+                      </p>
+                      <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                        <Stat
+                          label="H1"
+                          value={`Boiler Replacement in ${state.name}, East Kilbride`}
+                          small
+                        />
+                        <Stat
+                          label="Meta title"
+                          value={`Boiler Replacement in ${state.name}, East Kilbride (${district.postcodeHub}) | EKBC`}
+                          small
+                        />
+                        <Stat
+                          label="Sections rendered"
+                          value="9 keyword-driven sections + intro + FAQs + silo links"
+                          small
+                        />
+                        <Stat
+                          label="Parent silo"
+                          value={`${district.postcodeHub} hub - /areas-we-serve/${district.postcodeHub.toLowerCase()}/`}
+                          small
+                        />
+                      </div>
+                    </div>
+                  </div>
+                );
+              })()}
+            </div>
+          </AdminCard>
+        </>
       )}
 
       {toastMessage && (

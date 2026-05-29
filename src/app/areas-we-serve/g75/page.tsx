@@ -1,28 +1,14 @@
 import type { Metadata } from "next";
-import { StubPageTemplate } from "@/components/templates/StubPageTemplate";
+import { PostcodeHubTemplate } from "@/components/templates/PostcodeHubTemplate";
 
 export const metadata: Metadata = {
-  title: "Boiler Installation in G75 - South & West East Kilbride",
+  title:
+    "Boiler Installation across G75, East Kilbride | EKBC - 17 Districts Covered",
   description:
-    "Fixed-price boiler installation, repair and servicing across all G75 districts of East Kilbride. Gas Safe Experts, no hidden extras.",
+    "Fixed-price boiler installation, repair and servicing across all 17 G75 districts of East Kilbride. Worcester Bosch, Ideal, Vokera and Navien fitted by Gas Safe Experts. Call 01355 204045.",
   alternates: { canonical: "/areas-we-serve/g75/" },
 };
 
 export default function G75Page() {
-  return (
-    <StubPageTemplate
-      pageName="G75 - South & West"
-      description="The full G75 hub, with each of the 17 child districts in South and West East Kilbride, lands in the next deployment. For now you can still get a fixed-price quote for any G75 postcode using the homepage form."
-      breadcrumbs={[
-        { label: "Home", href: "/" },
-        { label: "Areas We Serve", href: "/areas-we-serve/" },
-        { label: "G75", href: "/areas-we-serve/g75/" },
-      ]}
-      liveLinks={[
-        { label: "Get a G75 quote", href: "/#quote-form" },
-        { label: "G74 - North & Central", href: "/areas-we-serve/g74/" },
-        { label: "Boiler Prices", href: "/boilers/" },
-      ]}
-    />
-  );
+  return <PostcodeHubTemplate code="G75" />;
 }

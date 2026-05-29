@@ -50,6 +50,12 @@ export interface District {
   slug: string;
   postcodeHub: "G74" | "G75";
   description: string;
+  position: string;
+  housingMix: string;
+  preferredBrands: string[];
+  localAngle: string;
+  notableNearby?: string;
+  typicalJob: string;
 }
 
 export interface PostcodeHub {

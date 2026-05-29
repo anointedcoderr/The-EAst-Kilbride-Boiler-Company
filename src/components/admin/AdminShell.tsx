@@ -15,6 +15,8 @@ import {
   Network,
   Globe,
   ShieldCheck,
+  Boxes,
+  MapPinned,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -27,6 +29,8 @@ interface AdminSection {
 const sections: AdminSection[] = [
   { id: "overview", label: "Overview", icon: LayoutDashboard },
   { id: "pages", label: "Pages (Content Manager)", icon: FileText },
+  { id: "brand-pages", label: "Brand Pages", icon: Boxes },
+  { id: "district-pages", label: "District Pages", icon: MapPinned },
   { id: "silo", label: "Silo Preview", icon: Network },
   { id: "sitemap", label: "Sitemap & Crawling", icon: Globe },
   { id: "schema", label: "SEO & Schema Foundation", icon: ShieldCheck },
@@ -65,7 +69,7 @@ export function AdminShell({
               />
             </Link>
             <span className="hidden sm:inline-flex items-center rounded-full border border-mint-500/40 bg-mint-500/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-mint-400">
-              Stage 1 preview
+              Stage 2 local preview
             </span>
           </div>
 
