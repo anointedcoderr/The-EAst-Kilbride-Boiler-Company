@@ -72,7 +72,7 @@ function HowItWorks() {
 
         <div className="mt-10 sm:mt-12 text-center">
           <Link
-            href="#quote"
+            href="#quote-form"
             className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-lg bg-mint-500 px-8 py-3.5 sm:py-4 text-base sm:text-lg font-bold text-carbon-900 transition-all hover:bg-mint-400 hover:scale-105 active:scale-95 shadow-lg shadow-mint-500/20"
           >
             START MY FREE QUOTE

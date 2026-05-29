@@ -1,8 +1,22 @@
 import Link from "next/link";
-import { Calendar, Clock, ArrowLeft, ArrowRight, Phone, Tag } from "lucide-react";
+import {
+  Calendar,
+  Clock,
+  ArrowLeft,
+  ArrowRight,
+  Phone,
+  Tag,
+  Flame,
+  PoundSterling,
+  Settings,
+  Wrench,
+  BookOpen,
+} from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { BottomQuoteSection } from "@/components/sections/BottomQuoteSection";
 import { CTABanner, NeedBoilerCTA } from "@/components/sections/CTABanner";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { siteSettings } from "@/data/siteSettings";
@@ -17,6 +31,32 @@ function formatDate(iso: string) {
     month: "long",
     year: "numeric",
   });
+}
+
+function categoryIcon(category: string): LucideIcon {
+  const c = category.toLowerCase();
+  if (c.includes("pric")) return PoundSterling;
+  if (c.includes("servic")) return Settings;
+  if (c.includes("repair")) return Wrench;
+  if (c.includes("buy") || c.includes("advice")) return Flame;
+  return BookOpen;
+}
+
+function postHeroAlt(post: BlogPost): string {
+  const c = post.category.toLowerCase();
+  if (c.includes("pric")) {
+    return `${post.title} - real fitted combi boiler price guide for G74 and G75 homes`;
+  }
+  if (c.includes("servic")) {
+    return `${post.title} - annual boiler servicing guide for East Kilbride homes`;
+  }
+  if (c.includes("repair")) {
+    return `${post.title} - boiler repair or replacement advice for East Kilbride homeowners`;
+  }
+  if (c.includes("brand")) {
+    return `${post.title} - best boiler brands for East Kilbride G74 and G75 homes`;
+  }
+  return `${post.title} - boiler replacement guide for East Kilbride homes`;
 }
 
 function articleSchema(post: BlogPost) {
@@ -59,6 +99,8 @@ export function BlogPostTemplate({ post }: BlogPostTemplateProps) {
     { label: "Blogs", href: "/blogs/" },
     { label: post.title, href: `/blogs/${post.slug}/` },
   ];
+  const HeroIcon = categoryIcon(post.category);
+  const heroAlt = postHeroAlt(post);
 
   return (
     <>
@@ -89,6 +131,36 @@ export function BlogPostTemplate({ post }: BlogPostTemplateProps) {
           <p className="mt-5 text-base sm:text-lg leading-relaxed text-carbon-300">
             {post.excerpt}
           </p>
+
+          <div
+            role="img"
+            aria-label={heroAlt}
+            className="relative mt-8 h-56 overflow-hidden rounded-2xl border border-mint-500/20 bg-gradient-to-br from-carbon-700 via-carbon-800 to-carbon-900 sm:h-72"
+          >
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 opacity-40"
+              style={{
+                backgroundImage:
+                  "radial-gradient(ellipse at 30% 30%, rgba(63, 169, 245, 0.18) 0%, transparent 50%), radial-gradient(ellipse at 80% 70%, rgba(91, 254, 177, 0.18) 0%, transparent 50%), linear-gradient(rgba(91, 254, 177, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(91, 254, 177, 0.05) 1px, transparent 1px)",
+                backgroundSize: "auto, auto, 40px 40px, 40px 40px",
+              }}
+            />
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center"
+            >
+              <span className="flex h-20 w-20 items-center justify-center rounded-2xl border border-mint-500/30 bg-carbon-950/70 backdrop-blur shadow-[0_0_30px_rgba(91,254,177,0.18)]">
+                <HeroIcon className="h-9 w-9 text-mint-400" />
+              </span>
+              <p className="mt-5 text-[11px] font-bold uppercase tracking-[0.25em] text-mint-400">
+                {post.category}
+              </p>
+              <p className="mt-2 max-w-md text-sm font-semibold text-white sm:text-base">
+                {post.title}
+              </p>
+            </div>
+          </div>
 
           {post.tags.length > 0 && (
             <div className="mt-5 flex flex-wrap items-center gap-2">
@@ -160,7 +232,7 @@ export function BlogPostTemplate({ post }: BlogPostTemplateProps) {
             </p>
             <div className="mt-4 flex flex-col gap-2 sm:flex-row">
               <Link
-                href="/#quote"
+                href="#quote-form"
                 className="inline-flex min-h-[44px] items-center justify-center rounded-lg bg-mint-500 px-5 py-2.5 text-sm font-bold uppercase tracking-wider text-carbon-900 transition-all hover:bg-mint-400 hover:scale-[1.02] active:scale-95"
               >
                 Get my fixed price quote
@@ -186,6 +258,8 @@ export function BlogPostTemplate({ post }: BlogPostTemplateProps) {
           </div>
         </Container>
       </article>
+
+      <BottomQuoteSection />
 
       <CTABanner />
       <NeedBoilerCTA />

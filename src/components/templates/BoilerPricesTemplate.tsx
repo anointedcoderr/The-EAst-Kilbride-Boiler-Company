@@ -11,6 +11,7 @@ import { EeatBlock } from "@/components/sections/EeatBlock";
 import { TrustBadgesBar } from "@/components/sections/TrustBadgesBar";
 import { ReviewsCarousel } from "@/components/sections/ReviewsCarousel";
 import { ServiceAreaProof } from "@/components/sections/ServiceAreaProof";
+import { BottomQuoteSection } from "@/components/sections/BottomQuoteSection";
 import { CTABanner, NeedBoilerCTA } from "@/components/sections/CTABanner";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { faqSchema } from "@/lib/schemas";
@@ -227,6 +228,8 @@ export function BoilerPricesTemplate() {
       />
 
       <SiloLinks links={page.internalLinks} />
+
+      <BottomQuoteSection />
 
       <CTABanner />
       <NeedBoilerCTA />

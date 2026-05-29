@@ -26,7 +26,7 @@ export function PageHero({
   trustPoints,
   breadcrumbs,
   primaryCtaLabel = "Get my fixed price",
-  primaryCtaHref = "/#quote",
+  primaryCtaHref = "#quote-form",
 }: PageHeroProps) {
   const renderHeading = () => {
     if (!highlightedWord) return h1;

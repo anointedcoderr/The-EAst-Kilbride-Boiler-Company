@@ -19,7 +19,7 @@ export default function G75Page() {
         { label: "G75", href: "/areas-we-serve/g75/" },
       ]}
       liveLinks={[
-        { label: "Get a G75 quote", href: "/#quote" },
+        { label: "Get a G75 quote", href: "/#quote-form" },
         { label: "G74 - North & Central", href: "/areas-we-serve/g74/" },
         { label: "Boiler Prices", href: "/boilers/" },
       ]}

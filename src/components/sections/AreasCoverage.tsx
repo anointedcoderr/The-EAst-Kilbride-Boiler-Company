@@ -115,7 +115,7 @@ function AreasCoverage() {
             </a>{" "}
             or{" "}
             <Link
-              href="#quote"
+              href="#quote-form"
               className="font-semibold text-mint-500 underline hover:text-mint-400"
             >
               get an instant online quote

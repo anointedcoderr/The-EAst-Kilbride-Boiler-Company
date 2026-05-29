@@ -51,7 +51,7 @@ const services = [
   { label: "Boiler Repair", href: "/services/boiler-repair/" },
   { label: "Annual Boiler Service", href: "/services/boiler-servicing/" },
   { label: "Boiler Prices", href: "/boilers/" },
-  { label: "Free Quote", href: "/#quote" },
+  { label: "Free Quote", href: "/#quote-form" },
 ];
 
 const areas = [

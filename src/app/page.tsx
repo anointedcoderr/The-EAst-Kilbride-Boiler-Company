@@ -9,6 +9,7 @@ import { ReviewsCarousel } from "@/components/sections/ReviewsCarousel";
 import { AreasCoverage } from "@/components/sections/AreasCoverage";
 import { FAQSection } from "@/components/sections/FAQSection";
 import { CTABanner, NeedBoilerCTA } from "@/components/sections/CTABanner";
+import { BottomQuoteSection } from "@/components/sections/BottomQuoteSection";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { localBusinessSchema, faqSchema } from "@/lib/schemas";
 import { faqs } from "@/data/faqs";
@@ -29,6 +30,7 @@ export default function HomePage() {
       <ReviewsCarousel />
       <AreasCoverage />
       <FAQSection />
+      <BottomQuoteSection id="bottom-quote-form" />
       <CTABanner />
       <NeedBoilerCTA />
     </>

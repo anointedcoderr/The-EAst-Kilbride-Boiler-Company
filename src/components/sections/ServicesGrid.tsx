@@ -54,7 +54,7 @@ const items = [
     icon: MessageSquare,
     title: "FREE QUOTE",
     subtitle: "60 SECONDS",
-    href: "/#quote",
+    href: "/#quote-form",
   },
 ];
 

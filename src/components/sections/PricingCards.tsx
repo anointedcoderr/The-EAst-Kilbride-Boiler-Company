@@ -107,7 +107,7 @@ function PricingCards() {
 
         <p className="mt-8 text-center text-xs text-carbon-400">
           All prices include installation, parts, labour and VAT. Prices may vary by property type.{" "}
-          <Link href="/#quote" className="font-semibold text-mint-500 underline hover:text-mint-400">
+          <Link href="#quote-form" className="font-semibold text-mint-500 underline hover:text-mint-400">
             See your fixed price
           </Link>
         </p>

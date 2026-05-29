@@ -20,7 +20,7 @@ export default function StickyMobileCTA() {
           <span className="tracking-wide">{siteSettings.phone}</span>
         </a>
         <Link
-          href="/#quote"
+          href="/#quote-form"
           className="flex-1 flex items-center justify-center border border-mint-500 text-white font-bold py-3 rounded-lg text-sm min-h-[48px] hover:bg-mint-500/10 active:scale-95 transition-all"
         >
           Get Quote

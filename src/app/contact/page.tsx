@@ -18,7 +18,7 @@ export default function ContactPage() {
         { label: "Contact", href: "/contact/" },
       ]}
       liveLinks={[
-        { label: "Get a quote", href: "/#quote" },
+        { label: "Get a quote", href: "/#quote-form" },
         { label: "Boiler Prices", href: "/boilers/" },
         { label: "FAQs", href: "/faq/" },
       ]}

@@ -12,7 +12,7 @@ interface ServiceAreaProofProps {
 
 export function ServiceAreaProof({ proof }: ServiceAreaProofProps) {
   const review = reviews.find((r) => r.id === proof.reviewId) ?? reviews[0];
-  const ctaHref = proof.ctaHref ?? "/#quote";
+  const ctaHref = proof.ctaHref ?? "#quote-form";
   const ctaLabel = proof.ctaLabel ?? "Get my fixed price";
 
   return (

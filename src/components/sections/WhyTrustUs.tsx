@@ -141,7 +141,7 @@ function WhyTrustUs() {
 
               <div className="mt-8 flex flex-wrap items-center gap-4">
                 <Link
-                  href="#quote"
+                  href="#quote-form"
                   className="inline-flex items-center justify-center gap-2 rounded-lg bg-mint-500 px-8 py-4 text-lg font-bold text-carbon-900 transition-colors hover:bg-mint-400"
                 >
                   GET A FREE QUOTE

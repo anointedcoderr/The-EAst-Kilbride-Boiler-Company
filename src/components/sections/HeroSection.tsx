@@ -107,7 +107,7 @@ function HeroSection() {
                   Call Now
                 </a>
                 <Link
-                  href="#quote"
+                  href="#quote-form"
                   className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-lg border border-mint-500 bg-carbon-900/40 px-6 py-3 text-base font-semibold text-mint-500 transition-all hover:bg-mint-500/10 hover:scale-[1.02] active:scale-95"
                 >
                   Get Quote
@@ -132,7 +132,7 @@ function HeroSection() {
 
           <ScrollReveal direction="right" delay={0.3}>
             <div className="flex items-start justify-center lg:justify-end">
-              <div id="quote" className="w-full max-w-md">
+              <div id="quote-form" className="w-full max-w-md scroll-mt-32">
                 <QuoteForm />
               </div>
             </div>

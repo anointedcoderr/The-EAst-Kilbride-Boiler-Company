@@ -1,10 +1,22 @@
 import Link from "next/link";
-import { Calendar, Clock, ArrowRight, Tag } from "lucide-react";
+import {
+  Calendar,
+  Clock,
+  ArrowRight,
+  Tag,
+  Flame,
+  PoundSterling,
+  Settings,
+  Wrench,
+  BookOpen,
+} from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { PageHero } from "./PageHero";
 import { Container } from "@/components/ui/Container";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { LocalFAQSection } from "@/components/sections/LocalFAQSection";
 import { SiloLinks } from "@/components/sections/SiloLinks";
+import { BottomQuoteSection } from "@/components/sections/BottomQuoteSection";
 import { CTABanner, NeedBoilerCTA } from "@/components/sections/CTABanner";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { faqSchema } from "@/lib/schemas";
@@ -20,6 +32,19 @@ function formatDate(iso: string) {
     month: "long",
     year: "numeric",
   });
+}
+
+function categoryIcon(category: string): LucideIcon {
+  const c = category.toLowerCase();
+  if (c.includes("pric")) return PoundSterling;
+  if (c.includes("servic")) return Settings;
+  if (c.includes("repair")) return Wrench;
+  if (c.includes("buy") || c.includes("advice")) return Flame;
+  return BookOpen;
+}
+
+function postAltText(post: { title: string; category: string }): string {
+  return `${post.title} - ${post.category} guide for East Kilbride homes by The East Kilbride Boiler Company`;
 }
 
 function collectionPageSchema() {
@@ -112,22 +137,40 @@ export function BlogTemplate() {
                     className="block"
                     aria-label={post.title}
                   >
-                    <div
-                      aria-hidden="true"
-                      className="relative h-44 overflow-hidden bg-gradient-to-br from-carbon-700 via-carbon-800 to-carbon-900"
-                    >
-                      <div
-                        className="absolute inset-0 opacity-40"
-                        style={{
-                          backgroundImage:
-                            "radial-gradient(ellipse at 30% 30%, rgba(91, 254, 177, 0.18) 0%, transparent 50%), linear-gradient(rgba(91, 254, 177, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(91, 254, 177, 0.05) 1px, transparent 1px)",
-                          backgroundSize: "auto, 32px 32px, 32px 32px",
-                        }}
-                      />
-                      <div className="absolute left-4 top-4 inline-flex items-center rounded-full border border-mint-500/40 bg-carbon-900/70 backdrop-blur px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-mint-400">
-                        {post.category}
-                      </div>
-                    </div>
+                    {(() => {
+                      const Icon = categoryIcon(post.category);
+                      return (
+                        <div
+                          role="img"
+                          aria-label={postAltText(post)}
+                          className="relative h-44 overflow-hidden bg-gradient-to-br from-carbon-700 via-carbon-800 to-carbon-900"
+                        >
+                          <div
+                            aria-hidden="true"
+                            className="absolute inset-0 opacity-40"
+                            style={{
+                              backgroundImage:
+                                "radial-gradient(ellipse at 30% 30%, rgba(91, 254, 177, 0.18) 0%, transparent 50%), linear-gradient(rgba(91, 254, 177, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(91, 254, 177, 0.05) 1px, transparent 1px)",
+                              backgroundSize: "auto, 32px 32px, 32px 32px",
+                            }}
+                          />
+                          <div
+                            aria-hidden="true"
+                            className="absolute inset-0 flex items-center justify-center"
+                          >
+                            <span className="flex h-16 w-16 items-center justify-center rounded-2xl border border-mint-500/30 bg-carbon-950/70 backdrop-blur shadow-[0_0_22px_rgba(91,254,177,0.18)]">
+                              <Icon className="h-7 w-7 text-mint-400" />
+                            </span>
+                          </div>
+                          <div
+                            aria-hidden="true"
+                            className="absolute left-4 top-4 inline-flex items-center rounded-full border border-mint-500/40 bg-carbon-900/70 backdrop-blur px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-mint-400"
+                          >
+                            {post.category}
+                          </div>
+                        </div>
+                      );
+                    })()}
                   </Link>
 
                   <div className="flex flex-1 flex-col p-6">
@@ -187,6 +230,8 @@ export function BlogTemplate() {
         intro="Every guide is linked into the rest of the site. Jump back to a service, see prices, or check your postcode."
         links={page.internalLinks}
       />
+
+      <BottomQuoteSection />
 
       <CTABanner />
       <NeedBoilerCTA />

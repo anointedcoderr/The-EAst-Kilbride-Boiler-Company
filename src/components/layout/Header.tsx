@@ -167,7 +167,7 @@ export default function Header() {
                   </span>
                 </a>
                 <Link
-                  href="/#quote"
+                  href="/#quote-form"
                   className="bg-mint-500 text-carbon-900 font-bold px-5 py-2.5 rounded-full text-xs uppercase tracking-wide hover:bg-mint-400 hover:scale-105 active:scale-95 transition-all duration-200 shadow-lg shadow-mint-500/30"
                 >
                   Get Quote

@@ -62,7 +62,7 @@ export default function NotFound() {
           <p className="mt-10 text-sm text-carbon-400">
             Need a quote right now? Use the form on the{" "}
             <Link
-              href="/#quote"
+              href="/#quote-form"
               className="font-semibold text-mint-500 underline hover:text-mint-400"
             >
               homepage

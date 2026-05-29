@@ -91,7 +91,7 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
             {siteSettings.phone}
           </a>
           <Link
-            href="/#quote"
+            href="/#quote-form"
             onClick={onClose}
             className="block w-full text-center bg-mint-500 text-carbon-900 font-bold py-3.5 rounded-lg text-base uppercase tracking-wide hover:bg-mint-400 transition-colors shadow-lg shadow-mint-500/20"
           >

@@ -35,7 +35,7 @@ function CTABanner() {
                 CALL {siteSettings.phone}
               </a>
               <Link
-                href="#quote"
+                href="#quote-form"
                 className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-lg border border-mint-500 px-6 py-3 font-semibold text-mint-500 transition-all hover:bg-mint-500/10 hover:scale-105 active:scale-95"
               >
                 Get my fixed price
@@ -98,7 +98,7 @@ function NeedBoilerCTA() {
               {siteSettings.phone}
             </a>
             <Link
-              href="#quote"
+              href="#quote-form"
               className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-lg border border-carbon-900 px-5 py-3 font-semibold text-carbon-900 transition-all hover:bg-carbon-900/10 hover:scale-[1.02] active:scale-95"
             >
               Get Quote
