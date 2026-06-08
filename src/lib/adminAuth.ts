@@ -1,6 +1,11 @@
-import crypto from "node:crypto";
-
 // HMAC-signed session cookie for the EKBC admin area.
+//
+// Uses the Web Crypto API (globalThis.crypto.subtle) instead of
+// node:crypto so this module loads cleanly on both the Node runtime
+// AND the Edge runtime - some Next.js adapters (including the one
+// Hostinger ships) treat proxy.ts as edge code regardless of the
+// Next.js docs saying it defaults to Node, and a node:crypto import
+// crashes the process at boot in that case.
 //
 // Secret is read at runtime from ADMIN_SESSION_SECRET, falling back to
 // ADMIN_PASS so an existing deploy keeps working without adding another
@@ -24,23 +29,59 @@ function getSecret(): string | null {
   return secret || null;
 }
 
-function b64url(input: Buffer | string): string {
-  const buf = typeof input === "string" ? Buffer.from(input) : input;
-  return buf
-    .toString("base64")
+const encoder = new TextEncoder();
+
+function bytesToBase64Url(bytes: Uint8Array): string {
+  // Build a binary string from the byte array, then base64-encode and
+  // convert to URL-safe form. btoa is available in both Node 18+ and
+  // Edge runtimes.
+  let binary = "";
+  for (let i = 0; i < bytes.length; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return btoa(binary)
     .replace(/=+$/, "")
     .replace(/\+/g, "-")
     .replace(/\//g, "_");
 }
 
-function b64urlDecode(input: string): Buffer {
-  let s = input.replace(/-/g, "+").replace(/_/g, "/");
-  while (s.length % 4) s += "=";
-  return Buffer.from(s, "base64");
+function stringToBase64Url(input: string): string {
+  return bytesToBase64Url(encoder.encode(input));
 }
 
-function hmac(secret: string, data: string): string {
-  return b64url(crypto.createHmac("sha256", secret).update(data).digest());
+function base64UrlToBytes(input: string): Uint8Array {
+  let s = input.replace(/-/g, "+").replace(/_/g, "/");
+  while (s.length % 4) s += "=";
+  const binary = atob(s);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) {
+    bytes[i] = binary.charCodeAt(i);
+  }
+  return bytes;
+}
+
+function base64UrlToString(input: string): string {
+  return new TextDecoder().decode(base64UrlToBytes(input));
+}
+
+async function importHmacKey(secret: string): Promise<CryptoKey> {
+  return await globalThis.crypto.subtle.importKey(
+    "raw",
+    encoder.encode(secret),
+    { name: "HMAC", hash: "SHA-256" },
+    false,
+    ["sign"]
+  );
+}
+
+async function hmacSign(secret: string, data: string): Promise<string> {
+  const key = await importHmacKey(secret);
+  const signature = await globalThis.crypto.subtle.sign(
+    "HMAC",
+    key,
+    encoder.encode(data)
+  );
+  return bytesToBase64Url(new Uint8Array(signature));
 }
 
 function safeEqual(a: string, b: string): boolean {
@@ -50,28 +91,35 @@ function safeEqual(a: string, b: string): boolean {
   return diff === 0;
 }
 
-export function signSession(user: string): string | null {
+export async function signSession(user: string): Promise<string | null> {
   const secret = getSecret();
   if (!secret) return null;
   const payload: SessionPayload = {
     user,
     exp: Math.floor(Date.now() / 1000) + ADMIN_SESSION_TTL_SECONDS,
   };
-  const body = b64url(JSON.stringify(payload));
-  const sig = hmac(secret, body);
+  const body = stringToBase64Url(JSON.stringify(payload));
+  const sig = await hmacSign(secret, body);
   return `${body}.${sig}`;
 }
 
-export function verifySession(token: string): SessionPayload | null {
+export async function verifySession(
+  token: string
+): Promise<SessionPayload | null> {
   const secret = getSecret();
   if (!secret) return null;
   const parts = token.split(".");
   if (parts.length !== 2) return null;
   const [body, sig] = parts;
-  const expected = hmac(secret, body);
+  let expected: string;
+  try {
+    expected = await hmacSign(secret, body);
+  } catch {
+    return null;
+  }
   if (!safeEqual(sig, expected)) return null;
   try {
-    const decoded = b64urlDecode(body).toString("utf8");
+    const decoded = base64UrlToString(body);
     const payload = JSON.parse(decoded) as SessionPayload;
     if (typeof payload.exp !== "number") return null;
     if (payload.exp < Math.floor(Date.now() / 1000)) return null;
@@ -89,7 +137,10 @@ export function checkAdminCredentials(
   const expectedUser = process.env.ADMIN_USER?.trim() ?? "";
   const expectedPass = process.env.ADMIN_PASS ?? "";
   if (!expectedUser || !expectedPass) return false;
-  const userOk = safeEqual(email.trim().toLowerCase(), expectedUser.toLowerCase());
+  const userOk = safeEqual(
+    email.trim().toLowerCase(),
+    expectedUser.toLowerCase()
+  );
   const passOk = safeEqual(password, expectedPass);
   return userOk && passOk;
 }

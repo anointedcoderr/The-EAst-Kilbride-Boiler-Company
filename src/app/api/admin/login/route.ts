@@ -54,7 +54,7 @@ export async function POST(request: Request) {
     return res;
   }
 
-  const token = signSession(email);
+  const token = await signSession(email);
   if (!token) {
     return NextResponse.json(
       {
