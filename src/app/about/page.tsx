@@ -9,6 +9,7 @@ import {
   Award,
   Clock,
   Star,
+  ArrowRight,
 } from "lucide-react";
 import { PageHero } from "@/components/templates/PageHero";
 import { Container } from "@/components/ui/Container";
@@ -291,48 +292,58 @@ export default function AboutPage() {
         <Container>
           <div className="grid gap-6 lg:grid-cols-3">
             <ScrollReveal>
-              <article className="hover-card h-full rounded-2xl border border-carbon-700 bg-carbon-950 p-6">
-                <h3 className="text-lg font-bold text-white">
+              <Link
+                href="/services/new-boiler-installation/"
+                className="hover-card group flex h-full flex-col rounded-2xl border border-carbon-700 bg-carbon-950 p-6 transition-colors hover:border-mint-500/50"
+                aria-label="Read more about new boiler installation"
+              >
+                <h3 className="text-lg font-bold text-white group-hover:text-mint-400 transition-colors">
                   New boiler installation
                 </h3>
-                <p className="mt-3 text-sm leading-relaxed text-carbon-300">
+                <p className="mt-3 flex-1 text-sm leading-relaxed text-carbon-300">
                   Fixed-price from £1,299. Worcester Bosch, Ideal, Vokera and Navien fitted by our pool of self-employed Gas Safe Experts. Free wireless thermostat and full system flush included as standard.
                 </p>
-                <Link
-                  href="/services/new-boiler-installation/"
-                  className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-mint-500 hover:text-mint-400"
-                >
+                <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-mint-500 group-hover:text-mint-400">
                   Installation page
-                </Link>
-              </article>
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </span>
+              </Link>
             </ScrollReveal>
             <ScrollReveal>
-              <article className="hover-card h-full rounded-2xl border border-carbon-700 bg-carbon-950 p-6">
-                <h3 className="text-lg font-bold text-white">Boiler repair</h3>
-                <p className="mt-3 text-sm leading-relaxed text-carbon-300">
+              <Link
+                href="/services/boiler-repair/"
+                className="hover-card group flex h-full flex-col rounded-2xl border border-carbon-700 bg-carbon-950 p-6 transition-colors hover:border-mint-500/50"
+                aria-label="Read more about boiler repair"
+              >
+                <h3 className="text-lg font-bold text-white group-hover:text-mint-400 transition-colors">
+                  Boiler repair
+                </h3>
+                <p className="mt-3 flex-1 text-sm leading-relaxed text-carbon-300">
                   Same-day call-out across G74 and G75. Common spares carried on the van. Klarna 3-month interest-free is available exclusively on repair call-outs.
                 </p>
-                <Link
-                  href="/services/boiler-repair/"
-                  className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-mint-500 hover:text-mint-400"
-                >
+                <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-mint-500 group-hover:text-mint-400">
                   Repair page
-                </Link>
-              </article>
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </span>
+              </Link>
             </ScrollReveal>
             <ScrollReveal>
-              <article className="hover-card h-full rounded-2xl border border-carbon-700 bg-carbon-950 p-6">
-                <h3 className="text-lg font-bold text-white">Annual servicing</h3>
-                <p className="mt-3 text-sm leading-relaxed text-carbon-300">
+              <Link
+                href="/services/boiler-servicing/"
+                className="hover-card group flex h-full flex-col rounded-2xl border border-carbon-700 bg-carbon-950 p-6 transition-colors hover:border-mint-500/50"
+                aria-label="Read more about annual boiler servicing"
+              >
+                <h3 className="text-lg font-bold text-white group-hover:text-mint-400 transition-colors">
+                  Annual servicing
+                </h3>
+                <p className="mt-3 flex-1 text-sm leading-relaxed text-carbon-300">
                   Annual gas safety check, flue gas analysis, pressure check and warranty-friendly service logged on the day. Klarna 3-month interest-free available on servicing.
                 </p>
-                <Link
-                  href="/services/boiler-servicing/"
-                  className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-mint-500 hover:text-mint-400"
-                >
+                <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-mint-500 group-hover:text-mint-400">
                   Servicing page
-                </Link>
-              </article>
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </span>
+              </Link>
             </ScrollReveal>
           </div>
         </Container>
