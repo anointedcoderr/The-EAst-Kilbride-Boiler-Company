@@ -20,9 +20,9 @@ import type { PageInternalLink } from "@/data/pageContent";
 
 export const metadata: Metadata = {
   title:
-    "Contact The East Kilbride Boiler Company | Call 01355 204045 - Gas Safe Experts",
+    "Contact The East Kilbride Boiler Company | Call 01355 204045 - Gas Safe engineers",
   description:
-    "Contact The East Kilbride Boiler Company. Call 01355 204045 or get a 60-second fixed-price quote online. Local Gas Safe Experts serving all 35 G74 and G75 districts.",
+    "Contact The East Kilbride Boiler Company. Call 01355 204045 or get a 60-second fixed-price quote online. Local Gas Safe engineers serving all 35 G74 and G75 districts.",
   alternates: { canonical: "/contact/" },
 };
 
@@ -35,7 +35,7 @@ const contactFaqs = [
   {
     question: "What is the quickest way to get a quote?",
     answer:
-      "The online quote form takes about 60 seconds and shows you the next available installation slot. If you would prefer to speak to a Gas Safe Expert, call 01355 204045 and we can usually give you an indicative fixed price on the phone the same day.",
+      "The online quote form takes about 60 seconds and shows you the next available installation slot. If you would prefer to speak to a Gas Safe registered engineer, call 01355 204045 and we can usually give you an indicative fixed price on the phone the same day.",
   },
   {
     question: "What are your opening hours?",
@@ -52,9 +52,9 @@ const contactFaqs = [
     answer: `Our address is ${siteSettings.address.street}, ${siteSettings.address.city}, ${siteSettings.address.postcode}. Visits are by appointment only - the team is usually out on installations during the day.`,
   },
   {
-    question: "Can I verify your Gas Safe registration before booking?",
+    question: "Can I verify the engineer's Gas Safe registration before booking?",
     answer:
-      "Yes. We always recommend verifying any Gas Safe registered engineer before they start work. Our registration can be checked directly at gassaferegister.co.uk.",
+      "Yes. We always recommend verifying any Gas Safe registered engineer before they start work. Each engineer's Gas Safe registration can be checked directly at gassaferegister.co.uk.",
   },
 ];
 
@@ -109,11 +109,11 @@ export default function ContactPage() {
         eyebrow="Contact EKBC"
         h1="Contact The East Kilbride Boiler Company"
         highlightedWord="Contact"
-        subtitle="01355 204045 - Gas Safe Experts, no middle man"
-        description="Call us, email us, or use the 60-second quote form below. The same Gas Safe Experts cover every G74 and G75 postcode across East Kilbride, with no extra travel charge for any district."
+        subtitle="01355 204045 - Gas Safe engineers, no middle man"
+        description="Call us, email us, or use the 60-second quote form below. The same Gas Safe engineers cover every G74 and G75 postcode across East Kilbride, with no extra travel charge for any district."
         trustPoints={[
           "01355 204045",
-          "Gas Safe Experts",
+          "Gas Safe engineers",
           "Local to East Kilbride",
           "60-second quote form",
         ]}
@@ -232,7 +232,7 @@ export default function ContactPage() {
                           Gas Safe Register
                         </p>
                         <p className="mt-1 text-xs leading-relaxed text-carbon-300">
-                          Check our registration before any gas work.
+                          Check each engineer's Gas Safe registration before any gas work.
                         </p>
                       </div>
                     </div>

@@ -26,14 +26,14 @@ const sections = [
     id: "who-we-are",
     heading: "About us",
     body: [
-      `${siteSettings.businessName} is a local boiler installation, repair and servicing company based at ${siteSettings.address.street}, ${siteSettings.address.city}, ${siteSettings.address.postcode}. We are Gas Safe registered. Our registration can be verified directly at gassaferegister.co.uk before any work begins.`,
+      `${siteSettings.businessName} is a local boiler installation, repair and servicing company based at ${siteSettings.address.street}, ${siteSettings.address.city}, ${siteSettings.address.postcode}. The Gas Safe engineers we work with each hold their own Gas Safe registration and public liability insurance. Each engineer's registration can be verified directly at gassaferegister.co.uk before any work begins.`,
     ],
   },
   {
     id: "quotes",
     heading: "Quotes",
     body: [
-      "Quotes shown on the website and given on the phone are indicative until we have completed a free home survey of the property. After the survey we issue a single fixed-price quote which is the figure you pay for the work described.",
+      "Quotes shown on the website and given on the phone are indicative until we have reviewed the photos and details you send us. After we review your photos and details we issue a single fixed-price quote which is the figure you pay for the work described.",
       "The figure on the quote includes the boiler, parts, labour, VAT, a free wireless thermostat, a full system flush, standard pipework and flue, and removal of the old boiler. Anything outside that scope is itemised separately before any work goes ahead.",
     ],
   },

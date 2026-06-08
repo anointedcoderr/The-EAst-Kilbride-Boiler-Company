@@ -6,7 +6,7 @@ import { siteSettings } from "@/data/siteSettings";
 
 const trustPoints = [
   "FIXED PRICE",
-  "GAS SAFE EXPERTS",
+  "GAS SAFE ENGINEERS",
   "12-YR WARRANTY",
   "UNBEATABLE BOILER DEALS",
 ];
@@ -75,7 +75,7 @@ function NeedBoilerCTA() {
             <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2">
               {[
                 "From £1,299 fitted",
-                "Gas Safe Experts",
+                "Gas Safe engineers",
                 "12-yr warranty",
                 "Unbeatable Boiler Deals",
               ].map((item) => (

@@ -56,6 +56,11 @@ export interface District {
   localAngle: string;
   notableNearby?: string;
   typicalJob: string;
+  // When true, the postcodeHub above is our best guess and is awaiting
+  // confirmation from the client's verified district spreadsheet. Templates
+  // soft-pedal postcode wording on these pages to avoid asserting an
+  // unverified postcode in public copy.
+  needsReview?: boolean;
 }
 
 export interface PostcodeHub {

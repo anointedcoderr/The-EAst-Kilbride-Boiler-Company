@@ -13,7 +13,7 @@ interface EeatBlockProps {
 export function EeatBlock({
   eyebrow = "Local experience you can verify",
   heading = "Why East Kilbride homeowners trust EKBC",
-  description = "We are a real East Kilbride boiler company, registered, insured and signed off by our own Gas Safe Experts. No call centre, no overseas lead farms, no fake reviews.",
+  description = "We are a real local East Kilbride boiler company that works with experienced self-employed Gas Safe engineers, each carrying their own Gas Safe registration and public liability insurance. No call centre, no overseas lead farms, no fake reviews.",
 }: EeatBlockProps) {
   const cards = [
     {
@@ -23,10 +23,10 @@ export function EeatBlock({
     },
     {
       icon: ShieldCheck,
-      title: "Gas Safe Experts",
+      title: "Gas Safe engineers",
       body: (
         <>
-          Every install, repair and service is signed off by our own Gas Safe registered engineers. Verify any UK Gas Safe registration at{" "}
+          Every install, repair and service is signed off by the self-employed Gas Safe registered engineers we work with. Verify any UK Gas Safe registration at{" "}
           <a
             href="https://www.gassaferegister.co.uk"
             target="_blank"
@@ -56,7 +56,7 @@ export function EeatBlock({
           >
             {siteSettings.phone}
           </a>{" "}
-          and speak to a Gas Safe Expert, not a sales script.
+          and speak to a Gas Safe registered engineer, not a sales script.
         </>
       ),
     },
@@ -103,7 +103,7 @@ export function EeatBlock({
 
         <div className="mt-8 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-mint-500/30 bg-carbon-900 px-5 py-4">
           <p className="text-sm text-carbon-200">
-            Need to verify our Gas Safe status?
+            Need to verify a Gas Safe registered engineer?
           </p>
           <Link
             href="https://www.gassaferegister.co.uk"

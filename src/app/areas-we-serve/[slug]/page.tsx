@@ -21,7 +21,7 @@ export async function generateMetadata({
   if (!district) return {};
 
   const metaTitle = `Boiler Replacement in ${district.name}, East Kilbride (${district.postcodeHub}) | EKBC`;
-  const metaDescription = `Fixed-price boiler installations, repairs and annual servicing in ${district.name} (${district.postcodeHub}), East Kilbride. Worcester Bosch, Ideal, Vokera and Navien fitted by Gas Safe Experts. Call 01355 204045.`;
+  const metaDescription = `Fixed-price boiler installations, repairs and annual servicing in ${district.name} (${district.postcodeHub}), East Kilbride. Worcester Bosch, Ideal, Vokera and Navien fitted by Gas Safe engineers. Call 01355 204045.`;
 
   return {
     title: metaTitle,

@@ -16,7 +16,7 @@ export const faqs: FAQ[] = [
   {
     question: "How do I know if I need a boiler replacement in East Kilbride?",
     answer:
-      "Common signs include frequent breakdowns, rising energy bills, uneven heating, strange noises from the boiler, and the boiler being over 10-15 years old. If you are unsure, our Gas Safe Experts can assess your boiler and advise whether a repair or replacement is the best option.",
+      "Common signs include frequent breakdowns, rising energy bills, uneven heating, strange noises from the boiler, and the boiler being over 10-15 years old. If you are unsure, the Gas Safe engineers we work with can assess your boiler and advise whether a repair or replacement is the best option.",
     pageTypes: ["homepage", "installation", "repair"],
   },
   {
@@ -32,9 +32,9 @@ export const faqs: FAQ[] = [
     pageTypes: ["homepage", "pricing", "repair", "servicing"],
   },
   {
-    question: "Are your engineers Gas Safe registered?",
+    question: "Are the engineers Gas Safe registered?",
     answer:
-      "Yes. All our engineers are fully qualified Gas Safe Experts with 20+ years experience and full public liability insurance. Your safety is always our top priority.",
+      "Yes. All the engineers we work with are fully qualified Gas Safe registered engineers with 20+ years experience and full public liability insurance. Your safety is always our top priority.",
     pageTypes: ["homepage", "installation", "repair", "servicing"],
   },
   {

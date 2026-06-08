@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     template: "%s | East Kilbride Boiler Company",
   },
   description:
-    "East Kilbride's #1 boiler replacement company. Fixed-price installations across 35 EK areas. Gas Safe Experts, up to 12-year warranties. Call 01355 204045.",
+    "East Kilbride's #1 boiler replacement company. Fixed-price installations across 35 EK areas. Gas Safe engineers, up to 12-year warranties. Call 01355 204045.",
 };
 
 export default function RootLayout({

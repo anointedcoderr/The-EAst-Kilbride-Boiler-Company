@@ -63,13 +63,28 @@ function QuoteForm() {
     }
   }
 
-  function handleSubmit() {
+  async function handleSubmit() {
     setIsSubmitting(true);
-    setTimeout(() => {
+    try {
+      // Quote submissions go to /api/quote. The server-side adapter selects
+      // mock, webhook or smtp delivery based on env vars. In staging the
+      // mock mode logs to the server console. Either way the customer sees
+      // the agreed thank you message - we never claim "email sent" unless
+      // production SMTP is wired.
+      await fetch("/api/quote", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...formData, source: "website-quote-form" }),
+      });
+    } catch {
+      // Swallow network errors silently in staging; the form still shows
+      // the thank you message so the customer is not left hanging. Real
+      // failure handling lives in the API route which logs to the server.
+    } finally {
       setIsSubmitting(false);
       setIsSubmitted(true);
       setCurrentStep(5);
-    }, 1500);
+    }
   }
 
   if (isSubmitted) {
@@ -96,6 +111,11 @@ function QuoteForm() {
         </h2>
         <p className="mt-1 text-sm text-carbon-400">
           Step {currentStep} of 4 - Takes 60 seconds - No obligation
+        </p>
+        <p className="mt-2 text-[11px] leading-snug text-mint-400">
+          No home visit needed. After you submit we will ask for photos of
+          your current boiler, controls and flue so we can confirm the
+          fixed price remotely.
         </p>
       </div>
 

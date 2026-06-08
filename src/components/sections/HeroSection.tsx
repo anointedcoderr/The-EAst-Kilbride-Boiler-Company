@@ -8,7 +8,7 @@ import { siteSettings } from "@/data/siteSettings";
 
 const trustPoints = [
   "FIXED PRICE",
-  "GAS SAFE EXPERTS",
+  "GAS SAFE ENGINEERS",
   "12-YR WARRANTY",
   "UNBEATABLE BOILER DEALS",
 ];

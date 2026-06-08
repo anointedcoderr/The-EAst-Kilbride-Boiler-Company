@@ -86,7 +86,7 @@ export default function Footer() {
               />
               <span className="text-xs uppercase tracking-wider text-carbon-300 leading-tight">
                 Verify our<br />
-                <span className="font-bold text-mint-400">Gas Safe Experts</span>
+                <span className="font-bold text-mint-400">Gas Safe engineers</span>
               </span>
             </a>
 
@@ -228,7 +228,7 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-carbon-400">
             <p>
-              2026 The East Kilbride Boiler Company - East Kilbride&apos;s Gas Safe Experts - EST.2017
+              2026 The East Kilbride Boiler Company - East Kilbride&apos;s Gas Safe engineers - EST.2017
             </p>
             <div className="flex items-center gap-4">
               <Link href="/privacy/" className="hover:text-mint-500 transition-colors">

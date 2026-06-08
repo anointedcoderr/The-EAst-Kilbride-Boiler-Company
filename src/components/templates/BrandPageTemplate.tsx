@@ -36,7 +36,7 @@ const brandCopy: Record<string, BrandCopy> = {
     localAngle:
       "Worcester Bosch is our most-fitted premium combi across G74 and the most-requested brand on the streets of central East Kilbride. Most installations are like-for-like swaps, with same-week fitting dates the norm.",
     warrantyHook:
-      "Worcester Bosch comes with a 5-year warranty as standard. Service the boiler annually with our Gas Safe Experts and the warranty stays valid for the full term.",
+      "Worcester Bosch comes with a 5-year warranty as standard. Service the boiler annually with the Gas Safe engineers we work with and the warranty stays valid for the full term.",
   },
   ideal: {
     positioning:
@@ -66,7 +66,7 @@ const brandCopy: Record<string, BrandCopy> = {
     localAngle:
       "Navien is our most-fitted boiler in Thorntonhall, Stewartfield and Crutherland, where the typical home has two or more bathrooms. The 10-year warranty is the longest on the market by a clear margin.",
     warrantyHook:
-      "Navien comes with a 10-year manufacturer warranty as standard. Service the boiler annually with our Gas Safe Experts and the warranty stays valid for the full 10 years.",
+      "Navien comes with a 10-year manufacturer warranty as standard. Service the boiler annually with the Gas Safe engineers we work with and the warranty stays valid for the full 10 years.",
   },
 };
 
@@ -107,7 +107,7 @@ function buildBrandFAQs(brand: Brand): Array<{ question: string; answer: string 
     },
     {
       question: `Do you fit ${brand.name} across G74 and G75?`,
-      answer: `Yes. ${brand.name} is fitted across every G74 and G75 district in East Kilbride by our Gas Safe Experts. There is no extra travel charge for any East Kilbride postcode.`,
+      answer: `Yes. ${brand.name} is fitted across every G74 and G75 district in East Kilbride by the Gas Safe engineers we work with. There is no extra travel charge for any East Kilbride postcode.`,
     },
     {
       question: `Can I get a fixed price for a ${brand.name} installation?`,
@@ -172,7 +172,7 @@ export function BrandPageTemplate({ brand }: BrandPageTemplateProps) {
         eyebrow={`${brand.name} Combi - ${brand.tag}`}
         h1={brand.h1}
         highlightedWord={formatPrice(brand.standardPrice)}
-        subtitle={`Fitted by Gas Safe Experts across all 35 East Kilbride districts`}
+        subtitle={`Fitted by Gas Safe engineers across all 35 East Kilbride districts`}
         description={copy.positioning}
         trustPoints={[
           `From ${formatPrice(brand.standardPrice)} fitted`,
@@ -235,7 +235,7 @@ export function BrandPageTemplate({ brand }: BrandPageTemplateProps) {
                   <li className="flex items-start gap-2.5 rounded-xl border border-carbon-700 bg-carbon-950 p-3">
                     <Check className="mt-0.5 h-4 w-4 shrink-0 text-mint-500" />
                     <span className="text-sm text-carbon-200">
-                      Fitted by Gas Safe Experts
+                      Fitted by Gas Safe engineers
                     </span>
                   </li>
                   <li className="flex items-start gap-2.5 rounded-xl border border-carbon-700 bg-carbon-950 p-3">
@@ -378,7 +378,7 @@ export function BrandPageTemplate({ brand }: BrandPageTemplateProps) {
 
       <BottomQuoteSection
         heading={`Get Your ${brand.name} Fixed Price`}
-        intro={`No obligation. No hidden extras. ${brand.name} fitted by our Gas Safe Experts across all 35 East Kilbride districts.`}
+        intro={`No obligation. No hidden extras. ${brand.name} fitted by the Gas Safe engineers we work with across all 35 East Kilbride districts.`}
       />
 
       <CTABanner />

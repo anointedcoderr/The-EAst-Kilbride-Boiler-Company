@@ -6,7 +6,7 @@ import { siteSettings } from "@/data/siteSettings";
 
 const trustPoints = [
   "Fixed price, no hidden extras",
-  "Gas Safe Experts",
+  "Gas Safe engineers",
   "Up to 12-year warranty",
   "Free wireless thermostat",
   "Full system flush",
@@ -22,7 +22,7 @@ interface BottomQuoteSectionProps {
 export function BottomQuoteSection({
   id = "quote-form",
   heading = "Get Your Fixed Price Quote",
-  intro = "No obligation. No hidden extras. Fitted by our Gas Safe Experts across all 35 East Kilbride districts.",
+  intro = "No obligation. No hidden extras. Fitted by the Gas Safe engineers we work with across all 35 East Kilbride districts.",
 }: BottomQuoteSectionProps) {
   return (
     <section

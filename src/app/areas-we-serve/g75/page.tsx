@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title:
     "Boiler Installation across G75, East Kilbride | EKBC - 17 Districts Covered",
   description:
-    "Fixed-price boiler installation, repair and servicing across all 17 G75 districts of East Kilbride. Worcester Bosch, Ideal, Vokera and Navien fitted by Gas Safe Experts. Call 01355 204045.",
+    "Fixed-price boiler installation, repair and servicing across all 18 G75 districts of East Kilbride. Worcester Bosch, Ideal, Vokera and Navien fitted by Gas Safe engineers. Call 01355 204045.",
   alternates: { canonical: "/areas-we-serve/g75/" },
 };
 

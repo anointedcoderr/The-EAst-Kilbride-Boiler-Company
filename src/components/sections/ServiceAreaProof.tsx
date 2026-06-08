@@ -101,7 +101,7 @@ export function ServiceAreaProof({ proof }: ServiceAreaProofProps) {
                   <Phone className="h-5 w-5 shrink-0 text-mint-500" />
                   <div>
                     <p className="text-[10px] uppercase tracking-wide text-carbon-400">
-                      Gas Safe Experts
+                      Gas Safe engineers
                     </p>
                     <p className="text-base font-extrabold text-white">
                       {siteSettings.phone}

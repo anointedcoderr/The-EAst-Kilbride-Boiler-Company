@@ -10,7 +10,7 @@ export const blogPosts: BlogPost[] = [
     metaTitle:
       "Signs You Need a New Boiler in East Kilbride | EKBC Heating Guide",
     metaDescription:
-      "Five warning signs your boiler is on the way out, written by EKBC Gas Safe Experts for homeowners across G74 and G75. Fixed price replacement from £1,299.",
+      "Five warning signs your boiler is on the way out, written by EKBC Gas Safe engineers for homeowners across G74 and G75. Fixed price replacement from £1,299.",
     date: "2026-05-12",
     readMinutes: 4,
     category: "Buying advice",
@@ -22,7 +22,7 @@ export const blogPosts: BlogPost[] = [
       "Sign three: knocking, banging or whistling. Strange noises usually mean the heat exchanger or pump is on the way out. A new noise that was not there a year ago is worth a Gas Safe check.",
       "Sign four: water pressure keeps dropping. Constantly topping up a combi is a sign of a leak inside the unit or in the system itself. Topping up more than twice a month is a flag.",
       "Sign five: the engineer keeps coming back. If you have called out three or four times in 18 months, the repair bills will outstrip the cost of a new boiler inside two winters.",
-      "Worried any of these apply to your home? Get an online fixed-price quote in 60 seconds, or call our Gas Safe Experts on 01355 204045 for an honest answer.",
+      "Worried any of these apply to your home? Get an online fixed-price quote in 60 seconds, or call the Gas Safe engineers we work with on 01355 204045 for an honest answer.",
     ],
     internalLinks: [
       {
@@ -44,7 +44,7 @@ export const blogPosts: BlogPost[] = [
     metaTitle:
       "Combi Boiler Cost in East Kilbride | EKBC - Real Fitted Prices",
     metaDescription:
-      "Real fitted combi boiler prices for East Kilbride homes. Worcester Bosch, Ideal, Vokera and Navien compared by EKBC Gas Safe Experts. From £1,299.",
+      "Real fitted combi boiler prices for East Kilbride homes. Worcester Bosch, Ideal, Vokera and Navien compared by EKBC Gas Safe engineers. From £1,299.",
     date: "2026-05-05",
     readMinutes: 5,
     category: "Pricing",
@@ -74,18 +74,18 @@ export const blogPosts: BlogPost[] = [
     title: "Annual boiler service guide for East Kilbride homes",
     h1: "Why an annual boiler service matters in East Kilbride",
     excerpt:
-      "A 45-minute annual check keeps the warranty valid, your bills down and your family safe. Here is what our Gas Safe Experts check on every visit.",
+      "A 45-minute annual check keeps the warranty valid, your bills down and your family safe. Here is what the Gas Safe engineers we work with check on every visit.",
     metaTitle:
       "Annual Boiler Service Guide for East Kilbride Homes | EKBC",
     metaDescription:
-      "What an annual boiler service really covers, why it protects your warranty, and how to book one across G74 and G75 East Kilbride. EKBC Gas Safe Experts.",
+      "What an annual boiler service really covers, why it protects your warranty, and how to book one across G74 and G75 East Kilbride. EKBC Gas Safe engineers.",
     date: "2026-04-22",
     readMinutes: 3,
     category: "Servicing",
     tags: ["Servicing", "Warranty", "Gas Safe", "G74", "G75"],
     body: [
       "An annual boiler service is the cheapest way to protect a big purchase. Skip it and the manufacturer warranty almost always becomes invalid. The good news is the check itself only takes around 45 minutes and is fixed price.",
-      "Our Gas Safe Experts run a full check on the gas pressure, flue, heat exchanger, seals and safety devices. We clean any condensate build-up and confirm carbon monoxide levels are safe.",
+      "The Gas Safe engineers we work with run a full check on the gas pressure, flue, heat exchanger, seals and safety devices. We clean any condensate build-up and confirm carbon monoxide levels are safe.",
       "Servicing usually takes 45 minutes. We send a digital report to your email afterwards so the manufacturer warranty is fully documented and your record is up to date.",
       "Klarna 3-month interest-free is available exclusively on boiler repair call-outs and annual servicing, so spreading the cost is easy.",
       "Worcester Bosch, Ideal, Vokera and Navien all require an annual service by a Gas Safe registered engineer to keep the warranty in force. We service all four brands plus Baxi, Glow-worm, Vaillant, Potterton and most other major makes.",
@@ -108,7 +108,7 @@ export const blogPosts: BlogPost[] = [
     metaTitle:
       "Best Boiler Brands for G74 and G75 Homes | EKBC Buying Guide",
     metaDescription:
-      "Which boiler brand suits a G74 or G75 East Kilbride home? Worcester Bosch, Ideal, Vokera and Navien compared by EKBC Gas Safe Experts. Fixed prices from £1,299.",
+      "Which boiler brand suits a G74 or G75 East Kilbride home? Worcester Bosch, Ideal, Vokera and Navien compared by EKBC Gas Safe engineers. Fixed prices from £1,299.",
     date: "2026-04-08",
     readMinutes: 6,
     category: "Buying advice",
@@ -127,7 +127,7 @@ export const blogPosts: BlogPost[] = [
       "Ideal from £1,495 fitted is our most popular fit across East Kilbride. It is a strong mid-range option, comes with a 5-year warranty, and is a great match for terraced and semi-detached properties in Calderwood, Stewartfield, Lindsayfield and Jackton. If you want a reliable A-rated combi without paying for the badge, Ideal is hard to beat.",
       "Vokera from £1,299 fitted is our best value pick with a 5-year warranty. It is a reliable build that suits one-bathroom flats and smaller terraced homes across The Murray, Greenhills, Westwood and Mossneuk. The price is lower because the badge is less premium, not because the boiler is short on quality.",
       "Navien from £1,835 fitted is the premium choice, with the longest standard warranty on the market at 10 years and the strongest flow rate for two-bathroom homes. It is our recommended fit for larger detached properties in Stewartfield, Thorntonhall and Whitemoss where high demand at peak times matters.",
-      "All four brands come with the boiler, installation, parts, labour, VAT, a free wireless thermostat and a full system flush included. There are no separate call-out fees and no extras added on the day. If you are not sure which one suits your home, get a 60-second online quote or call our Gas Safe Experts on 01355 204045.",
+      "All four brands come with the boiler, installation, parts, labour, VAT, a free wireless thermostat and a full system flush included. There are no separate call-out fees and no extras added on the day. If you are not sure which one suits your home, get a 60-second online quote or call the Gas Safe engineers we work with on 01355 204045.",
     ],
     internalLinks: [
       { label: "Boiler Prices", href: "/boilers/" },
@@ -145,11 +145,11 @@ export const blogPosts: BlogPost[] = [
     title: "Boiler repair or replacement, which is better?",
     h1: "Boiler repair or replacement in East Kilbride - which is better?",
     excerpt:
-      "When to fix the boiler you have and when to replace it. Honest guidance from EKBC Gas Safe Experts, written for East Kilbride homes in G74 and G75.",
+      "When to fix the boiler you have and when to replace it. Honest guidance from EKBC Gas Safe engineers, written for East Kilbride homes in G74 and G75.",
     metaTitle:
       "Boiler Repair or Replacement | EKBC East Kilbride Honest Guide",
     metaDescription:
-      "Repair or replace your boiler? Honest, jargon-free guidance for G74 and G75 East Kilbride homes from EKBC Gas Safe Experts. Same-day call-out from 01355 204045.",
+      "Repair or replace your boiler? Honest, jargon-free guidance for G74 and G75 East Kilbride homes from EKBC Gas Safe engineers. Same-day call-out from 01355 204045.",
     date: "2026-03-25",
     readMinutes: 5,
     category: "Repair vs replacement",

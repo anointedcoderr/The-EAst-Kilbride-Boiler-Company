@@ -32,7 +32,7 @@ What is wired up in Stage 1:
 - Real phone 01355 204045 (tel:01355204045) across header, sticky CTA, banners and JSON-LD
 - Real public email info@eastkilbrideboilercompany.co.uk
 - Vokera warranty corrected to 5 years
-- Gas Safe wording uses "Gas Safe Experts" / "Gas Safe registered"
+- Gas Safe wording uses "Gas Safe engineers" / "Gas Safe registered"
 - Gas Safe link points to https://www.gassaferegister.co.uk
 - No Gas Safe registration number is displayed (per client rules)
 - No finance wording on new boiler installations
@@ -163,13 +163,75 @@ Stage 2 delivers technical readiness, full local SEO content, schema, sitemap an
 - Real phone 01355 204045, tel:01355204045
 - Real email info@eastkilbrideboilercompany.co.uk
 - Vokera 5-year warranty (do not show 7-year)
-- Gas Safe Experts wording, no Gas Safe registration number
 - Gas Safe link goes to https://www.gassaferegister.co.uk
 - No finance wording for installations, Klarna only on repair call-outs and annual servicing
 - No long dashes or em dashes in visible copy or code comments
 - No generic AI-looking content, no placeholder text, no unfinished sections
 - Carbon Mint theme stays, neon mint glow stays
 - Admin route stays noindex and disallowed
+
+### Engineer relationship - critical compliance rule
+
+The Gas Safe engineers are NOT employees of The East Kilbride Boiler Company.
+They are self-employed, paid by the customer, and each holds their own Gas
+Safe registration and public liability insurance.
+
+- Do NOT say the business itself is Gas Safe registered.
+- Do NOT say engineers are employed by EKBC.
+- Do NOT say "our employed engineers" or "our own engineers" implying employment.
+- Do NOT invent or display a Gas Safe registration number.
+
+Preferred wording:
+
+- "experienced self-employed Gas Safe engineers"
+- "the Gas Safe engineers we work with"
+- "engineers with their own Gas Safe registrations and public liability insurance"
+- "work is carried out by experienced Gas Safe engineers"
+
+### Quote process - fully remote, no home visits
+
+Quotes are prepared remotely. The customer sends photos of the current
+boiler, controls, flue and surrounding pipework. The team reviews the
+photos and details online and confirms the fixed price remotely.
+
+- Do NOT say "home visit", "home survey", "site visit", "in-person quote",
+  "surveyor", "book a survey", or "home assessment".
+- Do NOT promise an engineer will visit before the quote.
+- DO say "send photos of your current boiler and setup", "we review your
+  photos and details remotely", "online fixed-price quote", "no home visit
+  is needed for the initial quote".
+
+### Postcode data safety
+
+Do not assign G74 or G75 manually to a district without verification.
+Use the client-supplied spreadsheet or Royal Mail's address finder as the
+authoritative source. If a district's postcode is not confirmed, set
+`needsReview: true` in `src/data/districts.ts` and the template will
+automatically soft-pedal postcode wording in public copy.
+
+Currently 11 districts carry `needsReview: true` pending the client's
+verified spreadsheet:
+
+- G74 best-guess: High Common, Kingsgate, Langlands, Law Place, Peel Park, Philipshill
+- G75 best-guess: Kelvin, Mossside, Playsport, Redwood, Strathaven Rd
+
+Ballerup Village was corrected from G74 to G75 based on a client-supplied
+postcode confirmation (Sweet Thorn Drive: G75 9FR, Tannin Crescent: G75).
+
+### Quote form delivery
+
+The customer-facing quote form posts to `/api/quote`. The route handler
+calls `src/lib/formDelivery.ts` which selects one of three modes by env:
+
+- `EKBC_FORM_DELIVERY_MODE=mock` (default in staging) - logs to server console
+- `EKBC_FORM_DELIVERY_MODE=webhook` - POSTs to `EKBC_FORM_WEBHOOK_URL`
+- `EKBC_FORM_DELIVERY_MODE=smtp` - reserved for production Hostinger SMTP
+  (requires nodemailer and SMTP_HOST / SMTP_PORT / SMTP_USER / SMTP_PASS /
+  SMTP_FROM / SMTP_TO)
+
+The thank you message never claims an email has been sent. Real live email
+delivery requires Hostinger SMTP credentials or a webhook URL during the
+Hostinger deployment.
 
 ---
 

@@ -19,12 +19,26 @@ import {
 import { districts } from "@/data/districts";
 import { brands } from "@/data/brands";
 import { reviews } from "@/data/reviews";
+import {
+  areaLabel,
+  postcodeCoverageLabel,
+  postcodeDisplay,
+  postcodeIntroPhrase,
+} from "@/lib/postcodeDisplay";
 import type { PageInternalLink } from "@/data/pageContent";
 import type { District } from "@/types";
 
 const SITE_URL = "https://www.eastkilbrideboilercompany.co.uk";
 
 function districtServiceSchema(district: District) {
+  const placeName = district.needsReview
+    ? `${district.name}, East Kilbride`
+    : `${district.name}, ${district.postcodeHub}, East Kilbride`;
+
+  const description = district.needsReview
+    ? `Fixed-price boiler installation, replacement, repair and annual servicing in ${district.name}, East Kilbride. Worcester Bosch, Ideal, Vokera and Navien fitted by Gas Safe engineers.`
+    : `Fixed-price boiler installation, replacement, repair and annual servicing in ${district.name} (${district.postcodeHub}), East Kilbride. Worcester Bosch, Ideal, Vokera and Navien fitted by Gas Safe engineers.`;
+
   return {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -35,9 +49,9 @@ function districtServiceSchema(district: District) {
     },
     areaServed: {
       "@type": "Place",
-      name: `${district.name}, ${district.postcodeHub}, East Kilbride`,
+      name: placeName,
     },
-    description: `Fixed-price boiler installation, replacement, repair and annual servicing in ${district.name} (${district.postcodeHub}), East Kilbride. Worcester Bosch, Ideal, Vokera and Navien fitted by Gas Safe Experts.`,
+    description,
     url: `${SITE_URL}/areas-we-serve/${district.slug}/`,
     offers: {
       "@type": "Offer",
@@ -113,27 +127,40 @@ export function DistrictPageTemplate({ district }: DistrictPageTemplateProps) {
   const districtFaqs = renderDistrictFAQs(district);
   const internalLinks = buildInternalLinks(district);
 
-  const breadcrumbs = [
-    { label: "Home", href: "/" },
-    { label: "Areas We Serve", href: "/areas-we-serve/" },
-    {
-      label: district.postcodeHub,
-      href: `/areas-we-serve/${district.postcodeHub.toLowerCase()}/`,
-    },
-    {
-      label: district.name,
-      href: `/areas-we-serve/${district.slug}/`,
-    },
-  ];
+  const breadcrumbs = district.needsReview
+    ? [
+        { label: "Home", href: "/" },
+        { label: "Areas We Serve", href: "/areas-we-serve/" },
+        {
+          label: district.name,
+          href: `/areas-we-serve/${district.slug}/`,
+        },
+      ]
+    : [
+        { label: "Home", href: "/" },
+        { label: "Areas We Serve", href: "/areas-we-serve/" },
+        {
+          label: district.postcodeHub,
+          href: `/areas-we-serve/${district.postcodeHub.toLowerCase()}/`,
+        },
+        {
+          label: district.name,
+          href: `/areas-we-serve/${district.slug}/`,
+        },
+      ];
 
   const intro = renderDistrictIntro(district);
 
   const review =
     reviews.find((r) => r.postcode === district.postcodeHub) ?? reviews[0];
 
+  const coverageNote = district.needsReview
+    ? `We cover ${district.name} as part of our standard East Kilbride service area.`
+    : `We cover ${district.name} as part of our standard ${district.postcodeHub} service area. There is no extra travel charge for ${district.postcodeHub} postcodes,`;
+
   const proof = {
     title: `Boiler installation, repair and servicing in ${district.name}`,
-    intro: `We cover ${district.name} as part of our standard ${district.postcodeHub} service area. There is no extra travel charge for ${district.postcodeHub} postcodes, and our Gas Safe Experts handle the survey, fit and follow-up paperwork in-house. ${district.localAngle}`,
+    intro: `${coverageNote} The Gas Safe engineers we work with handle the photo review, the quote, the fit and the follow-up paperwork themselves. ${district.localAngle}`,
     districts: siblingDistricts(district),
     reviewId: review.id,
     ctaLabel: `Get my ${district.name} fixed price`,
@@ -156,16 +183,18 @@ export function DistrictPageTemplate({ district }: DistrictPageTemplateProps) {
       <JsonLd data={schemas} />
 
       <PageHero
-        eyebrow={`${district.name}, ${district.postcodeHub} - East Kilbride`}
+        eyebrow={`${areaLabel(district)} - East Kilbride`}
         h1={`Boiler Replacement in ${district.name}, East Kilbride`}
         highlightedWord={district.name}
-        subtitle={`Worcester Bosch, Ideal, Vokera and Navien fitted by Gas Safe Experts`}
-        description={`Fixed-price boiler installations, same-day repairs and annual servicing across ${district.name} and the wider ${district.postcodeHub} postcode. No middle man, no hidden extras, no surprises on the day.`}
+        subtitle={`Worcester Bosch, Ideal, Vokera and Navien fitted by Gas Safe engineers`}
+        description={`Fixed-price boiler installations, same-day repairs and annual servicing across ${district.name} and ${postcodeIntroPhrase(district)}. No middle man, no hidden extras, no surprises on the day.`}
         trustPoints={[
           "From £1,299 fitted",
-          "Gas Safe Experts",
+          "Gas Safe engineers",
           "Same-week fit",
-          `Covers all of ${district.postcodeHub}`,
+          district.needsReview
+            ? "East Kilbride covered"
+            : `Covers all of ${district.postcodeHub}`,
         ]}
         breadcrumbs={breadcrumbs}
         primaryCtaLabel={`Get my ${district.name} quote`}
@@ -188,7 +217,7 @@ export function DistrictPageTemplate({ district }: DistrictPageTemplateProps) {
           <ScrollReveal>
             <header className="mb-10">
               <p className="mb-3 text-xs sm:text-sm font-bold uppercase tracking-[0.2em] text-mint-400">
-                {district.name}, {district.postcodeHub}
+                {areaLabel(district)}
               </p>
               <h2 className="text-2xl font-extrabold uppercase tracking-tight text-white sm:text-3xl lg:text-4xl">
                 Boiler services in {district.name}, East Kilbride
@@ -234,14 +263,18 @@ export function DistrictPageTemplate({ district }: DistrictPageTemplateProps) {
 
       <SiloLinks
         eyebrow={`Continue from ${district.name}`}
-        heading={`Explore the rest of the ${district.postcodeHub} silo`}
-        intro={`Every page on this site is internally linked. Jump from ${district.name} to a service, a brand, a related guide, or the wider ${district.postcodeHub} hub.`}
+        heading={
+          district.needsReview
+            ? "Explore the rest of the East Kilbride silo"
+            : `Explore the rest of the ${district.postcodeHub} silo`
+        }
+        intro={`Every page on this site is internally linked. Jump from ${district.name} to a service, a brand, a related guide, or back to the East Kilbride area pages.`}
         links={internalLinks}
       />
 
       <BottomQuoteSection
         heading={`Get Your ${district.name} Fixed Price Quote`}
-        intro={`No obligation. No hidden extras. Fitted by our Gas Safe Experts across ${district.name} and the wider ${district.postcodeHub} postcode.`}
+        intro={`No obligation. No hidden extras. Fitted by the Gas Safe engineers we work with across ${district.name} and ${postcodeIntroPhrase(district)}.`}
       />
 
       <CTABanner />

@@ -36,7 +36,7 @@ const hubConfigs: Record<"G74" | "G75", PostcodeHubConfig> = {
       "G74 covers the north and central parts of East Kilbride, from the original town centre at The Village out to Stewartfield in the north and the semi-rural edges of Thorntonhall, Philipshill and Kittochside. The housing stock mixes 1960s ex-council semis, modern family detached homes and a healthy share of newer-build estates, which is why we recommend a slightly different boiler for different streets.",
     position: "north and central",
     description:
-      "Fixed-price boiler installations, repairs and annual servicing across all 18 G74 districts of East Kilbride. Worcester Bosch, Ideal, Vokera and Navien fitted by Gas Safe Experts.",
+      "Fixed-price boiler installations, repairs and annual servicing across all 17 G74 districts of East Kilbride. Worcester Bosch, Ideal, Vokera and Navien fitted by Gas Safe engineers.",
     bestForBrands:
       "Across G74 our most-fitted ranges are the Worcester Bosch from £1,695 with a 5-year warranty for premium reliability and the Ideal from £1,495 with a 5-year warranty as the popular mid-range pick. For larger detached homes in Stewartfield, Thorntonhall and Philipshill the Navien from £1,835 with a 10-year warranty is a strong choice.",
   },
@@ -47,7 +47,7 @@ const hubConfigs: Record<"G74" | "G75", PostcodeHubConfig> = {
       "G75 covers the south and west of East Kilbride, from the busy residential heart of The Murray and Westwood through to Hairmyres in the south-west and the newer family estates in Lindsayfield and Jackton. We cover every G75 postcode as part of our standard service area, with no extra travel charge.",
     position: "south and west",
     description:
-      "Fixed-price boiler installations, repairs and annual servicing across all 17 G75 districts of East Kilbride. Worcester Bosch, Ideal, Vokera and Navien fitted by Gas Safe Experts.",
+      "Fixed-price boiler installations, repairs and annual servicing across all 18 G75 districts of East Kilbride. Worcester Bosch, Ideal, Vokera and Navien fitted by Gas Safe engineers.",
     bestForBrands:
       "Across G75 the Vokera at £1,299 with a 5-year warranty is our highest-volume fit, especially in The Murray, Greenhills and Westwood. Ideal at £1,495 is the popular step up, and the Worcester Bosch from £1,695 and Navien from £1,835 work best in the newer 3 and 4 bed family homes in Lindsayfield, Jackton and Crutherland.",
   },
@@ -58,7 +58,7 @@ function hubFAQs(code: "G74" | "G75") {
   return [
     {
       question: `Do you cover every ${code} postcode in East Kilbride?`,
-      answer: `Yes. Our Gas Safe Experts cover all ${districtCount} ${code} districts as part of our standard service area. There is no extra travel charge for any ${code} postcode.`,
+      answer: `Yes. The Gas Safe engineers we work with cover all ${districtCount} ${code} districts as part of our standard service area. There is no extra travel charge for any ${code} postcode.`,
     },
     {
       question: `How much does a new boiler cost in ${code}?`,
@@ -76,8 +76,8 @@ function hubFAQs(code: "G74" | "G75") {
       answer: `Yes. We aim for same-day boiler repair call-outs across the whole ${code} area, with spares carried on the van so most faults are fixed at the first visit. Call 01355 204045 for the earliest slot we have.`,
     },
     {
-      question: `Are your engineers Gas Safe Experts serving ${code}?`,
-      answer: `Yes. All gas work in ${code} is carried out by our own Gas Safe Experts. Our registration can be verified directly at gassaferegister.co.uk before any work begins.`,
+      question: `Are the engineers you work with Gas Safe registered serving ${code}?`,
+      answer: `Yes. All gas work in ${code} is carried out by experienced self-employed Gas Safe engineers. Each engineer's Gas Safe registration can be verified directly at gassaferegister.co.uk before any work begins.`,
     },
     {
       question: `Is there a fixed-price boiler installation option for ${code}?`,
@@ -158,7 +158,7 @@ export function PostcodeHubTemplate({ code }: PostcodeHubTemplateProps) {
         trustPoints={[
           `${hubDistricts.length} ${code} districts covered`,
           "Fixed-price installations",
-          "Gas Safe Experts",
+          "Gas Safe engineers",
           "Same-week fits",
         ]}
         breadcrumbs={breadcrumbs}
@@ -250,7 +250,7 @@ export function PostcodeHubTemplate({ code }: PostcodeHubTemplateProps) {
               },
               {
                 heading: `New Boiler Installation in ${code}`,
-                body: `Worcester Bosch, Ideal, Vokera and Navien fitted by our Gas Safe Experts. Same-week installation dates the norm rather than the exception.`,
+                body: `Worcester Bosch, Ideal, Vokera and Navien fitted by the Gas Safe engineers we work with. Same-week installation dates the norm rather than the exception.`,
               },
               {
                 heading: `Combi Boiler Upgrade for ${code} homes`,
@@ -262,11 +262,11 @@ export function PostcodeHubTemplate({ code }: PostcodeHubTemplateProps) {
               },
               {
                 heading: `Fixed Price Boiler Installation for ${code}`,
-                body: `Single fixed price quoted from the survey. No call-out fee, no day-rate add-ons, no finance products clipped onto the job.`,
+                body: `Single fixed price quoted from the photos and details you send. No call-out fee, no day-rate add-ons, no finance products clipped onto the job.`,
               },
               {
-                heading: `Gas Safe Experts serving ${code}`,
-                body: `Every engineer carries a Gas Safe ID card. Our registration can be verified at gassaferegister.co.uk before any work begins.`,
+                heading: `Gas Safe engineers serving ${code}`,
+                body: `Every engineer carries a Gas Safe ID card. Each engineer's Gas Safe registration can be verified at gassaferegister.co.uk before any work begins.`,
               },
               {
                 heading: `Emergency Boiler Replacement in ${code}`,
@@ -332,7 +332,7 @@ export function PostcodeHubTemplate({ code }: PostcodeHubTemplateProps) {
 
       <BottomQuoteSection
         heading={`Get Your ${code} Fixed Price Quote`}
-        intro={`No obligation. No hidden extras. Fitted by our Gas Safe Experts across every ${code} postcode in East Kilbride.`}
+        intro={`No obligation. No hidden extras. Fitted by the Gas Safe engineers we work with across every ${code} postcode in East Kilbride.`}
       />
 
       <CTABanner />

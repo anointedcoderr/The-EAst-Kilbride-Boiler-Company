@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title:
     "Boiler FAQs East Kilbride | EKBC - Installation, Repair, Servicing, Prices",
   description:
-    "Boiler FAQs for East Kilbride homeowners. Installation, repair, servicing, prices, brands, areas covered, Gas Safe and payment questions answered by our local Gas Safe Experts.",
+    "Boiler FAQs for East Kilbride homeowners. Installation, repair, servicing, prices, brands, areas covered, Gas Safe and payment questions answered by our local Gas Safe engineers.",
   alternates: { canonical: "/faq/" },
 };
 
@@ -27,7 +27,7 @@ const faqCategories: FaqCategory[] = [
     id: "installation",
     label: "Boiler installation",
     intro:
-      "New boiler installations across all 35 East Kilbride districts. Fixed-price quotes, no separate call-out fee, Gas Safe Experts on every fit.",
+      "New boiler installations across all 35 East Kilbride districts. Fixed-price quotes, no separate call-out fee, Gas Safe engineers on every fit.",
     faqs: [
       {
         question:
@@ -43,7 +43,7 @@ const faqCategories: FaqCategory[] = [
       {
         question: "Do you offer fixed-price quotes for installations?",
         answer:
-          "Yes. Once we have surveyed the property, we issue a single fixed price covering the boiler, all parts, labour, VAT, the wireless thermostat and the full system flush. The figure on the quote is the figure you pay - no surprise costs once work begins.",
+          "Yes. Once we review the photos and details you send us, we issue a single fixed price covering the boiler, all parts, labour, VAT, the wireless thermostat and the full system flush. The figure on the quote is the figure you pay - no surprise costs once work begins.",
       },
       {
         question: "Do you dispose of the old boiler?",
@@ -53,7 +53,7 @@ const faqCategories: FaqCategory[] = [
       {
         question: "Will you need to replace my radiators as well?",
         answer:
-          "Usually not. During the survey we check the existing radiators and pipework for sludge, output and condition. Most East Kilbride homes can keep their existing radiators with a new A-rated combi, helped by the full system flush included as standard.",
+          "Usually not. When you send us photos and details we check the existing radiators and pipework for sludge, output and condition. Most East Kilbride homes can keep their existing radiators with a new A-rated combi, helped by the full system flush included as standard.",
       },
       {
         question: "Can you replace an old back boiler with a combi boiler?",
@@ -91,7 +91,7 @@ const faqCategories: FaqCategory[] = [
       {
         question: "Should I repair or replace my boiler?",
         answer:
-          "As a rough guide, if the boiler is over 12 years old, has needed three or four repairs in the last 18 months, or is no longer A-rated, a replacement usually works out cheaper across the next few years. Our Gas Safe Experts give you both options at the visit with no pressure either way.",
+          "As a rough guide, if the boiler is over 12 years old, has needed three or four repairs in the last 18 months, or is no longer A-rated, a replacement usually works out cheaper across the next few years. The Gas Safe engineers we work with give you both options at the visit with no pressure either way.",
       },
       {
         question: "What should I do if my boiler stops working?",
@@ -152,7 +152,7 @@ const faqCategories: FaqCategory[] = [
       {
         question: "What is included in the boiler installation price?",
         answer:
-          "The boiler, fitting by Gas Safe Experts, all standard pipework, the manufacturer warranty, a free wireless thermostat, a full system flush, all materials, labour and VAT. Removal of the old boiler and tidy-up are included as standard.",
+          "The boiler, fitting by Gas Safe engineers, all standard pipework, the manufacturer warranty, a free wireless thermostat, a full system flush, all materials, labour and VAT. Removal of the old boiler and tidy-up are included as standard.",
       },
       {
         question: "Why do boiler prices vary?",
@@ -167,7 +167,7 @@ const faqCategories: FaqCategory[] = [
       {
         question: "Can I request a custom quote?",
         answer:
-          "Yes. Use the online quote form or call 01355 204045. We confirm the fixed price after a free home survey, so the figure you see is the figure you pay.",
+          "Yes. Use the online quote form or call 01355 204045. We confirm the fixed price after an online photo review, so the figure you see is the figure you pay.",
       },
     ],
   },
@@ -266,24 +266,24 @@ const faqCategories: FaqCategory[] = [
   },
   {
     id: "gas-safe",
-    label: "Gas Safe Experts",
+    label: "Gas Safe engineers",
     intro:
-      "Every gas job we carry out is handled by our own Gas Safe Experts. Our registration can be verified directly at gassaferegister.co.uk.",
+      "Every gas job we carry out is handled by experienced self-employed Gas Safe engineers. Each engineer's Gas Safe registration can be verified directly at gassaferegister.co.uk.",
     faqs: [
       {
-        question: "Are your engineers Gas Safe registered?",
+        question: "Are the engineers Gas Safe registered?",
         answer:
-          "Yes. All gas work at EKBC is carried out by our own Gas Safe Experts. Every engineer carries a Gas Safe ID card on the day, and our registration can be verified directly at gassaferegister.co.uk before any work begins.",
+          "Yes. All gas work at EKBC is carried out by experienced self-employed Gas Safe engineers. Every engineer carries a Gas Safe ID card on the day, and each engineer's Gas Safe registration can be verified directly at gassaferegister.co.uk before any work begins.",
       },
       {
-        question: "How can I verify your Gas Safe registration?",
+        question: "How do I verify a Gas Safe engineer's registration?",
         answer:
           "Visit gassaferegister.co.uk to verify any Gas Safe registered engineer before they start work. We always recommend checking before any gas job begins, with us or any other contractor.",
       },
       {
         question: "Are you insured?",
         answer:
-          "Yes. We carry full public liability insurance on every job, in addition to the standard Gas Safe registration that is legally required for all gas work in the UK.",
+          "Yes. The engineers we work with each carry their own public liability insurance and their own Gas Safe registration, which is the standard required for all gas work in the UK.",
       },
       {
         question: "Do you sub-contract gas work?",
@@ -324,15 +324,15 @@ export default function FAQPage() {
 
       <PageHero
         eyebrow="EKBC FAQs"
-        h1={`${totalCount} answers from our Gas Safe Experts`}
-        highlightedWord="Gas Safe Experts"
+        h1={`${totalCount} answers from the Gas Safe engineers we work with`}
+        highlightedWord="Gas Safe engineers"
         subtitle="Installation, repair, servicing, prices, brands, areas, payment and Gas Safe"
         description="The questions homeowners across East Kilbride ask most often, grouped by topic and written by the engineers who actually do the work. Use the search to jump straight to what you need."
         trustPoints={[
           `${faqCategories.length} topics`,
           `${totalCount} answers`,
           "Local to East Kilbride",
-          "Written by Gas Safe Experts",
+          "Written by Gas Safe engineers",
         ]}
         breadcrumbs={breadcrumbs}
         primaryCtaLabel="Ask us a question"

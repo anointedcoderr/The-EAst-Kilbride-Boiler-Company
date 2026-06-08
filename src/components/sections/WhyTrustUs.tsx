@@ -20,9 +20,9 @@ const trustPoints = [
   },
   {
     icon: Shield,
-    title: "Gas Safe Experts",
+    title: "Gas Safe engineers",
     description:
-      "All our engineers are Gas Safe Experts with 20+ years experience and full public liability insurance. Your safety is our absolute priority.",
+      "All the engineers we work with are Gas Safe registered engineers with 20+ years experience and full public liability insurance. Your safety is our absolute priority.",
   },
 ];
 
@@ -88,7 +88,7 @@ function WhyTrustUs() {
                       target="_blank"
                       className="text-mint-500 underline hover:text-mint-400"
                     >
-                      Gas Safe Experts
+                      Gas Safe engineers
                     </a>
                   </p>
                 </div>

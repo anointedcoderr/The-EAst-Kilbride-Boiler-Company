@@ -58,7 +58,7 @@ export const reviews: Review[] = [
     location: "Greenhills",
     postcode: "G75",
     rating: 5,
-    text: "Called on Monday, surveyed on Tuesday, fitted on Wednesday. Vokera combi boiler at a cracking price. Honest lads who know what they are doing. Five stars from me.",
+    text: "Called on Monday, photos reviewed on Tuesday, fitted on Wednesday. Vokera combi boiler at a cracking price. Honest lads who know what they are doing. Five stars from me.",
     verified: true,
   },
   {

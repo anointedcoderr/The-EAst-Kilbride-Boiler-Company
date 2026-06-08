@@ -13,7 +13,7 @@ const trustPoints = [
   "Which? Best Boiler Approved Installers",
   "8200+ Happy EK Customers",
   "Unbeatable Fixed-Price Quotes, No Hidden Extras",
-  "East Kilbride Gas Safe Experts",
+  "East Kilbride Gas Safe engineers",
   "Up to 12-Year Warranties on All New Boilers",
   "East Kilbride's No.1 Boiler Company",
 ];

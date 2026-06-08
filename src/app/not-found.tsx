@@ -6,7 +6,7 @@ import { siteSettings } from "@/data/siteSettings";
 export const metadata = {
   title: "Page Not Found | The East Kilbride Boiler Company",
   description:
-    "The page you were looking for could not be found. Get a fixed-price boiler quote, browse our services, or call our Gas Safe Experts on 01355 204045.",
+    "The page you were looking for could not be found. Get a fixed-price boiler quote, browse our services, or call the Gas Safe engineers we work with on 01355 204045.",
   robots: { index: false, follow: true },
 };
 
@@ -42,7 +42,7 @@ export default function NotFound() {
           </h1>
 
           <p className="mx-auto mt-5 max-w-lg text-base leading-relaxed text-carbon-300 sm:text-lg">
-            The page you were looking for may have moved, or the link may be out of date. Try one of the quick links below, or call our Gas Safe Experts and we will point you in the right direction.
+            The page you were looking for may have moved, or the link may be out of date. Try one of the quick links below, or call the Gas Safe engineers we work with and we will point you in the right direction.
           </p>
 
           <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center sm:gap-4">

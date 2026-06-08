@@ -413,7 +413,7 @@ export default function AdminPage() {
           metaTitle: b.seoTitle,
           metaDescription: b.seoDescription,
           heroSubtitle:
-            "Fitted by Gas Safe Experts across all 35 East Kilbride districts",
+            "Fitted by Gas Safe engineers across all 35 East Kilbride districts",
         },
       ])
     )

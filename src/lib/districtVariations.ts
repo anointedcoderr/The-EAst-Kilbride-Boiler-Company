@@ -1,4 +1,5 @@
 import type { District } from "@/types";
+import { postcodeDisplay, postcodeIntroPhrase } from "./postcodeDisplay";
 
 // District page variation engine.
 //
@@ -112,9 +113,9 @@ const sections: Record<SectionId, SectionDef> = {
     ],
     bodies: [
       (d) =>
-        `Our fixed-price boiler replacement service in ${d.name} starts from £1,299 fully fitted by our Gas Safe Experts. Most jobs across ${d.position} are completed in a single day, with no separate call-out fee and no extra travel charge for the ${d.postcodeHub} postcode. The figure on the quote is the figure you pay.`,
+        `Our fixed-price boiler replacement service in ${d.name} starts from £1,299 fully fitted by the Gas Safe engineers we work with. Most jobs across ${d.position} are completed in a single day, with no separate call-out fee and no extra travel charge for the ${postcodeDisplay(d)} postcode. The figure on the quote is the figure you pay.`,
       (d) =>
-        `Replacing a boiler in ${d.name} is the most common job we are called for in the ${d.postcodeHub} area. ${d.localAngle} Every replacement is fully fitted by our own Gas Safe Experts with the manufacturer warranty registered in your name on the day.`,
+        `Replacing a boiler in ${d.name} is the most common job we are called for in the ${postcodeDisplay(d)} area. ${d.localAngle} Every replacement is fully fitted by experienced self-employed Gas Safe engineers with the manufacturer warranty registered in your name on the day.`,
       (d) =>
         `When the boiler in your ${d.name} home is past its tenth birthday, costing too much in winter bills, or letting the family down on cold mornings, replacement is usually cheaper across the next few years than another patch repair. We give homeowners a fixed price up front, with the boiler, parts, labour, VAT, a wireless thermostat and a full system flush all included.`,
     ],
@@ -129,11 +130,11 @@ const sections: Record<SectionId, SectionDef> = {
     ],
     bodies: [
       (d) =>
-        `New boiler installations in ${d.name} cover everything from straightforward like-for-like combi swaps to back-boiler conversions and full system to combi changes. The typical home in this part of ${d.postcodeHub} is a ${d.housingMix}, and we recommend the ${d.preferredBrands[0]} or ${d.preferredBrands[1]} range for most fits here.`,
+        `New boiler installations in ${d.name} cover everything from straightforward like-for-like combi swaps to back-boiler conversions and full system to combi changes. The typical home in this part of ${postcodeDisplay(d)} is a ${d.housingMix}, and we recommend the ${d.preferredBrands[0]} or ${d.preferredBrands[1]} range for most fits here.`,
       (d) =>
-        `If you are arranging a new boiler installation in ${d.name}, the install is fitted by our Gas Safe Experts in a single day in most cases. We arrive between 8 and 9am, isolate the old unit, fit the new boiler, run the full system flush, then pair the wireless thermostat and demonstrate it before we leave. ${d.localAngle}`,
+        `If you are arranging a new boiler installation in ${d.name}, the install is fitted by the Gas Safe engineers we work with in a single day in most cases. We arrive between 8 and 9am, isolate the old unit, fit the new boiler, run the full system flush, then pair the wireless thermostat and demonstrate it before we leave. ${d.localAngle}`,
       (d) =>
-        `Our most-fitted installation in ${d.name} is the ${d.typicalJob}, but every job is quoted around your specific property. The price you see on the survey is the price you pay - no extras added on the day, no separate call-out fee, and no hidden parts charges.`,
+        `Our most-fitted installation in ${d.name} is the ${d.typicalJob}, but every job is quoted around your specific property. The price you see on the quote is the price you pay - no extras added on the day, no separate call-out fee, and no hidden parts charges.`,
     ],
   },
 
@@ -165,9 +166,9 @@ const sections: Record<SectionId, SectionDef> = {
       (d) =>
         `Central heating installations in ${d.name} run from straightforward boiler swaps to full system upgrades with new radiators, pipework and controls. Most ${d.position} homes do not need a complete overhaul - the existing radiators are usually in good condition, helped along by the full system flush we include as standard with every install.`,
       (d) =>
-        `When you arrange a central heating installation in ${d.name}, we survey the existing pipework and radiators first, then quote a single fixed price for the full job. ${d.localAngle} The result is a balanced, efficient system you can rely on through a Scottish winter.`,
+        `When you arrange a central heating installation in ${d.name}, we review your photos of the existing pipework and radiators first, then quote a single fixed price for the full job. ${d.localAngle} The result is a balanced, efficient system you can rely on through a Scottish winter.`,
       (d) =>
-        `Our central heating engineers cover ${d.name} as part of our standard ${d.postcodeHub} service area. A full heating install is more involved than a like-for-like swap, but the survey is free and the quote is fixed. There are no surprise costs once work begins.`,
+        `Our central heating engineers cover ${d.name} as part of our standard ${postcodeDisplay(d)} service area. A full heating install is more involved than a like-for-like swap, but the photo review is free and the quote is fixed. There are no surprise costs once work begins.`,
     ],
   },
 
@@ -184,7 +185,7 @@ const sections: Record<SectionId, SectionDef> = {
       (d) =>
         `For larger ${d.name} homes with two or more bathrooms, a full system upgrade often pairs a new A-rated combi with replacement radiators in the rooms that need them. ${d.localAngle} The Navien 10-year warranty is a popular choice for this type of job where peak flow rate matters.`,
       (d) =>
-        `Full heating system upgrades in ${d.name} are quoted from a free home survey. ${d.preferredBrands[0]} or ${d.preferredBrands[1]} are the two ranges we most commonly fit here for a system-wide upgrade, with the choice driven by warranty length, peak demand and budget.`,
+        `Full heating system upgrades in ${d.name} are quoted online from the photos and details you send. ${d.preferredBrands[0]} or ${d.preferredBrands[1]} are the two ranges we most commonly fit here for a system-wide upgrade, with the choice driven by warranty length, peak demand and budget.`,
     ],
   },
 
@@ -197,9 +198,9 @@ const sections: Record<SectionId, SectionDef> = {
     ],
     bodies: [
       (d) =>
-        `Fixed price boiler installation in ${d.name} means the figure on the quote is the figure you pay. Every install in ${d.postcodeHub} already includes the boiler, parts, labour, VAT, a free wireless thermostat, a full system flush, standard pipework, flue, the manufacturer warranty and old boiler removal.`,
+        `Fixed price boiler installation in ${d.name} means the figure on the quote is the figure you pay. Every install in ${postcodeDisplay(d)} already includes the boiler, parts, labour, VAT, a free wireless thermostat, a full system flush, standard pipework, flue, the manufacturer warranty and old boiler removal.`,
       (d) =>
-        `We do not work on hourly rates or day rates for installations in ${d.name}. Once we have surveyed the property, we issue a single fixed price covering the full job. There are no separate call-out fees, no surprise extras on the day, and no finance products clipped onto the install.`,
+        `We do not work on hourly rates or day rates for installations in ${d.name}. Once we review the photos and details you send us, we issue a single fixed price covering the full job. There are no separate call-out fees, no surprise extras on the day, and no finance products clipped onto the install.`,
       (d) =>
         `Homeowners in ${d.name} ask for a fixed price because it is the only way to know what a new boiler will cost up front. ${d.localAngle} The quote covers everything - parts, labour, VAT, warranty, thermostat, flush and old unit removal - in one number.`,
     ],
@@ -209,16 +210,16 @@ const sections: Record<SectionId, SectionDef> = {
     id: "gas-safe-installer",
     headings: [
       (area) => `Gas Safe Boiler Installer serving ${area}`,
-      (area) => `Gas Safe Experts covering ${area}`,
+      (area) => `Gas Safe engineers covering ${area}`,
       (area) => `${area} Gas Safe registered boiler installation`,
     ],
     bodies: [
       (d) =>
-        `Every gas job we carry out in ${d.name} is handled by our own Gas Safe Experts. Each engineer carries a Gas Safe ID card and our registration can be verified directly at gassaferegister.co.uk before any work begins. There is no sub-contracting and no national lead-buying middle man between you and the engineer.`,
+        `Every gas job we carry out in ${d.name} is handled by experienced self-employed Gas Safe engineers. Each engineer carries a Gas Safe ID card and each engineer's Gas Safe registration can be verified directly at gassaferegister.co.uk before any work begins. There is no sub-contracting and no national lead-buying middle man between you and the engineer.`,
       (d) =>
-        `Gas Safe registration is the legal minimum for working on a gas boiler in the UK, and it is non-negotiable for us. ${d.localAngle} Choosing a Gas Safe Expert in ${d.name} protects your home, your warranty and your insurance position.`,
+        `Gas Safe registration is the legal minimum for working on a gas boiler in the UK, and it is non-negotiable for us. ${d.localAngle} Choosing a Gas Safe registered engineer in ${d.name} protects your home, your warranty and your insurance position.`,
       (d) =>
-        `Our Gas Safe Experts cover every ${d.postcodeHub} postcode in East Kilbride, including ${d.name}. Every installation, repair and annual service is logged with Gas Safe so the paperwork is in order if you ever need to call on the manufacturer warranty.`,
+        `The Gas Safe engineers we work with cover every ${postcodeDisplay(d)} postcode in East Kilbride, including ${d.name}. Every installation, repair and annual service is logged with Gas Safe so the paperwork is in order if you ever need to call on the manufacturer warranty.`,
     ],
   },
 
@@ -231,7 +232,7 @@ const sections: Record<SectionId, SectionDef> = {
     ],
     bodies: [
       (d) =>
-        `If the boiler in your ${d.name} home has failed and the repair is not economical, we can usually get a replacement quoted, fitted and commissioned inside a few working days. Same-week installation is the norm rather than the exception in ${d.postcodeHub}, especially during the busy winter months.`,
+        `If the boiler in your ${d.name} home has failed and the repair is not economical, we can usually get a replacement quoted, fitted and commissioned inside a few working days. Same-week installation is the norm rather than the exception in ${postcodeDisplay(d)}, especially during the busy winter months.`,
       (d) =>
         `Emergency boiler replacement in ${d.name} starts with a same-day call to assess whether the existing boiler can be safely repaired or whether replacement is the more honest answer. ${d.localAngle} If replacement is the right call, we move quickly to get heating and hot water back on.`,
       (d) =>
@@ -248,9 +249,9 @@ const sections: Record<SectionId, SectionDef> = {
     ],
     bodies: [
       (d) =>
-        `The best fitted boiler deal in ${d.name} depends on the home, not just the price tag. For a one-bathroom home in ${d.postcodeHub}, the Vokera at £1,299 fitted with a 5-year warranty is hard to beat. For a 3 to 4 bed family home, the Worcester Bosch from £1,695 or the Navien from £1,835 with a 10-year warranty often work out cheaper across the warranty period.`,
+        `The best fitted boiler deal in ${d.name} depends on the home, not just the price tag. For a one-bathroom home in ${postcodeDisplay(d)}, the Vokera at £1,299 fitted with a 5-year warranty is hard to beat. For a 3 to 4 bed family home, the Worcester Bosch from £1,695 or the Navien from £1,835 with a 10-year warranty often work out cheaper across the warranty period.`,
       (d) =>
-        `We do not run loss-leader installation deals in ${d.name} because the fixed-price model already takes the games out of the quote. The four brands we fit cover every sensible budget bracket - Vokera at £1,299, Ideal at £1,495, Worcester Bosch at £1,695, Navien at £1,835 - all fitted by Gas Safe Experts.`,
+        `We do not run loss-leader installation deals in ${d.name} because the fixed-price model already takes the games out of the quote. The four brands we fit cover every sensible budget bracket - Vokera at £1,299, Ideal at £1,495, Worcester Bosch at £1,695, Navien at £1,835 - all fitted by Gas Safe engineers.`,
       (d) =>
         `${d.localAngle} The most-fitted brand in ${d.name} is the ${d.preferredBrands[0]}, with the ${d.preferredBrands[1]} as the popular next choice. Either way, the price you see is fully fitted with the warranty in your name on the day.`,
     ],
@@ -276,7 +277,7 @@ export function renderSection(
 
   return {
     id,
-    heading: def.headings[headingIndex](district.name, district.postcodeHub),
+    heading: def.headings[headingIndex](district.name, postcodeDisplay(district)),
     body: def.bodies[bodyIndex](district),
   };
 }
@@ -301,7 +302,7 @@ const faqPool: Array<{
   {
     question: (area) => `Do you offer new boiler installation in ${area}?`,
     answer: (d) =>
-      `Yes. We install new boilers across every street in ${d.name} as part of our standard ${d.postcodeHub} service area. The install is carried out by our Gas Safe Experts, with a single fixed price and the manufacturer warranty registered in your name on the day.`,
+      `Yes. We install new boilers across every street in ${d.name} as part of our standard ${postcodeDisplay(d)} service area. The install is carried out by the Gas Safe engineers we work with, with a single fixed price and the manufacturer warranty registered in your name on the day.`,
   },
   {
     question: (area) => `Can I get a combi boiler upgrade in ${area}?`,
@@ -311,7 +312,7 @@ const faqPool: Array<{
   {
     question: (area) => `Do you cover emergency boiler replacement in ${area}?`,
     answer: (d) =>
-      `Yes. If your boiler has failed in ${d.name} and the repair is not economical, call 01355 204045. We will give you the earliest replacement slot we have, with same-week fits the norm in ${d.postcodeHub}.`,
+      `Yes. If your boiler has failed in ${d.name} and the repair is not economical, call 01355 204045. We will give you the earliest replacement slot we have, with same-week fits the norm in ${postcodeDisplay(d)}.`,
   },
   {
     question: (area) => `Which boiler brands are best for homes in ${area}?`,
@@ -324,14 +325,14 @@ const faqPool: Array<{
       `Yes. Central heating installation in ${d.name} covers boiler, radiators, pipework and controls. Most ${d.name} homes do not need a full overhaul - the existing radiators are usually in good condition, helped along by the full system flush we include as standard.`,
   },
   {
-    question: (area) => `Are you Gas Safe Experts serving ${area}?`,
+    question: (area) => `Are you Gas Safe engineers serving ${area}?`,
     answer: (d) =>
-      `Yes. All gas work in ${d.name} is carried out by our own Gas Safe Experts. Our registration can be verified directly at gassaferegister.co.uk before any work begins.`,
+      `Yes. All gas work in ${d.name} is carried out by experienced self-employed Gas Safe engineers. Each engineer's Gas Safe registration can be verified directly at gassaferegister.co.uk before any work begins.`,
   },
   {
     question: (area) => `Is there a separate call-out charge in ${area}?`,
     answer: (d) =>
-      `No. There is no separate call-out fee for fitting a new boiler in ${d.name}, and no travel charge for any ${d.postcodeHub} postcode. The figure on the quote is the figure you pay.`,
+      `No. There is no separate call-out fee for fitting a new boiler in ${d.name}, and no travel charge for any ${postcodeDisplay(d)} postcode. The figure on the quote is the figure you pay.`,
   },
   {
     question: (area) => `How long does a boiler installation take in ${area}?`,
@@ -359,7 +360,7 @@ export function renderDistrictFAQs(district: District) {
   const generic = picks.map((index) => {
     const entry = faqPool[index];
     return {
-      question: entry.question(district.name, district.postcodeHub),
+      question: entry.question(district.name, postcodeDisplay(district)),
       answer: entry.answer(district),
     };
   });
@@ -377,5 +378,5 @@ export function renderDistrictIntro(district: District): string {
   const nearby = district.notableNearby
     ? ` ${district.notableNearby.charAt(0).toUpperCase() + district.notableNearby.slice(1)}.`
     : "";
-  return `${district.name} sits in ${district.position}, inside the ${district.postcodeHub} postcode hub.${nearby} Our Gas Safe Experts cover ${district.name} as part of our standard East Kilbride service area, with fixed-price installations, same-day repairs and annual servicing. ${district.localAngle}`;
+  return `${district.name} sits in ${district.position}, inside ${postcodeIntroPhrase(district)}.${nearby} The Gas Safe engineers we work with cover ${district.name} as part of our standard East Kilbride service area, with fixed-price installations, same-day repairs and annual servicing. ${district.localAngle}`;
 }

@@ -7,26 +7,42 @@ import type { District } from "@/types";
 // - localAngle: one short paragraph used to make the page feel hyperlocal
 // - notableNearby: optional landmark or street reference (kept neutral)
 // - typicalJob: the most common boiler job we get called for in this area
+// - needsReview: true if the postcodeHub above is still awaiting client
+//   confirmation. Templates soft-pedal postcode wording on these pages.
 //
 // These fields feed the district page template and the section variation
 // engine in src/lib/districtVariations.ts. Keeping the data in one place
 // means a Stage 2 CMS edit only needs to touch this file.
+//
+// Postcode data safety policy:
+//   Do not assign G74 or G75 manually without verification. District
+//   postcode hub values must come from the verified district spreadsheet
+//   supplied by the client, or from an authoritative source such as Royal
+//   Mail's address finder. If a district's postcode is not confirmed, set
+//   needsReview: true and avoid using the postcode in public SEO copy
+//   until the client signs it off. Ballerup Village was corrected from
+//   G74 to G75 after a client-supplied screenshot showed the area sits
+//   in G75 9FR. Re-verify every district on the needsReview list before
+//   removing the flag.
 
 export const districts: District[] = [
-  // G74 Districts
+  // G75 Districts
   {
+    // Corrected from G74 to G75 after client supplied postcode confirmation
+    // (Sweet Thorn Drive: G75 9FR, Tannin Crescent: G75).
     name: "Ballerup Village",
     slug: "ballerup-village",
-    postcodeHub: "G74",
+    postcodeHub: "G75",
     description:
-      "Ballerup Village is a quiet residential pocket in the G74 postcode of East Kilbride. Our Gas Safe Experts provide fixed-price boiler installations, repairs and servicing across Ballerup Village.",
-    position: "central East Kilbride",
-    housingMix: "1980s mid-terrace and small semi-detached homes",
-    preferredBrands: ["Ideal", "Vokera"],
+      "Ballerup Village is a quiet residential pocket within the G75 postcode of East Kilbride. The Gas Safe engineers we work with provide fixed-price boiler installations, repairs and servicing across Ballerup Village.",
+    position: "south East Kilbride",
+    housingMix: "newer 2010s and 2020s mid-terrace and semi-detached family homes",
+    preferredBrands: ["Worcester Bosch", "Ideal"],
     localAngle:
-      "Ballerup Village homes are usually compact 2 to 3 bed terraces with combi boilers already in place, which keeps installation simple and the day-rate low.",
-    typicalJob: "like-for-like combi swap",
+      "Ballerup Village is one of East Kilbride's newer developments, so most boilers here are still in their first warranty cycle, which makes annual servicing the most common job at this stage.",
+    typicalJob: "first-warranty-cycle annual service",
   },
+  // G74 Districts
   {
     name: "Calderwood",
     slug: "calderwood",
@@ -45,12 +61,12 @@ export const districts: District[] = [
     slug: "college-milton",
     postcodeHub: "G74",
     description:
-      "College Milton sits in the G74 postcode area of East Kilbride. Our engineers deliver fixed-price boiler installations, same-day repairs and annual servicing throughout College Milton.",
+      "College Milton sits in the G74 postcode area of East Kilbride. The engineers we work with deliver fixed-price boiler installations, same-day repairs and annual servicing throughout College Milton.",
     position: "north East Kilbride",
     housingMix: "mixed commercial and residential streets with 1990s housing",
     preferredBrands: ["Ideal", "Worcester Bosch"],
     localAngle:
-      "College Milton homes are a mix of family houses and converted properties from the nearby business area, so flue routing and access often need a little extra planning during the survey.",
+      "College Milton homes are a mix of family houses and converted properties from the nearby business area, so flue routing and access often need a little extra planning when you send us photos and details.",
     typicalJob: "straight combi replacement",
   },
   {
@@ -71,20 +87,21 @@ export const districts: District[] = [
     slug: "high-common",
     postcodeHub: "G74",
     description:
-      "High Common is a residential area within the G74 postcode of East Kilbride. Our team provides fixed-price boiler installations, repairs and annual servicing to High Common homeowners.",
+      "High Common is a residential area in East Kilbride. We provide fixed-price boiler installations, repairs and annual servicing to High Common homeowners.",
     position: "north-east East Kilbride",
     housingMix: "modern semi-detached homes built from the late 1990s onward",
     preferredBrands: ["Ideal", "Worcester Bosch"],
     localAngle:
       "High Common homes are newer-build family houses, so most fits are straightforward A-rated combi replacements rather than full system overhauls.",
     typicalJob: "A-rated combi replacement",
+    needsReview: true,
   },
   {
     name: "Kingsgate",
     slug: "kingsgate",
     postcodeHub: "G74",
     description:
-      "Kingsgate is a popular residential area in G74 East Kilbride. We offer fixed-price boiler installations, same-day repair call-outs and annual servicing across Kingsgate.",
+      "Kingsgate is a popular residential area in East Kilbride. We offer fixed-price boiler installations, same-day repair call-outs and annual servicing across Kingsgate.",
     position: "north-central East Kilbride",
     housingMix: "1990s detached and semi-detached family houses",
     preferredBrands: ["Worcester Bosch", "Navien"],
@@ -92,6 +109,7 @@ export const districts: District[] = [
       "Kingsgate properties tend to be 3 to 4 bedroom family homes with two bathrooms, which is where the Worcester Bosch and Navien ranges really earn their place.",
     notableNearby: "near Kingsgate Park retail area",
     typicalJob: "two-bathroom family home upgrade",
+    needsReview: true,
   },
   {
     name: "Kittochside",
@@ -111,26 +129,28 @@ export const districts: District[] = [
     slug: "langlands",
     postcodeHub: "G74",
     description:
-      "Langlands is a residential area in the G74 postcode of East Kilbride. Our Gas Safe Experts offer fixed-price boiler installations, repairs and annual servicing across Langlands.",
+      "Langlands is a residential area in East Kilbride. We offer fixed-price boiler installations, repairs and annual servicing across Langlands.",
     position: "west East Kilbride",
     housingMix: "1970s family semis with later kitchen and rear extensions",
     preferredBrands: ["Ideal", "Worcester Bosch"],
     localAngle:
       "Langlands is a popular area for first-time movers, so plenty of fits here are first proper boiler upgrades from an old G-rated or D-rated unit to a modern A-rated combi.",
     typicalJob: "G-rated to A-rated combi upgrade",
+    needsReview: true,
   },
   {
     name: "Law Place",
     slug: "law-place",
     postcodeHub: "G74",
     description:
-      "Law Place is a neighbourhood in the G74 area of East Kilbride. We deliver fixed-price boiler installations, repairs and servicing to homeowners throughout Law Place.",
+      "Law Place is a neighbourhood in East Kilbride. We deliver fixed-price boiler installations, repairs and servicing to homeowners throughout Law Place.",
     position: "central East Kilbride",
     housingMix: "compact terraces and mid-century semis",
     preferredBrands: ["Vokera", "Ideal"],
     localAngle:
       "Law Place homes are typically compact 2 bed properties, so the Vokera range at £1,299 fitted is the most popular pick here for homeowners keeping costs sensible.",
     typicalJob: "compact home like-for-like swap",
+    needsReview: true,
   },
   {
     name: "Nerston",
@@ -150,26 +170,28 @@ export const districts: District[] = [
     slug: "peel-park",
     postcodeHub: "G74",
     description:
-      "Peel Park is a residential area in G74 East Kilbride. Our engineers offer fixed-price boiler installations, repairs and annual servicing to Peel Park homeowners.",
+      "Peel Park is a residential area in East Kilbride. We offer fixed-price boiler installations, repairs and annual servicing to Peel Park homeowners.",
     position: "north East Kilbride",
     housingMix: "1990s and 2000s semi-detached and detached houses",
     preferredBrands: ["Worcester Bosch", "Ideal"],
     localAngle:
       "Peel Park homes are predominantly newer family builds with combis already in place from the original fit, so the upgrade conversation here is usually about brand and warranty length, not pipework.",
     typicalJob: "warranty-led brand upgrade",
+    needsReview: true,
   },
   {
     name: "Philipshill",
     slug: "philipshill",
     postcodeHub: "G74",
     description:
-      "Philipshill is part of the G74 postcode area in East Kilbride. We provide fixed-price boiler installations, emergency repairs and annual servicing across Philipshill.",
+      "Philipshill is part of East Kilbride. We provide fixed-price boiler installations, emergency repairs and annual servicing across Philipshill.",
     position: "south-east edge of East Kilbride",
     housingMix: "semi-rural detached homes and converted cottages",
     preferredBrands: ["Navien", "Worcester Bosch"],
     localAngle:
-      "Philipshill sits on the rural side of G74, so we deal with longer hot-water runs and bigger radiator counts more often than in the centre of town, which is exactly where Navien's flow rate matters.",
+      "Philipshill sits on the rural side of East Kilbride, so we deal with longer hot-water runs and bigger radiator counts more often than in the centre of town, which is exactly where Navien's flow rate matters.",
     typicalJob: "large detached full heating upgrade",
+    needsReview: true,
   },
   {
     name: "St Leonards",
@@ -202,7 +224,7 @@ export const districts: District[] = [
     slug: "the-village",
     postcodeHub: "G74",
     description:
-      "The Village is the original heart of East Kilbride in the G74 postcode. Our Gas Safe Experts deliver fixed-price boiler installations, repairs and annual servicing to The Village.",
+      "The Village is the original heart of East Kilbride in the G74 postcode. The Gas Safe engineers we work with deliver fixed-price boiler installations, repairs and annual servicing to The Village.",
     position: "central historic East Kilbride",
     housingMix: "older stone properties, converted cottages and traditional terraces",
     preferredBrands: ["Worcester Bosch", "Ideal"],
@@ -242,12 +264,12 @@ export const districts: District[] = [
     slug: "whitemoss",
     postcodeHub: "G74",
     description:
-      "Whitemoss is a neighbourhood in the G74 postcode of East Kilbride. Our engineers deliver fixed-price boiler installations, repairs and annual servicing throughout Whitemoss.",
+      "Whitemoss is a neighbourhood in the G74 postcode of East Kilbride. The engineers we work with deliver fixed-price boiler installations, repairs and annual servicing throughout Whitemoss.",
     position: "central East Kilbride",
     housingMix: "mid-century semis and modern flats",
     preferredBrands: ["Ideal", "Worcester Bosch"],
     localAngle:
-      "Whitemoss is well-positioned for our engineers to reach quickly on emergency calls, which is one reason it accounts for a healthy share of our same-day repair work each winter.",
+      "Whitemoss is well-positioned for these engineers to reach quickly on emergency calls, which is one reason it accounts for a healthy share of our same-day repair work each winter.",
     typicalJob: "same-day boiler repair call-out",
   },
   // G75 Districts
@@ -269,7 +291,7 @@ export const districts: District[] = [
     slug: "crutherland",
     postcodeHub: "G75",
     description:
-      "Crutherland is part of the G75 postcode in East Kilbride. Our Gas Safe Experts offer fixed-price boiler installations, repairs and professional servicing to Crutherland residents.",
+      "Crutherland is part of the G75 postcode in East Kilbride. The Gas Safe engineers we work with offer fixed-price boiler installations, repairs and professional servicing to Crutherland residents.",
     position: "south East Kilbride",
     housingMix: "modern detached family homes and semi-rural properties",
     preferredBrands: ["Worcester Bosch", "Navien"],
@@ -336,13 +358,14 @@ export const districts: District[] = [
     slug: "kelvin",
     postcodeHub: "G75",
     description:
-      "Kelvin is a neighbourhood in G75 East Kilbride. Our Gas Safe Experts deliver fixed-price boiler installations, repairs and professional servicing across Kelvin.",
+      "Kelvin is a neighbourhood in East Kilbride. We deliver fixed-price boiler installations, repairs and professional servicing across Kelvin.",
     position: "south-east East Kilbride",
     housingMix: "1980s and 90s family semis and detached homes",
     preferredBrands: ["Ideal", "Worcester Bosch"],
     localAngle:
       "Kelvin is a settled area with plenty of long-standing homeowners, and many of the boilers we replace here are second or third units in the same property, which means we know the pipework patterns well.",
     typicalJob: "second-generation replacement",
+    needsReview: true,
   },
   {
     name: "Lindsayfield",
@@ -362,7 +385,7 @@ export const districts: District[] = [
     slug: "mossneuk",
     postcodeHub: "G75",
     description:
-      "Mossneuk is part of the G75 postcode area in East Kilbride. Our engineers provide fixed-price boiler installations, emergency repairs and annual servicing across Mossneuk.",
+      "Mossneuk is part of the G75 postcode area in East Kilbride. The engineers we work with provide fixed-price boiler installations, emergency repairs and annual servicing across Mossneuk.",
     position: "central-south East Kilbride",
     housingMix: "compact terraces and 2 bed semis with combis already in place",
     preferredBrands: ["Vokera", "Ideal"],
@@ -375,13 +398,14 @@ export const districts: District[] = [
     slug: "mossside",
     postcodeHub: "G75",
     description:
-      "Mossside is a residential area in G75 East Kilbride. We deliver fixed-price boiler installations, same-day repairs and annual servicing to Mossside residents.",
+      "Mossside is a residential area in East Kilbride. We deliver fixed-price boiler installations, same-day repairs and annual servicing to Mossside residents.",
     position: "south East Kilbride",
     housingMix: "1970s and 80s family semis and modern terraces",
     preferredBrands: ["Ideal", "Worcester Bosch"],
     localAngle:
       "Mossside is a tight-knit residential area where we have done multiple installations on the same streets, so neighbours often recommend us by name when their own boiler needs attention.",
     typicalJob: "neighbour-referral replacement",
+    needsReview: true,
   },
   {
     name: "Newlandsmuir",
@@ -401,7 +425,7 @@ export const districts: District[] = [
     slug: "playsport",
     postcodeHub: "G75",
     description:
-      "Playsport is an area in G75 East Kilbride. Our team offers fixed-price boiler installations, same-day repair call-outs and annual servicing to Playsport residents.",
+      "Playsport is an area in East Kilbride. We offer fixed-price boiler installations, same-day repair call-outs and annual servicing to Playsport residents.",
     position: "south East Kilbride",
     housingMix: "mixed residential and leisure-adjacent properties",
     preferredBrands: ["Ideal", "Worcester Bosch"],
@@ -409,32 +433,35 @@ export const districts: District[] = [
       "Playsport sits alongside one of East Kilbride's leisure complexes, and homeowners here often ask for the quietest combi we can fit, which makes the Worcester and Ideal ranges with low noise ratings the natural choice.",
     notableNearby: "near East Kilbride Playsport",
     typicalJob: "low-noise combi fit",
+    needsReview: true,
   },
   {
     name: "Redwood",
     slug: "redwood",
     postcodeHub: "G75",
     description:
-      "Redwood is a residential neighbourhood in the G75 postcode of East Kilbride. We provide fixed-price boiler installations, repairs and annual servicing across Redwood.",
+      "Redwood is a residential neighbourhood in East Kilbride. We provide fixed-price boiler installations, repairs and annual servicing across Redwood.",
     position: "south-central East Kilbride",
     housingMix: "1980s and 90s detached and semi-detached homes",
     preferredBrands: ["Worcester Bosch", "Ideal"],
     localAngle:
       "Redwood homes are settled family properties, and many of the boilers here are second-generation replacements where homeowners already know the brand they want to stay with.",
     typicalJob: "brand-loyal replacement",
+    needsReview: true,
   },
   {
     name: "Strathaven Rd",
     slug: "strathaven-rd",
     postcodeHub: "G75",
     description:
-      "Strathaven Rd is part of the G75 area in East Kilbride. Our Gas Safe Experts deliver fixed-price boiler installations, repairs and annual servicing along Strathaven Rd.",
+      "Strathaven Rd is part of East Kilbride. We deliver fixed-price boiler installations, repairs and annual servicing along Strathaven Rd.",
     position: "south edge of East Kilbride",
     housingMix: "mixed properties along the arterial route, including older cottages and modern semis",
     preferredBrands: ["Worcester Bosch", "Ideal"],
     localAngle:
       "Strathaven Rd is a busy through-route, so we often plan installations here for weekdays when access is easier and noise is less of an issue for neighbours.",
     typicalJob: "access-aware installation planning",
+    needsReview: true,
   },
   {
     name: "The Murray",
@@ -468,7 +495,7 @@ export const districts: District[] = [
     slug: "whitehills",
     postcodeHub: "G75",
     description:
-      "Whitehills is a neighbourhood in the G75 postcode of East Kilbride. Our engineers deliver fixed-price boiler installations, repairs and annual servicing throughout Whitehills.",
+      "Whitehills is a neighbourhood in the G75 postcode of East Kilbride. The engineers we work with deliver fixed-price boiler installations, repairs and annual servicing throughout Whitehills.",
     position: "south-west East Kilbride",
     housingMix: "1980s and 90s family semis and modern detached homes",
     preferredBrands: ["Worcester Bosch", "Ideal"],

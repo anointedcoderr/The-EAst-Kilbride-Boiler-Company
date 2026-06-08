@@ -100,7 +100,7 @@ const installationFAQs: PageFAQ[] = [
   {
     question: "What is included in a fixed-price boiler installation?",
     answer:
-      "Our fixed price includes the boiler, fitting by Gas Safe Experts, all standard pipework and fittings, a wireless thermostat, a full system flush, the manufacturer warranty, parts, labour and VAT. There are no separate call-out fees and no surprise extras on the day.",
+      "Our fixed price includes the boiler, fitting by Gas Safe engineers, all standard pipework and fittings, a wireless thermostat, a full system flush, the manufacturer warranty, parts, labour and VAT. There are no separate call-out fees and no surprise extras on the day.",
   },
   {
     question: "How quickly can I get a quote?",
@@ -111,12 +111,12 @@ const installationFAQs: PageFAQ[] = [
     question:
       "Do you install Worcester Bosch, Ideal, Vokera and Navien boilers?",
     answer:
-      "Yes. We install Worcester Bosch from £1,695 with a 5-year warranty, Ideal from £1,495 with a 5-year warranty, Vokera from £1,299 with a 5-year warranty, and Navien from £1,835 with a 10-year warranty. Every fit is carried out by our Gas Safe Experts.",
+      "Yes. We install Worcester Bosch from £1,695 with a 5-year warranty, Ideal from £1,495 with a 5-year warranty, Vokera from £1,299 with a 5-year warranty, and Navien from £1,835 with a 10-year warranty. Every fit is carried out by the Gas Safe engineers we work with.",
   },
   {
     question: "Do you offer fixed-price quotes for installations?",
     answer:
-      "Yes. Once we have surveyed the property, we issue a single fixed price covering the boiler, all parts, labour, VAT, the wireless thermostat and the full system flush. The figure on the quote is the figure you pay. There are no surprise costs once work begins.",
+      "Yes. Once we review the photos and details you send us, we issue a single fixed price covering the boiler, all parts, labour, VAT, the wireless thermostat and the full system flush. The figure on the quote is the figure you pay. There are no surprise costs once work begins.",
   },
   {
     question: "Do you dispose of the old boiler?",
@@ -126,7 +126,7 @@ const installationFAQs: PageFAQ[] = [
   {
     question: "Will you need to replace my radiators as well?",
     answer:
-      "Usually not. During the survey, we check the existing radiators and pipework for sludge, output and condition. Most East Kilbride homes can keep their existing radiators with a new A-rated combi, helped by the full system flush we include as standard. If a particular radiator is on its last legs we tell you on the day rather than spring it on you later.",
+      "Usually not. When you send us photos and details, we check the existing radiators and pipework for sludge, output and condition. Most East Kilbride homes can keep their existing radiators with a new A-rated combi, helped by the full system flush we include as standard. If a particular radiator is on its last legs we tell you on the day rather than spring it on you later.",
   },
 ];
 
@@ -144,7 +144,7 @@ const repairFAQs: PageFAQ[] = [
   {
     question: "Should I repair or replace my boiler?",
     answer:
-      "As a rough guide, if your boiler is over 12 years old, has needed three or four repairs in the last 18 months, or is no longer A-rated for efficiency, a replacement usually works out cheaper across the next few years. Our Gas Safe Experts give you an honest answer at the visit. We never push a replacement when a repair is the right call.",
+      "As a rough guide, if your boiler is over 12 years old, has needed three or four repairs in the last 18 months, or is no longer A-rated for efficiency, a replacement usually works out cheaper across the next few years. The Gas Safe engineers we work with give you an honest answer at the visit. We never push a replacement when a repair is the right call.",
   },
   {
     question: "Do you repair boilers in G74 and G75?",
@@ -160,7 +160,7 @@ const repairFAQs: PageFAQ[] = [
     question:
       "Do you repair Worcester Bosch, Ideal, Vokera and Navien boilers?",
     answer:
-      "Yes. We repair all four brands plus most other major makes including Baxi, Glow-worm, Vaillant and Potterton. Our Gas Safe Experts carry common spares on the van so many faults can be fixed at the first visit.",
+      "Yes. We repair all four brands plus most other major makes including Baxi, Glow-worm, Vaillant and Potterton. The Gas Safe engineers we work with carry common spares on the van so many faults can be fixed at the first visit.",
   },
   {
     question: "What should I do if my boiler stops working?",
@@ -168,9 +168,9 @@ const repairFAQs: PageFAQ[] = [
       "Check the basics first: the boiler pressure should normally sit between 1 and 1.5 bar when cold, the gas supply should be on, the thermostat should be calling for heat, and the condensate pipe should not be frozen if it runs outside. If everything looks normal, do not keep resetting it. Call us so we can diagnose the underlying fault safely.",
   },
   {
-    question: "Are your engineers Gas Safe registered?",
+    question: "Are the engineers Gas Safe registered?",
     answer:
-      "Yes. All gas work at EKBC is carried out by our own Gas Safe Experts. Every engineer carries a Gas Safe ID card on the day, and our registration can be verified directly at gassaferegister.co.uk before any work begins.",
+      "Yes. All gas work at EKBC is carried out by experienced self-employed Gas Safe engineers. Every engineer carries a Gas Safe ID card on the day, and each engineer's Gas Safe registration can be verified directly at gassaferegister.co.uk before any work begins.",
   },
 ];
 
@@ -199,7 +199,7 @@ const servicingFAQs: PageFAQ[] = [
     question:
       "Do you service Worcester Bosch, Ideal, Vokera and Navien boilers?",
     answer:
-      "Yes. Our Gas Safe Experts service all four brands and most other major makes. The service is the same fixed price regardless of brand.",
+      "Yes. The Gas Safe engineers we work with service all four brands and most other major makes. The service is the same fixed price regardless of brand.",
   },
   {
     question: "How long does a boiler service take?",
@@ -243,7 +243,7 @@ const boilerPricesFAQs: PageFAQ[] = [
   {
     question: "What is included in the boiler installation price?",
     answer:
-      "The price includes the boiler, fitting by Gas Safe Experts, all standard pipework, the manufacturer warranty, a free wireless thermostat, a full system flush, all materials, labour and VAT. Removal of the old boiler and tidy-up are included as standard.",
+      "The price includes the boiler, fitting by Gas Safe engineers, all standard pipework, the manufacturer warranty, a free wireless thermostat, a full system flush, all materials, labour and VAT. Removal of the old boiler and tidy-up are included as standard.",
   },
   {
     question: "Why do boiler prices vary?",
@@ -262,7 +262,7 @@ const blogIndexFAQs: PageFAQ[] = [
     question:
       "How often do you publish new boiler guides for East Kilbride?",
     answer:
-      "We publish new boiler buying, repair and servicing guides every few weeks. Each guide is written by our Gas Safe Experts and is focused on real questions we hear from homeowners across G74 and G75.",
+      "We publish new boiler buying, repair and servicing guides every few weeks. Each guide is written by the Gas Safe engineers we work with and is focused on real questions we hear from homeowners across G74 and G75.",
   },
   {
     question: "Are the guides specific to East Kilbride?",
@@ -272,7 +272,7 @@ const blogIndexFAQs: PageFAQ[] = [
   {
     question: "Can I get a quote after reading a guide?",
     answer:
-      "Yes. Every guide includes a clear link to the online quote form. You can also call 01355 204045 if you would prefer to talk it through with a Gas Safe Expert.",
+      "Yes. Every guide includes a clear link to the online quote form. You can also call 01355 204045 if you would prefer to talk it through with a Gas Safe registered engineer.",
   },
 ];
 
@@ -356,13 +356,13 @@ export const pageContent: Record<string, PageContent> = {
     metaTitle:
       "East Kilbride Boiler Company | EKBC - Boiler Replacement G74 / G75",
     metaDescription:
-      "East Kilbride's #1 boiler replacement company. Fixed-price installations across 35 EK areas. Gas Safe Experts, up to 12-year warranties. Call 01355 204045.",
+      "East Kilbride's #1 boiler replacement company. Fixed-price installations across 35 EK areas. Gas Safe engineers, up to 12-year warranties. Call 01355 204045.",
     h1: "The East Kilbride Boiler Company",
     highlightedWord: "Company",
     heroEyebrow: "Boilers fixed, fitted and serviced",
     heroSubtitle: "Serving all areas of East Kilbride G74 / G75",
     heroDescription:
-      "Fixed-price boiler installations, fast repairs and annual servicing across every district of East Kilbride. Gas Safe Experts, no middle man, no hidden extras.",
+      "Fixed-price boiler installations, fast repairs and annual servicing across every district of East Kilbride. Gas Safe engineers, no middle man, no hidden extras.",
     ctaPrimaryLabel: "Get my fixed price",
     ctaSecondaryLabel: "Call 01355 204045",
     ctaBannerTitle: "Get your fixed price quote",
@@ -383,16 +383,16 @@ export const pageContent: Record<string, PageContent> = {
     metaTitle:
       "New Boiler Installation in East Kilbride | EKBC - Fixed Price From £1,299",
     metaDescription:
-      "Fixed-price new boiler installation across G74 and G75 East Kilbride. Worcester Bosch, Ideal, Vokera and Navien fitted by Gas Safe Experts. Call 01355 204045.",
+      "Fixed-price new boiler installation across G74 and G75 East Kilbride. Worcester Bosch, Ideal, Vokera and Navien fitted by Gas Safe engineers. Call 01355 204045.",
     h1: "New Boiler Installation in East Kilbride - Fixed Price From £1,299",
     highlightedWord: "£1,299",
     heroEyebrow: "New Boiler Installation",
     heroSubtitle: "Worcester Bosch, Ideal, Vokera, Navien",
     heroDescription:
-      "Fixed-price new boiler installation across all 35 areas of East Kilbride. Worcester Bosch, Ideal, Vokera and Navien fitted by our Gas Safe Experts. No middle man, no hidden extras, no surprises on the day.",
+      "Fixed-price new boiler installation across all 35 areas of East Kilbride. Worcester Bosch, Ideal, Vokera and Navien fitted by the Gas Safe engineers we work with. No middle man, no hidden extras, no surprises on the day.",
     heroTrustPoints: [
       "From £1,299 fitted",
-      "Gas Safe Experts",
+      "Gas Safe engineers",
       "Up to 12-yr warranty",
       "Same-week installation",
     ],
@@ -400,7 +400,7 @@ export const pageContent: Record<string, PageContent> = {
     ctaSecondaryLabel: "Call 01355 204045",
     ctaBannerTitle: "Get your fixed price installation quote",
     introCopy:
-      "If your East Kilbride boiler is past its tenth birthday, costing you in winter bills, or letting the family down with cold mornings, a new A-rated combi is the upgrade that pays you back. Every install is carried out by our own Gas Safe Experts, with a fixed price, a manufacturer warranty and a full system flush as standard.",
+      "If your East Kilbride boiler is past its tenth birthday, costing you in winter bills, or letting the family down with cold mornings, a new A-rated combi is the upgrade that pays you back. Every install is carried out by experienced self-employed Gas Safe engineers, with a fixed price, a manufacturer warranty and a full system flush as standard.",
     contentBlocks: [
       {
         id: "what-happens",
@@ -413,7 +413,7 @@ export const pageContent: Record<string, PageContent> = {
           "Old boiler isolated and removed safely, including any old hot water tank",
           "New boiler hung, gas, condensate, flue and pipework connected",
           "Full system flush to clean out sludge and protect the new heat exchanger",
-          "Pressure test, flue gas analysis and final commissioning by your Gas Safe Expert",
+          "Pressure test, flue gas analysis and final commissioning by the Gas Safe registered engineer on the day",
           "Wireless thermostat paired and demonstrated to you before we leave",
         ],
       },
@@ -479,14 +479,14 @@ export const pageContent: Record<string, PageContent> = {
         id: "local-trust",
         heading: "Why East Kilbride homeowners choose EKBC",
         body: [
-          "We are a local East Kilbride boiler company with our own Gas Safe Experts. We are not a national lead-buying machine pretending to be local. Every install is signed off by the engineer who carried it out and backed by a manufacturer warranty registered in your name.",
+          "We are a local East Kilbride boiler company with experienced self-employed Gas Safe engineers. We are not a national lead-buying machine pretending to be local. Every install is signed off by the engineer who carried it out and backed by a manufacturer warranty registered in your name.",
         ],
       },
     ],
     serviceAreaProof: {
       title: "Boiler installation across East Kilbride",
       intro:
-        "We install new boilers across every G74 and G75 district in East Kilbride. From quick combi swaps in The Murray and Greenhills, to back-boiler conversions in The Village and Calderwood, to full-system upgrades in Stewartfield and Thorntonhall, the same Gas Safe Experts fit every job.",
+        "We install new boilers across every G74 and G75 district in East Kilbride. From quick combi swaps in The Murray and Greenhills, to back-boiler conversions in The Village and Calderwood, to full-system upgrades in Stewartfield and Thorntonhall, the same Gas Safe engineers fit every job.",
       districts: [
         "The Murray",
         "Greenhills",
@@ -513,18 +513,18 @@ export const pageContent: Record<string, PageContent> = {
     childCount: 0,
     schemaTypes: ["Service", "FAQPage", "BreadcrumbList"],
     metaTitle:
-      "Boiler Repair East Kilbride | EKBC - Gas Safe Experts, Same-Day Call-Out",
+      "Boiler Repair East Kilbride | EKBC - Gas Safe engineers, Same-Day Call-Out",
     metaDescription:
-      "Same-day boiler repair across East Kilbride. Worcester Bosch, Ideal, Vokera, Navien and more, fixed by Gas Safe Experts. Call 01355 204045 for an urgent call-out.",
-    h1: "Boiler Repair East Kilbride - Gas Safe Experts, Same-Day Call-Out",
+      "Same-day boiler repair across East Kilbride. Worcester Bosch, Ideal, Vokera, Navien and more, fixed by Gas Safe engineers. Call 01355 204045 for an urgent call-out.",
+    h1: "Boiler Repair East Kilbride - Gas Safe engineers, Same-Day Call-Out",
     highlightedWord: "East Kilbride",
     heroEyebrow: "Boiler Repair",
     heroSubtitle: "Worcester, Ideal, Vokera, Navien and more",
     heroDescription:
-      "Same-day boiler repair across East Kilbride. Our Gas Safe Experts diagnose, quote and fix on the same visit wherever possible. Klarna 3-month interest-free is available exclusively on boiler repair call-outs.",
+      "Same-day boiler repair across East Kilbride. The Gas Safe engineers we work with diagnose, quote and fix on the same visit wherever possible. Klarna 3-month interest-free is available exclusively on boiler repair call-outs.",
     heroTrustPoints: [
       "Same-day call-out",
-      "Gas Safe Experts",
+      "Gas Safe engineers",
       "Fair, fixed quotes",
       "All G74 and G75 covered",
     ],
@@ -532,13 +532,13 @@ export const pageContent: Record<string, PageContent> = {
     ctaSecondaryLabel: "Call 01355 204045",
     ctaBannerTitle: "Get a same-day boiler repair call-out",
     introCopy:
-      "When a boiler stops working in winter, you do not want a call centre. You want a Gas Safe expert at the door with the right spares on the van. We cover every G74 and G75 postcode in East Kilbride and aim to diagnose, quote and resolve the fault on the same visit.",
+      "When a boiler stops working in winter, you do not want a call centre. You want a Gas Safe registered engineer at the door with the right spares on the van. We cover every G74 and G75 postcode in East Kilbride and aim to diagnose, quote and resolve the fault on the same visit.",
     contentBlocks: [
       {
         id: "common-faults",
         heading: "Common boiler faults in East Kilbride homes",
         body: [
-          "Most call-outs across G74 and G75 come down to a handful of repeat problems. The good news is the fix is usually straightforward once a Gas Safe Expert can look at it.",
+          "Most call-outs across G74 and G75 come down to a handful of repeat problems. The good news is the fix is usually straightforward once a Gas Safe registered engineer can look at it.",
         ],
         bullets: [
           "Pressure that keeps dropping below 1 bar",
@@ -573,7 +573,7 @@ export const pageContent: Record<string, PageContent> = {
         ],
         bullets: [
           "Visit booked at a time that suits you",
-          "Full diagnostic check by a Gas Safe Expert",
+          "Full diagnostic check by a Gas Safe registered engineer",
           "Clear fixed quote before any repair work begins",
           "Parts fitted, system tested and pressure rechecked",
           "Klarna 3-month interest-free available on repair call-outs",
@@ -602,7 +602,7 @@ export const pageContent: Record<string, PageContent> = {
         id: "brands-repaired",
         heading: "Brands we repair",
         body: [
-          "Our Gas Safe Experts repair Worcester Bosch, Ideal, Vokera, Navien, Baxi, Glow-worm, Vaillant and Potterton along with most other major makes. We do not charge more to work on premium brands.",
+          "The Gas Safe engineers we work with repair Worcester Bosch, Ideal, Vokera, Navien, Baxi, Glow-worm, Vaillant and Potterton along with most other major makes. We do not charge more to work on premium brands.",
         ],
       },
       {
@@ -616,7 +616,7 @@ export const pageContent: Record<string, PageContent> = {
     serviceAreaProof: {
       title: "Boiler repairs across G74 and G75",
       intro:
-        "Same-day boiler repair coverage right across East Kilbride. Whether it is a no-heat call-out in Hairmyres, a pressure issue in The Murray, or a frozen condensate in Stewartfield during a cold snap, our Gas Safe Experts carry common spares on the van to fix the fault on the first visit wherever possible.",
+        "Same-day boiler repair coverage right across East Kilbride. Whether it is a no-heat call-out in Hairmyres, a pressure issue in The Murray, or a frozen condensate in Stewartfield during a cold snap, the Gas Safe engineers we work with carry common spares on the van to fix the fault on the first visit wherever possible.",
       districts: [
         "Hairmyres",
         "Calderwood",
@@ -645,13 +645,13 @@ export const pageContent: Record<string, PageContent> = {
     metaTitle:
       "Annual Boiler Service East Kilbride | EKBC - Worcester, Ideal, Vokera, Navien",
     metaDescription:
-      "Annual boiler servicing in East Kilbride by Gas Safe Experts. Worcester Bosch, Ideal, Vokera, Navien and more. Protect your warranty. Call 01355 204045.",
+      "Annual boiler servicing in East Kilbride by Gas Safe engineers. Worcester Bosch, Ideal, Vokera, Navien and more. Protect your warranty. Call 01355 204045.",
     h1: "Annual Boiler Service East Kilbride - Worcester, Ideal, Vokera, Navien",
     highlightedWord: "East Kilbride",
     heroEyebrow: "Annual Boiler Service",
     heroSubtitle: "Gas Safe checked, warranty-friendly",
     heroDescription:
-      "Annual boiler servicing in East Kilbride to keep your warranty valid, your bills down and your family safe. Worcester Bosch, Ideal, Vokera, Navien and most other major brands serviced by Gas Safe Experts.",
+      "Annual boiler servicing in East Kilbride to keep your warranty valid, your bills down and your family safe. Worcester Bosch, Ideal, Vokera, Navien and most other major brands serviced by Gas Safe engineers.",
     heroTrustPoints: [
       "Gas Safe checked",
       "Digital service report",
@@ -662,7 +662,7 @@ export const pageContent: Record<string, PageContent> = {
     ctaSecondaryLabel: "Call 01355 204045",
     ctaBannerTitle: "Book your annual boiler service",
     introCopy:
-      "An annual boiler service is the cheapest way to protect a big purchase. Skip it and the manufacturer warranty almost always becomes invalid. Our Gas Safe Experts run a full check, leave you with a digital report, and make sure your boiler is running safely and efficiently for the next year.",
+      "An annual boiler service is the cheapest way to protect a big purchase. Skip it and the manufacturer warranty almost always becomes invalid. The Gas Safe engineers we work with run a full check, leave you with a digital report, and make sure your boiler is running safely and efficiently for the next year.",
     contentBlocks: [
       {
         id: "checklist",
@@ -719,7 +719,7 @@ export const pageContent: Record<string, PageContent> = {
         id: "brands-serviced",
         heading: "Brands we service",
         body: [
-          "Our Gas Safe Experts service Worcester Bosch, Ideal, Vokera, Navien, Baxi, Glow-worm, Vaillant, Potterton and most other major brands. The service is the same fixed price regardless of brand.",
+          "The Gas Safe engineers we work with service Worcester Bosch, Ideal, Vokera, Navien, Baxi, Glow-worm, Vaillant, Potterton and most other major brands. The service is the same fixed price regardless of brand.",
         ],
       },
       {
@@ -771,7 +771,7 @@ export const pageContent: Record<string, PageContent> = {
       "Choose from Worcester Bosch, Ideal, Vokera and Navien. All prices include installation, parts, labour and VAT. No hidden extras, no surprises.",
     heroTrustPoints: [
       "From £1,299 fitted",
-      "Gas Safe Experts",
+      "Gas Safe engineers",
       "Up to 10-yr warranty",
       "Free system flush",
     ],
@@ -879,15 +879,15 @@ export const pageContent: Record<string, PageContent> = {
     metaTitle:
       "East Kilbride Boiler Blog | EKBC - Heating Guides for G74 & G75",
     metaDescription:
-      "Practical boiler buying, repair and servicing guides for East Kilbride homeowners. Worcester Bosch, Ideal, Vokera, Navien and more. Local Gas Safe Experts.",
+      "Practical boiler buying, repair and servicing guides for East Kilbride homeowners. Worcester Bosch, Ideal, Vokera, Navien and more. Local Gas Safe engineers.",
     h1: "East Kilbride boiler guides and heating advice",
     highlightedWord: "East Kilbride",
     heroEyebrow: "Boiler advice for East Kilbride",
     heroSubtitle: "Buying, repair and servicing guides",
     heroDescription:
-      "Honest, practical guides from our Gas Safe Experts for homeowners across G74 and G75. Boiler buying, signs of a failing system, what an annual service really covers, and what fitted prices look like in East Kilbride.",
+      "Honest, practical guides from the Gas Safe engineers we work with for homeowners across G74 and G75. Boiler buying, signs of a failing system, what an annual service really covers, and what fitted prices look like in East Kilbride.",
     heroTrustPoints: [
-      "Written by Gas Safe Experts",
+      "Written by Gas Safe engineers",
       "Local to East Kilbride",
       "Updated regularly",
       "Honest pricing",

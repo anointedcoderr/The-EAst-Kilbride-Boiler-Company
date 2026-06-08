@@ -27,7 +27,7 @@ function priceTableSchema() {
     "@type": "Product",
     name: `${brand.name} ${brand.product} fitted in East Kilbride`,
     image: `${SITE_URL}${brand.image}`,
-    description: `${brand.name} ${brand.product} fully installed in East Kilbride from ${formatPrice(brand.standardPrice)} by Gas Safe Experts.`,
+    description: `${brand.name} ${brand.product} fully installed in East Kilbride from ${formatPrice(brand.standardPrice)} by Gas Safe engineers.`,
     brand: { "@type": "Brand", name: brand.name },
     offers: {
       "@type": "Offer",
@@ -196,7 +196,7 @@ export function BoilerPricesTemplate() {
               "Old boiler removal and tidy-up",
               "Building control notification through Gas Safe",
               "Fixed price, no separate call-out fees",
-              "Installed by our own Gas Safe Experts",
+              "Installed by experienced self-employed Gas Safe engineers",
             ].map((item) => (
               <div
                 key={item}

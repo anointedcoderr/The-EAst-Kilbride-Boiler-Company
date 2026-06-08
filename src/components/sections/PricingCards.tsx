@@ -22,7 +22,7 @@ function PricingCards() {
             eyebrow="UNBEATABLE PRICES"
             heading="OUR UNBEATABLE BOILER INSTALLATION DEALS"
             highlightedWord="INSTALLATION DEALS"
-            subtitle="Carefully selected boiler brands installed by professional Gas Safe Experts. Fixed price, all materials included, helping you choose the right boiler for your home with reliable heating and long-term peace of mind."
+            subtitle="Carefully selected boiler brands installed by professional Gas Safe engineers. Fixed price, all materials included, helping you choose the right boiler for your home with reliable heating and long-term peace of mind."
           />
         </ScrollReveal>
 

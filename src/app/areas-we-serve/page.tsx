@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   title:
     "Areas We Serve - All 35 East Kilbride Districts | EKBC G74 and G75",
   description:
-    "We cover every G74 and G75 postcode across East Kilbride. 35 districts from The Murray to Stewartfield, Calderwood to Greenhills. Fixed-price installations by Gas Safe Experts.",
+    "We cover every G74 and G75 postcode across East Kilbride. 35 districts from The Murray to Stewartfield, Calderwood to Greenhills. Fixed-price installations by Gas Safe engineers.",
   alternates: { canonical: "/areas-we-serve/" },
 };
 
@@ -43,11 +43,11 @@ const internalLinks: PageInternalLink[] = [
 const areasFaqs = [
   {
     question: "How many East Kilbride districts do you cover?",
-    answer: `We cover all 35 districts of East Kilbride - 18 in G74 and 17 in G75 - as part of our standard service area. There is no extra travel charge for any East Kilbride postcode.`,
+    answer: `We cover all 35 districts of East Kilbride - 17 in G74 and 18 in G75 - as part of our standard service area. There is no extra travel charge for any East Kilbride postcode.`,
   },
   {
     question: "Is your service the same in G74 as it is in G75?",
-    answer: `Yes. The same Gas Safe Experts, the same four boiler brands and the same fixed-price model apply across both postcode hubs. The only difference is which brands we recommend - the housing stock in G74 leans more towards 3 and 4 bed semis and detached, where G75 has more compact terraces and family flats.`,
+    answer: `Yes. The same Gas Safe engineers, the same four boiler brands and the same fixed-price model apply across both postcode hubs. The only difference is which brands we recommend - the housing stock in G74 leans more towards 3 and 4 bed semis and detached, where G75 has more compact terraces and family flats.`,
   },
   {
     question: "Do you serve nearby areas outside East Kilbride?",
@@ -104,7 +104,7 @@ export default function AreasWeServePage() {
           "35 districts covered",
           "G74 + G75",
           "Fixed-price installs",
-          "Gas Safe Experts",
+          "Gas Safe engineers",
         ]}
         breadcrumbs={breadcrumbs}
       />
@@ -123,7 +123,7 @@ export default function AreasWeServePage() {
                   G74 - North and Central East Kilbride
                 </h2>
                 <p className="mt-3 text-sm leading-relaxed text-carbon-300">
-                  18 G74 districts covering the north and central parts of East
+                  17 G74 districts covering the north and central parts of East
                   Kilbride, from The Village out to Stewartfield, Thorntonhall and the
                   semi-rural edges around Kittochside and Philipshill.
                 </p>
@@ -164,7 +164,7 @@ export default function AreasWeServePage() {
                   G75 - South and West East Kilbride
                 </h2>
                 <p className="mt-3 text-sm leading-relaxed text-carbon-300">
-                  17 G75 districts covering the south and west, from The Murray
+                  18 G75 districts covering the south and west, from The Murray
                   and Westwood through to Hairmyres, Lindsayfield and the
                   newer family estates in Jackton.
                 </p>

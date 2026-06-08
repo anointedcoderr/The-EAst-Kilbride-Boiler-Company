@@ -221,7 +221,7 @@ export function BlogPostTemplate({ post }: BlogPostTemplateProps) {
               Ready for a fixed price?
             </p>
             <p className="mt-2 text-base text-white">
-              Get a quote online in 60 seconds, or call our Gas Safe Experts on{" "}
+              Get a quote online in 60 seconds, or call the Gas Safe engineers we work with on{" "}
               <a
                 href={siteSettings.phoneHref}
                 className="font-bold text-mint-400 hover:text-mint-300"

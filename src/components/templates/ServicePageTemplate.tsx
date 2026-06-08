@@ -81,7 +81,7 @@ export function ServicePageTemplate({
       <LocalFAQSection
         eyebrow={`${page.label} FAQs - East Kilbride`}
         heading="Local boiler questions, answered"
-        intro="The questions our Gas Safe Experts hear most often from G74 and G75 homeowners. Tap any question for a clear, jargon-free answer."
+        intro="The questions the Gas Safe engineers we work with hear most often from G74 and G75 homeowners. Tap any question for a clear, jargon-free answer."
         faqs={page.faqs}
       />
 

@@ -17,7 +17,7 @@ const steps = [
     icon: Calendar,
     title: "BOOK YOUR INSTALLATION DATE",
     description:
-      "Choose a date and time that suits you. Our Gas Safe Experts are available 6 days a week, with next-day installation often available.",
+      "Choose a date and time that suits you. The Gas Safe engineers we work with are available 6 days a week, with next-day installation often available.",
   },
   {
     number: 3,

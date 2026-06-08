@@ -55,7 +55,7 @@ export const stage2MoneyKeywords: Stage2Keyword[] = [
     intent: "transactional",
     primaryFor: ["district", "postcode-hub", "service"],
     notes:
-      "Use with the Gas Safe Experts trust block. Link out to gassaferegister.co.uk. Do not invent a registration number.",
+      "Use with the Gas Safe engineers trust block. Link out to gassaferegister.co.uk. Do not invent a registration number.",
   },
   {
     id: "emergency-boiler-replacement-area",
@@ -87,7 +87,7 @@ export const stage2MoneyKeywords: Stage2Keyword[] = [
     intent: "transactional",
     primaryFor: ["district", "postcode-hub"],
     notes:
-      "Supports the Gas Safe Experts content. Use sparingly to avoid keyword stuffing.",
+      "Supports the Gas Safe engineers content. Use sparingly to avoid keyword stuffing.",
   },
   {
     id: "best-boiler-installation-deals-area",
