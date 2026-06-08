@@ -119,7 +119,7 @@ export default function ContactPage() {
         ]}
         breadcrumbs={breadcrumbs}
         primaryCtaLabel="Use the quote form"
-        primaryCtaHref="#quote"
+        primaryCtaHref="#quote-form"
       />
 
       <TrustBadgesBar />

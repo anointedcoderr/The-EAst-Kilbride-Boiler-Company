@@ -248,7 +248,7 @@ export function BrandPageTemplate({ brand }: BrandPageTemplateProps) {
 
                 <div className="mt-6 flex flex-wrap gap-3">
                   <Link
-                    href="/#quote"
+                    href="/#quote-form"
                     className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-lg bg-mint-500 px-6 py-3 text-base font-bold text-carbon-900 transition-all hover:bg-mint-400"
                   >
                     Get my {brand.name} fixed price
