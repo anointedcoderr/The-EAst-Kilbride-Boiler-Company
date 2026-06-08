@@ -71,10 +71,19 @@ function QuoteForm() {
       // mock mode logs to the server console. Either way the customer sees
       // the agreed thank you message - we never claim "email sent" unless
       // production SMTP is wired.
+      // Capture the page the form was submitted from so the lead email
+      // shows context. window is available because this is a client
+      // component; guarded for safety in case of SSR.
+      const pageUrl =
+        typeof window !== "undefined" ? window.location.href : "";
       await fetch("/api/quote", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...formData, source: "website-quote-form" }),
+        body: JSON.stringify({
+          ...formData,
+          source: "website-quote-form",
+          pageUrl,
+        }),
       });
     } catch {
       // Swallow network errors silently in staging; the form still shows

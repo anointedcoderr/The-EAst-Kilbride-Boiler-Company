@@ -225,13 +225,60 @@ calls `src/lib/formDelivery.ts` which selects one of three modes by env:
 
 - `EKBC_FORM_DELIVERY_MODE=mock` (default in staging) - logs to server console
 - `EKBC_FORM_DELIVERY_MODE=webhook` - POSTs to `EKBC_FORM_WEBHOOK_URL`
-- `EKBC_FORM_DELIVERY_MODE=smtp` - reserved for production Hostinger SMTP
-  (requires nodemailer and SMTP_HOST / SMTP_PORT / SMTP_USER / SMTP_PASS /
-  SMTP_FROM / SMTP_TO)
+- `EKBC_FORM_DELIVERY_MODE=smtp` - production Hostinger SMTP via nodemailer
 
-The thank you message never claims an email has been sent. Real live email
-delivery requires Hostinger SMTP credentials or a webhook URL during the
-Hostinger deployment.
+The thank you message never claims an email has been sent. The customer always
+sees "Thank you. We will send your custom quote over as soon as possible." -
+that copy is fixed.
+
+#### Production SMTP env vars (Hostinger)
+
+Set these in the Hostinger Node.js application environment configuration
+(panel: hosting -> Node.js -> Environment Variables). They are read at
+runtime by the route handler. Never commit real values to the repo.
+
+| Variable | Value |
+|---|---|
+| `EKBC_FORM_DELIVERY_MODE` | `smtp` |
+| `SMTP_HOST` | `smtp.hostinger.com` |
+| `SMTP_PORT` | `465` |
+| `SMTP_SECURE` | `true` |
+| `SMTP_USER` | `info@eastkilbrideboilercompany.co.uk` |
+| `SMTP_PASS` | mailbox password from Hostinger (keep secret) |
+| `SMTP_FROM` | `The East Kilbride Boiler Company <info@eastkilbrideboilercompany.co.uk>` |
+| `QUOTE_FORM_TO` | `info@eastkilbrideboilercompany.co.uk` |
+
+After updating env vars, restart the Node.js app from the Hostinger panel
+so the new values are picked up.
+
+#### Email format
+
+Subject: `New Quote Request - East Kilbride Boiler Company`
+Reply-To: customer's email (so replying in Outlook / Gmail responds direct).
+Body: dual plain text + Carbon Mint HTML, with fields - Customer name, Phone
+number, Email address, Service selected, Property type, Area / postcode,
+Message / details, Page submitted from, Date / time submitted, Reference.
+
+#### Failure handling
+
+If SMTP send fails, the route returns `{ ok: false, mode: "smtp", message,
+reference }` with HTTP 502. The customer still sees the thank you message
+(client-side form swallows network errors). The server logs the failure to
+the Hostinger Node.js application log under the `[ekbc.quote.smtp]` prefix
+so it can be diagnosed without re-asking the customer.
+
+A `.env.example` at the repo root documents the same variables for local
+development. To smoke test locally:
+
+```
+EKBC_FORM_DELIVERY_MODE=smtp npm run start
+curl -X POST http://localhost:3000/api/quote -H "Content-Type: application/json" \
+  -d '{"name":"Test","phone":"01355 204045","email":"you@example.com","serviceType":"new-boiler","propertyType":"flat"}'
+```
+
+Without SMTP vars set, the response is `ok: false` with a clear missing-var
+list (verified). With real Hostinger SMTP_PASS set, mail lands at
+`info@eastkilbrideboilercompany.co.uk`.
 
 ---
 

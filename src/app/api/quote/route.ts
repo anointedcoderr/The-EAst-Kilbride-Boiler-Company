@@ -17,6 +17,7 @@ interface IncomingBody {
   email?: unknown;
   message?: unknown;
   source?: unknown;
+  pageUrl?: unknown;
 }
 
 function str(value: unknown): string {
@@ -34,6 +35,12 @@ export async function POST(request: Request) {
     );
   }
 
+  // Page URL precedence: explicit pageUrl field in body, then the
+  // Referer header (set automatically by the browser when the form posts
+  // from a website page), then the source label, then "(unknown)".
+  const referer = request.headers.get("referer") ?? "";
+  const pageUrl = str(body.pageUrl) || referer;
+
   const submission: QuoteFormSubmission = {
     serviceType: str(body.serviceType),
     propertyType: str(body.propertyType),
@@ -45,6 +52,7 @@ export async function POST(request: Request) {
     message: str(body.message),
     submittedAt: new Date().toISOString(),
     source: str(body.source) || "website-quote-form",
+    pageUrl: pageUrl || undefined,
   };
 
   if (!submission.name || !submission.phone || !submission.email) {
