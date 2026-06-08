@@ -299,6 +299,28 @@ Without SMTP vars set, the response is `ok: false` with a clear missing-var
 list (verified). With real Hostinger SMTP_PASS set, mail lands at
 `info@eastkilbrideboilercompany.co.uk`.
 
+### Admin route protection
+
+`src/proxy.ts` (Next.js 16 renamed "middleware") gates `/admin` and any
+sub-path behind HTTP Basic Auth. Credentials are read at request time from
+`ADMIN_USER` and `ADMIN_PASS` environment variables - never committed to
+the repo.
+
+| Variable | Notes |
+|---|---|
+| `ADMIN_USER` | the email or username that should unlock /admin |
+| `ADMIN_PASS` | the password (keep secret) |
+
+If either var is missing or empty the route returns HTTP 503 with a clear
+"Admin not configured" message, so an unconfigured deploy can never ship
+an open admin page. With both vars set the route returns 401 +
+`WWW-Authenticate: Basic` until the browser sends a matching
+`Authorization: Basic` header (the native browser auth dialog). Credentials
+are compared using a constant-time string equality routine.
+
+To set credentials in production, open Hostinger Node.js -> Environment
+Variables and add `ADMIN_USER` and `ADMIN_PASS`, then restart the app.
+
 ---
 
 ## Stage 1 revision two - addressing Fraser's deeper feedback
