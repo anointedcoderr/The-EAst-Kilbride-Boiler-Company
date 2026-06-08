@@ -3,7 +3,7 @@ import {
   ADMIN_COOKIE_NAME,
   ADMIN_SESSION_TTL_SECONDS,
   checkAdminCredentials,
-  signSession,
+  createSession,
 } from "@/lib/adminAuth";
 
 export const runtime = "nodejs";
@@ -54,7 +54,7 @@ export async function POST(request: Request) {
     return res;
   }
 
-  const token = await signSession(email);
+  const token = createSession(email);
   if (!token) {
     return NextResponse.json(
       {

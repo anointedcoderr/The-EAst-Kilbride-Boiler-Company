@@ -1,10 +1,17 @@
 import { NextResponse } from "next/server";
-import { ADMIN_COOKIE_NAME } from "@/lib/adminAuth";
+import { ADMIN_COOKIE_NAME, destroySession } from "@/lib/adminAuth";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 function clearAndRedirect(request: Request): NextResponse {
+  const token = request.headers
+    .get("cookie")
+    ?.split(/;\s*/)
+    .find((c) => c.startsWith(`${ADMIN_COOKIE_NAME}=`))
+    ?.slice(ADMIN_COOKIE_NAME.length + 1);
+  if (token) destroySession(token);
+
   const url = new URL("/admin/login", request.url);
   const res = NextResponse.redirect(url, { status: 303 });
   res.cookies.set(ADMIN_COOKIE_NAME, "", {

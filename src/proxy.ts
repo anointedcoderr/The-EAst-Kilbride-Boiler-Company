@@ -29,7 +29,7 @@ function isPublicAdminPath(pathname: string): boolean {
   return false;
 }
 
-export async function proxy(request: NextRequest): Promise<NextResponse> {
+export function proxy(request: NextRequest): NextResponse {
   const { pathname } = request.nextUrl;
 
   // Deny by default if admin credentials aren't set in env. Safer than
@@ -46,7 +46,7 @@ export async function proxy(request: NextRequest): Promise<NextResponse> {
   }
 
   const token = request.cookies.get(ADMIN_COOKIE_NAME)?.value;
-  const session = token ? await verifySession(token) : null;
+  const session = token ? verifySession(token) : null;
   if (session) {
     return NextResponse.next();
   }
