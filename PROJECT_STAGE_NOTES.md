@@ -321,6 +321,90 @@ are compared using a constant-time string equality routine.
 To set credentials in production, open Hostinger Node.js -> Environment
 Variables and add `ADMIN_USER` and `ADMIN_PASS`, then restart the app.
 
+### Supabase lead store + admin leads page
+
+Every quote form submission is written to a Supabase table called
+`quote_leads` in addition to being emailed. SMTP remains the primary
+notification path; Supabase is the permanent record so the admin can
+review every lead even if email delivery failed or landed in spam.
+
+#### Env vars
+
+| Variable | Notes |
+|---|---|
+| `SUPABASE_URL` | project URL from Hostinger's Supabase connect screen |
+| `SUPABASE_SERVICE_ROLE_KEY` | preferred. bypasses RLS for server-only access |
+| `SUPABASE_ANON_KEY` | fallback. requires RLS policies on `quote_leads` |
+
+If neither key is set the website still works - the lead is captured by
+SMTP and the admin leads page shows a "Supabase not configured" banner.
+No customer-facing path depends on Supabase.
+
+#### Schema
+
+Run this once in the Supabase SQL editor:
+
+```sql
+create table public.quote_leads (
+  id uuid primary key default gen_random_uuid(),
+  created_at timestamptz not null default now(),
+  reference text not null,
+  name text not null,
+  phone text not null,
+  email text not null,
+  service_type text,
+  property_type text,
+  district text,
+  postcode text,
+  message text,
+  page_url text,
+  source text,
+  submitted_at timestamptz not null,
+  status text not null default 'new',
+  notes text default '',
+  delivery_mode text,
+  delivery_ok boolean
+);
+create index quote_leads_submitted_at_idx
+  on public.quote_leads (submitted_at desc);
+create index quote_leads_status_idx
+  on public.quote_leads (status);
+```
+
+If you are using the anon key instead of the service role key, also add
+RLS policies that allow the server to insert and read:
+
+```sql
+alter table public.quote_leads enable row level security;
+
+create policy "server insert" on public.quote_leads
+  for insert to anon with check (true);
+
+create policy "server select" on public.quote_leads
+  for select to anon using (true);
+
+create policy "server update" on public.quote_leads
+  for update to anon using (true) with check (true);
+```
+
+The service role key avoids needing these policies entirely. For a
+small admin-only site the service role approach is the cleaner choice.
+
+#### Admin leads page
+
+Route: `/admin/leads`. Same Basic Auth gate as `/admin` (the proxy
+matcher covers `/admin/:path*` and `/api/admin/:path*`).
+
+Features:
+
+- Lists up to 500 most recent leads
+- Filter chips: All / new / contacted / quoted / won / lost
+- Sortable columns: date, name, service, area, postcode, status
+- Inline status dropdown - PATCHes `/api/admin/leads/[id]` and updates
+  optimistically with rollback on failure
+- Tap-to-call phone, tap-to-email links per row
+- Delivery indicator showing the SMTP outcome for each row
+
 ---
 
 ## Stage 1 revision two - addressing Fraser's deeper feedback

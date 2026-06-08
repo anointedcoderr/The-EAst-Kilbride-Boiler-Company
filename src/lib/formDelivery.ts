@@ -1,4 +1,5 @@
 import type SMTPTransport from "nodemailer/lib/smtp-transport";
+import { persistQuoteLead } from "./quoteLeads";
 
 // Form delivery adapter for the quote request flow.
 //
@@ -71,6 +72,41 @@ function safeRef(): string {
   ).toString(36)}`;
 }
 
+// Persist the lead to Supabase as a permanent record. Best-effort: if
+// Supabase isn't configured or rejects the insert, we log and continue
+// so the SMTP path is never blocked by a DB hiccup.
+async function recordLead(
+  submission: QuoteFormSubmission,
+  reference: string,
+  deliveryMode: FormDeliveryMode,
+  deliveryOk: boolean
+): Promise<void> {
+  try {
+    await persistQuoteLead({
+      reference,
+      name: submission.name,
+      phone: submission.phone,
+      email: submission.email,
+      service_type: submission.serviceType || null,
+      property_type: submission.propertyType || null,
+      district: submission.district || null,
+      postcode: submission.postcode || null,
+      message: submission.message || null,
+      page_url: submission.pageUrl ?? null,
+      source: submission.source ?? null,
+      submitted_at: submission.submittedAt,
+      delivery_mode: deliveryMode,
+      delivery_ok: deliveryOk,
+    });
+  } catch (err) {
+    console.error(
+      "[ekbc.quote.db]",
+      `recordLead threw: ${(err as Error).message}`,
+      { reference }
+    );
+  }
+}
+
 async function deliverMock(
   submission: QuoteFormSubmission
 ): Promise<FormDeliveryResult> {
@@ -79,6 +115,7 @@ async function deliverMock(
     "[ekbc.quote.mock]",
     JSON.stringify({ reference, ...submission })
   );
+  await recordLead(submission, reference, "mock", true);
   return {
     ok: true,
     mode: "mock",
@@ -356,6 +393,9 @@ async function deliverSmtp(
   if ("missing" in config) {
     const message = `SMTP delivery not configured. Missing env vars: ${config.missing.join(", ")}`;
     console.error("[ekbc.quote.smtp]", message);
+    // Still record the attempt in Supabase so the team has the lead even
+    // when SMTP is misconfigured.
+    await recordLead(submission, reference, "smtp", false);
     return { ok: false, mode: "smtp", message, reference };
   }
 
@@ -367,6 +407,7 @@ async function deliverSmtp(
   } catch (err) {
     const message = `Failed to load nodemailer: ${(err as Error).message}`;
     console.error("[ekbc.quote.smtp]", message);
+    await recordLead(submission, reference, "smtp", false);
     return { ok: false, mode: "smtp", message, reference };
   }
 
@@ -399,6 +440,7 @@ async function deliverSmtp(
   } catch (err) {
     const message = `SMTP send failed: ${(err as Error).message}`;
     console.error("[ekbc.quote.smtp]", message, { reference });
+    await recordLead(submission, reference, "smtp", false);
     return { ok: false, mode: "smtp", message, reference };
   }
 
@@ -435,6 +477,8 @@ async function deliverSmtp(
       reference,
     });
   }
+
+  await recordLead(submission, reference, "smtp", true);
 
   return {
     ok: true,

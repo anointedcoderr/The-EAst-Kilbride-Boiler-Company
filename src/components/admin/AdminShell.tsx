@@ -17,6 +17,7 @@ import {
   ShieldCheck,
   Boxes,
   MapPinned,
+  Inbox,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -74,6 +75,13 @@ export function AdminShell({
           </div>
 
           <div className="flex items-center gap-3">
+            <Link
+              href="/admin/leads"
+              className="inline-flex items-center gap-1.5 rounded-full border border-mint-500/40 bg-mint-500/10 px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-mint-300 transition-colors hover:border-mint-500/60 hover:bg-mint-500/15 hover:text-mint-200"
+            >
+              <Inbox className="h-3.5 w-3.5" />
+              View leads
+            </Link>
             <Link
               href="/"
               className="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-carbon-300 hover:text-mint-400"
