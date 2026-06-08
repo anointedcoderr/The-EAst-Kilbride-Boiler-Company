@@ -1,4 +1,4 @@
-import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+import type { SupabaseClient } from "@supabase/supabase-js";
 
 // Server-side Supabase client factory for EKBC.
 //
@@ -9,11 +9,14 @@ import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 // `quote_leads` table that allow inserts and selects from the server.
 // Both keys are read from env vars and never embedded in source.
 //
-// Returns null when Supabase is not configured so callers can fall back
-// gracefully (the quote form keeps working off SMTP alone).
+// Returns null when Supabase is not configured, when the
+// @supabase/supabase-js package can't be loaded at runtime, or when
+// any other initialisation error occurs - so the quote form keeps
+// working through SMTP alone even if anything Supabase-related breaks.
 
 let cached: SupabaseClient | null = null;
 let cachedKeyKind: "service" | "anon" | null = null;
+let initialised = false;
 
 export type QuoteLeadStatus =
   | "new"
@@ -68,23 +71,38 @@ export interface QuoteLeadInsert {
   delivery_ok: boolean;
 }
 
-export function getSupabaseServer(): SupabaseClient | null {
-  if (cached) return cached;
+export async function getSupabaseServer(): Promise<SupabaseClient | null> {
+  if (initialised) return cached;
   const url = process.env.SUPABASE_URL?.trim();
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
   const anonKey = process.env.SUPABASE_ANON_KEY?.trim();
   const key = serviceKey || anonKey;
-  if (!url || !key) return null;
-  cached = createClient(url, key, {
-    auth: { persistSession: false, autoRefreshToken: false },
-  });
-  cachedKeyKind = serviceKey ? "service" : "anon";
+  if (!url || !key) {
+    initialised = true;
+    return null;
+  }
+  try {
+    // Lazy import so a missing @supabase/supabase-js install at runtime
+    // can never crash the rest of the app. Failures here drop us back
+    // to the null fallback - SMTP keeps working.
+    const mod = await import("@supabase/supabase-js");
+    cached = mod.createClient(url, key, {
+      auth: { persistSession: false, autoRefreshToken: false },
+    });
+    cachedKeyKind = serviceKey ? "service" : "anon";
+  } catch (err) {
+    console.error(
+      "[ekbc.supabase]",
+      `init failed: ${(err as Error).message}`
+    );
+    cached = null;
+  }
+  initialised = true;
   return cached;
 }
 
-export function getSupabaseKeyKind(): "service" | "anon" | null {
-  // Touch the lazy init so the kind reflects the actual configured key.
-  getSupabaseServer();
+export async function getSupabaseKeyKind(): Promise<"service" | "anon" | null> {
+  await getSupabaseServer();
   return cachedKeyKind;
 }
 

@@ -15,7 +15,7 @@ import {
 export async function persistQuoteLead(
   input: QuoteLeadInsert
 ): Promise<{ ok: boolean; reason?: string }> {
-  const supabase = getSupabaseServer();
+  const supabase = await getSupabaseServer();
   if (!supabase) {
     console.log("[ekbc.quote.db]", "skipped (Supabase not configured)");
     return { ok: false, reason: "not-configured" };
@@ -40,7 +40,7 @@ export interface ListLeadsOptions {
 export async function listQuoteLeads(
   options: ListLeadsOptions = {}
 ): Promise<{ rows: QuoteLeadRow[]; error: string | null }> {
-  const supabase = getSupabaseServer();
+  const supabase = await getSupabaseServer();
   if (!supabase) {
     return { rows: [], error: "Supabase is not configured." };
   }
@@ -72,7 +72,7 @@ export async function updateQuoteLead(
   id: string,
   patch: { status?: QuoteLeadStatus; notes?: string }
 ): Promise<{ ok: boolean; reason?: string }> {
-  const supabase = getSupabaseServer();
+  const supabase = await getSupabaseServer();
   if (!supabase) return { ok: false, reason: "not-configured" };
   const update: Record<string, unknown> = {};
   if (patch.status) update.status = patch.status;
