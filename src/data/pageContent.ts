@@ -90,7 +90,7 @@ const installationFAQs: PageFAQ[] = [
   {
     question: "Do you cover G75 for boiler replacement?",
     answer:
-      "Yes. We replace boilers in every G75 district including The Murray, Hairmyres, Greenhills, Westwood, Mossneuk, Lindsayfield and Whitehills. There is no extra travel cost for any G74 or G75 postcode.",
+      "Yes. We replace boilers in every G75 district including Hairmyres, Greenhills, Westwood, Mossneuk, Lindsayfield and Whitehills, plus every G74 district including The Murray, Calderwood and Stewartfield. There is no extra travel cost for any G74 or G75 postcode.",
   },
   {
     question: "Can you replace an old back boiler with a combi boiler?",
@@ -121,7 +121,7 @@ const installationFAQs: PageFAQ[] = [
   {
     question: "Do you dispose of the old boiler?",
     answer:
-      "Yes. Removal of the old boiler, any old hot water tank in the loft and the associated scrap metal is included in the fixed installation price. We leave the property tidy and recycle the metal responsibly.",
+      "Old boiler and packaging disposal can be discussed with the nominated gas engineer and is at their discretion. Our Terms cover the disposal policy in full.",
   },
   {
     question: "Will you need to replace my radiators as well?",
@@ -149,7 +149,7 @@ const repairFAQs: PageFAQ[] = [
   {
     question: "Do you repair boilers in G74 and G75?",
     answer:
-      "Yes. We cover every G74 and G75 postcode. From Stewartfield, Calderwood and The Village in G74 through to The Murray, Hairmyres, Westwood and Lindsayfield in G75. There is no extra travel cost.",
+      "Yes. We cover every G74 and G75 postcode. From Stewartfield, Calderwood, The Village and The Murray in G74 through to Hairmyres, Westwood and Lindsayfield in G75. There is no extra travel cost.",
   },
   {
     question: "How fast can I arrange a boiler repair call-out?",
@@ -233,7 +233,7 @@ const boilerPricesFAQs: PageFAQ[] = [
     question:
       "Which boiler is best value for a small East Kilbride property?",
     answer:
-      "Vokera at £1,299 is our best value combi installation. It is a strong fit for one-bathroom flats and smaller terraced houses in The Murray, Greenhills, Westwood and Mossneuk. Vokera comes with a 5-year warranty as standard.",
+      "Vokera at £1,299 is our best value combi installation. It is a strong fit for one-bathroom flats and smaller terraced houses in Greenhills, Westwood and Mossneuk. Vokera comes with a 5-year warranty as standard.",
   },
   {
     question: "Are boiler prices fixed?",
@@ -243,7 +243,7 @@ const boilerPricesFAQs: PageFAQ[] = [
   {
     question: "What is included in the boiler installation price?",
     answer:
-      "The price includes the boiler, fitting by Gas Safe engineers, all standard pipework, the manufacturer warranty, a free wireless thermostat, a full system flush, all materials, labour and VAT. Removal of the old boiler and tidy-up are included as standard.",
+      "The price includes the boiler, fitting by Gas Safe engineers, all standard pipework, the manufacturer warranty, a free wireless thermostat, a full system flush, all materials, labour and VAT.",
   },
   {
     question: "Why do boiler prices vary?",
@@ -429,8 +429,6 @@ export const pageContent: Record<string, PageContent> = {
           "Free wireless thermostat",
           "Full system flush",
           "Standard pipework, fittings and flue",
-          "Old boiler removal and tidy-up",
-          "Building control notification through Gas Safe",
         ],
       },
       {
@@ -447,7 +445,7 @@ export const pageContent: Record<string, PageContent> = {
           "We install Worcester Bosch, Ideal, Vokera and Navien combi boilers across East Kilbride. The right choice depends on the size of your property, the number of bathrooms, and how long you intend to stay in the home.",
         ],
         bullets: [
-          "Vokera from £1,299, 5-year warranty - best value for one-bathroom homes in The Murray, Greenhills and Westwood",
+          "Vokera from £1,299, 5-year warranty - best value for one-bathroom homes in Greenhills and Westwood",
           "Ideal from £1,495, 5-year warranty - our most popular fit for terraced and semi-detached homes across G74 and G75",
           "Worcester Bosch from £1,695, 5-year warranty - the Which? Best Boiler Award winner and our most-requested premium pick",
           "Navien from £1,835, 10-year warranty - strongest flow rate for 2-bathroom detached homes in Stewartfield and Thorntonhall",
@@ -479,7 +477,7 @@ export const pageContent: Record<string, PageContent> = {
         id: "local-trust",
         heading: "Why East Kilbride homeowners choose EKBC",
         body: [
-          "We are a local East Kilbride boiler company with experienced self-employed Gas Safe engineers. We are not a national lead-buying machine pretending to be local. Every install is signed off by the engineer who carried it out and backed by a manufacturer warranty registered in your name.",
+          "We are a local East Kilbride boiler company with experienced self-employed Gas Safe engineers. We are not a national lead-buying machine pretending to be local. Every install is signed off by the engineer who carried it out and backed by a manufacturer warranty. The customer is responsible for registering the manufacturer warranty directly with the manufacturer within 30 days of installation.",
         ],
       },
     ],
@@ -532,8 +530,15 @@ export const pageContent: Record<string, PageContent> = {
     ctaSecondaryLabel: "Call 01355 204045",
     ctaBannerTitle: "Get a same-day boiler repair call-out",
     introCopy:
-      "When a boiler stops working in winter, you do not want a call centre. You want a Gas Safe registered engineer at the door with the right spares on the van. We cover every G74 and G75 postcode in East Kilbride and aim to diagnose, quote and resolve the fault on the same visit.",
+      "When your boiler stops working, you do not want to be on hold to a call centre for hours. You want a Gas Safe registered engineer at the door with the right spares in the van. We cover every G74 and G75 postcode in East Kilbride and aim to diagnose, quote and resolve the fault on the same visit.",
     contentBlocks: [
+      {
+        id: "everything-you-need-to-know",
+        heading: "Everything you need to know about boiler repairs in East Kilbride",
+        body: [
+          "When your boiler stops working, you do not want to be on hold to a call centre for hours. You want a Gas Safe registered engineer at the door with the right spares in the van. We cover every G74 and G75 postcode in East Kilbride and aim to diagnose, quote and resolve the fault on the same visit.",
+        ],
+      },
       {
         id: "common-faults",
         heading: "Common boiler faults in East Kilbride homes",
@@ -726,7 +731,7 @@ export const pageContent: Record<string, PageContent> = {
         id: "local-coverage",
         heading: "Local G74 and G75 servicing coverage",
         body: [
-          "We service boilers throughout every East Kilbride district, from Stewartfield, Calderwood, The Village and Thorntonhall in G74 to The Murray, Hairmyres, Greenhills, Westwood and Lindsayfield in G75. No extra travel charge.",
+          "We service boilers throughout every East Kilbride district, from Stewartfield, Calderwood, The Village and Thorntonhall in G74 to Hairmyres, Greenhills, Westwood and Lindsayfield in G75. No extra travel charge.",
         ],
       },
     ],
@@ -763,12 +768,12 @@ export const pageContent: Record<string, PageContent> = {
       "Boiler Prices in East Kilbride | EKBC - Worcester, Ideal, Vokera, Navien",
     metaDescription:
       "Compare fitted boiler prices in East Kilbride. Worcester Bosch from £1,695, Ideal from £1,495, Vokera from £1,299, Navien from £1,835. Call 01355 204045.",
-    h1: "Fitted boiler prices in East Kilbride - Compare Worcester, Ideal, Vokera and Navien",
-    highlightedWord: "Fitted boiler prices",
+    h1: "UNBEATABLE BOILER PRICES IN EAST KILBRIDE - COMPARE WORCESTER, IDEAL, VOKERA AND NAVIEN",
+    highlightedWord: "UNBEATABLE BOILER PRICES",
     heroEyebrow: "Boiler Prices",
     heroSubtitle: "Worcester, Ideal, Vokera, Navien",
     heroDescription:
-      "Choose from Worcester Bosch, Ideal, Vokera and Navien. All prices include installation, parts, labour and VAT. No hidden extras, no surprises.",
+      "Choose from Worcester Bosch, Ideal, Vokera and Navien. All prices include installation, parts, labour and VAT. No hidden extras, no surprises. We install ALL boiler brands, get your FREE quote now!",
     heroTrustPoints: [
       "From £1,299 fitted",
       "Gas Safe engineers",
@@ -779,7 +784,7 @@ export const pageContent: Record<string, PageContent> = {
     ctaSecondaryLabel: "Call 01355 204045",
     ctaBannerTitle: "Get your fixed boiler price",
     introCopy:
-      "This page is built to help you compare combi boiler installation prices across East Kilbride, decide which boiler is right for your home, and see exactly what is included before you commit to anything. Every price is fully fitted, with no separate call-out fee.",
+      "This page is built to help you compare combi boiler installation prices across East Kilbride, decide which boiler is right for your home, and see exactly what is included before you commit to anything. Every price is fully fitted, with no separate call-out fee. We sell every boiler brand on the market, and we guarantee to beat every other company's quote for any new boiler.",
     contentBlocks: [
       {
         id: "what-affects-cost",
@@ -821,8 +826,6 @@ export const pageContent: Record<string, PageContent> = {
           "Free wireless thermostat",
           "Full system flush",
           "Standard pipework, fittings and flue",
-          "Old boiler removal and tidy-up",
-          "Building control notification through Gas Safe",
         ],
       },
       {

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import {
   ShieldCheck,
@@ -29,9 +30,9 @@ import type { PageInternalLink } from "@/data/pageContent";
 
 export const metadata: Metadata = {
   title:
-    "About The East Kilbride Boiler Company | EKBC - Local Gas Safe engineers",
+    "About The East Kilbride Boiler Company | EKBC - Local Gas Safe Experts",
   description:
-    "About The East Kilbride Boiler Company. Local Gas Safe engineers serving all 35 East Kilbride districts since 2017. No middle man, fixed prices, manufacturer warranties.",
+    "About The East Kilbride Boiler Company. East Kilbride's NO:1 boiler company and your local Gas Safe Experts, covering all G74 and G75 postcodes since 2017.",
   alternates: { canonical: "/about/" },
 };
 
@@ -43,26 +44,21 @@ const breadcrumbs = [
 const aboutFaqs = [
   {
     question: "How long has The East Kilbride Boiler Company been trading?",
-    answer: `We have been fitting, repairing and servicing boilers across East Kilbride since ${siteSettings.establishedYear}. The Gas Safe engineers we work with bring more than 20 years of combined trade experience to every job.`,
+    answer: `We have been fitting, repairing and servicing boilers across East Kilbride since ${siteSettings.establishedYear}. Our pool of self-employed Gas Safe Experts bring more than 20 years of combined trade experience to every job.`,
   },
   {
     question: "Are the engineers Gas Safe registered?",
     answer:
-      "Yes. All gas work at EKBC is carried out by experienced self-employed Gas Safe engineers. Every engineer carries a Gas Safe ID card and each engineer's Gas Safe registration can be verified directly at gassaferegister.co.uk before any work begins.",
-  },
-  {
-    question: "Do you sub-contract installations or use national lead companies?",
-    answer:
-      "No. There is no middle man between you and the engineer. The person who quotes the job is the person standing on the doorstep on installation day, and the manufacturer warranty is registered in your name on the day.",
+      "Yes. All gas work at EKBC is carried out by our pool of self-employed Gas Safe Experts. Every engineer carries a Gas Safe ID card that can be verified directly at gassaferegister.co.uk.",
   },
   {
     question: "How many East Kilbride districts do you cover?",
     answer: `We cover all ${siteSettings.areasServed} districts of East Kilbride across G74 and G75 as part of our standard service area. There is no extra travel charge for any East Kilbride postcode.`,
   },
   {
-    question: "Are you insured?",
+    question: "Are the gas engineers insured?",
     answer:
-      "Yes. The engineers we work with each carry their own public liability insurance and their own Gas Safe registration, which is the standard required for all gas work in the UK.",
+      "Yes. Our pool of self-employed gas engineers all carry their own full public liability insurance, in addition to the Gas Safe registration that is legally required for all gas work in the UK.",
   },
 ];
 
@@ -83,7 +79,7 @@ const aboutPageSchema = {
   "@type": "AboutPage",
   name: `About ${siteSettings.businessName}`,
   description:
-    "About The East Kilbride Boiler Company. Local Gas Safe engineers serving all 35 East Kilbride districts.",
+    "About The East Kilbride Boiler Company. East Kilbride's NO:1 boiler company and your local Gas Safe Experts.",
   url: `https://www.eastkilbrideboilercompany.co.uk/about/`,
   mainEntity: {
     "@type": "Organization",
@@ -121,13 +117,13 @@ const stats = [
 const values = [
   {
     icon: ShieldCheck,
-    title: "Gas Safe engineers",
-    body: "Every gas job is carried out by experienced self-employed Gas Safe engineers. Each engineer's Gas Safe registration can be verified directly at gassaferegister.co.uk before any work begins.",
+    title: "Gas Safe Experts",
+    body: "Every gas job is carried out by our pool of self-employed Gas Safe Experts. Their registration can be verified directly at gassaferegister.co.uk before any work begins.",
   },
   {
     icon: Wrench,
     title: "No middle man",
-    body: "We are a local East Kilbride company, not a national lead-buying machine. The person who quotes the job is the person standing on the doorstep on installation day.",
+    body: "We are a local East Kilbride company, not a national lead-buying machine or a company from somewhere outside of East Kilbride pretending to be knowledgeable about the local area.",
   },
   {
     icon: Award,
@@ -157,19 +153,39 @@ export default function AboutPage() {
         eyebrow="About EKBC"
         h1="The East Kilbride Boiler Company"
         highlightedWord="East Kilbride"
-        subtitle="Local Gas Safe engineers since 2017"
-        description={`We are a local East Kilbride boiler company with experienced self-employed Gas Safe engineers, covering all ${siteSettings.areasServed} G74 and G75 districts. Fixed-price installations, same-day repair call-outs and annual servicing for ${siteSettings.happyCustomers} East Kilbride homeowners and counting.`}
+        subtitle="Your local Gas Safe Experts since 2017"
+        description="We are East Kilbride's NO:1 boiler company and your local Gas Safe Experts, covering all G74 and G75 postcodes. Fixed-price boiler installations, emergency repair call-outs and annual servicing for all East Kilbride homeowners and landlords."
         trustPoints={[
-          "Gas Safe engineers",
+          "Gas Safe Experts",
           `${siteSettings.happyCustomers} customers`,
           `${siteSettings.areasServed} districts covered`,
-          "Fully insured",
+          "Self-employed engineers insured",
         ]}
         breadcrumbs={breadcrumbs}
         primaryCtaLabel="Get a fixed price quote"
       />
 
       <TrustBadgesBar />
+
+      <section className="bg-carbon-900 py-10 sm:py-14">
+        <Container>
+          <ScrollReveal>
+            <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-carbon-700">
+              <Image
+                src="/images/hero-engineer.jpg"
+                alt="Gas Safe engineer in front of The East Kilbride Boiler Company branded van"
+                fill
+                sizes="(max-width: 1024px) 100vw, 1024px"
+                className="object-cover object-center"
+              />
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 bg-gradient-to-t from-carbon-950/60 via-transparent to-transparent"
+              />
+            </div>
+          </ScrollReveal>
+        </Container>
+      </section>
 
       <section className="bg-carbon-950 py-14 sm:py-20">
         <Container className="max-w-3xl">
@@ -178,22 +194,22 @@ export default function AboutPage() {
               Our story
             </p>
             <h2 className="mt-3 text-2xl font-extrabold uppercase tracking-tight text-white sm:text-3xl lg:text-4xl">
-              A local boiler company built for East Kilbride homes
+              How we became East Kilbride&apos;s favourite boiler replacement company
             </h2>
           </ScrollReveal>
           <ScrollReveal delay={0.05}>
             <p className="mt-6 text-base sm:text-lg leading-relaxed text-carbon-200">
-              We started The East Kilbride Boiler Company in {siteSettings.establishedYear} because the local boiler trade was full of national lead-buying outfits pretending to be local, hidden call-out fees on installations, and quote surprises on the day of fit. We thought East Kilbride homeowners deserved better, so we set up a local company with experienced self-employed Gas Safe engineers, our own fixed-price model, and our own van on every job.
+              We started The East Kilbride Boiler Company in {siteSettings.establishedYear} because the local boiler trade was full of either national lead-buying outfits pretending to be local, hidden call-out fees on installations, and quote surprises on the day of fit, or one-man bands that let customers down and left warranties that were not worth the paper they were written on. We thought East Kilbride homeowners deserved better, so we set up a local company with our own pool of Gas Safe Experts, our own fixed-price online model, and our own award-winning customer service.
             </p>
           </ScrollReveal>
           <ScrollReveal delay={0.1}>
             <p className="mt-5 text-base sm:text-lg leading-relaxed text-carbon-200">
-              Since then we have fitted, repaired and serviced thousands of boilers across every G74 and G75 district. From The Murray to Stewartfield, Calderwood to Greenhills, the engineers we work with know the housing stock, the typical pipework runs and the brands that suit each street. That local knowledge is the difference between a quote that holds and one that creeps on the day.
+              Since then, we have installed, repaired and serviced thousands of boilers across every G74 and G75 postcode. From The Murray to Stewartfield, Calderwood to Greenhills, our pool of Gas Safe Experts know the local properties well, with experience across East Kilbride streets and home types. That local knowledge is the difference between a fixed price quote that is clear from the start and one that creeps up on the day because another company has less experience working in East Kilbride homes.
             </p>
           </ScrollReveal>
           <ScrollReveal delay={0.15}>
             <p className="mt-5 text-base sm:text-lg leading-relaxed text-carbon-200">
-              Today we serve more than {siteSettings.happyCustomers} East Kilbride homeowners with fixed-price installations from £1,299, same-day repair call-outs and warranty-friendly annual servicing. We are not chasing any other market - East Kilbride is home, and it is the only place we work.
+              Today, we serve more than 80,000 East Kilbride homeowners with fixed-price installations from £1,299, emergency repair call-outs and warranty-friendly annual servicing. We are not chasing any other market. East Kilbride is our home, and it is the only place we work. We are here to serve the hard-working people of East Kilbride and offer the very best unbeatable new boiler prices.
             </p>
           </ScrollReveal>
         </Container>
@@ -280,7 +296,7 @@ export default function AboutPage() {
                   New boiler installation
                 </h3>
                 <p className="mt-3 text-sm leading-relaxed text-carbon-300">
-                  Fixed-price from £1,299. Worcester Bosch, Ideal, Vokera and Navien fitted by the Gas Safe engineers we work with. Free wireless thermostat and full system flush included as standard.
+                  Fixed-price from £1,299. Worcester Bosch, Ideal, Vokera and Navien fitted by our pool of self-employed Gas Safe Experts. Free wireless thermostat and full system flush included as standard.
                 </p>
                 <Link
                   href="/services/new-boiler-installation/"

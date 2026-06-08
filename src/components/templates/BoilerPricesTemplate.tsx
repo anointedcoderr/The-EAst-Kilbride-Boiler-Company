@@ -76,12 +76,48 @@ export function BoilerPricesTemplate() {
 
       <TrustBadgesBar />
 
+      <section className="bg-carbon-900 py-10 sm:py-14">
+        <Container>
+          <ScrollReveal>
+            <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-carbon-700">
+              <Image
+                src="/images/hero-engineer.jpg"
+                alt="Gas Safe engineer in front of EKBC van - fixed-price boiler prices in East Kilbride"
+                fill
+                sizes="(max-width: 1024px) 100vw, 1024px"
+                className="object-cover object-center"
+              />
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 bg-gradient-to-t from-carbon-950/60 via-transparent to-transparent"
+              />
+            </div>
+          </ScrollReveal>
+        </Container>
+      </section>
+
+      <section className="bg-carbon-950 py-12 sm:py-16">
+        <Container className="max-w-4xl">
+          <ScrollReveal>
+            <p className="text-xs sm:text-sm font-bold uppercase tracking-[0.2em] text-mint-400">
+              Worcester, Ideal, Vokera, Navien
+            </p>
+            <h2 className="mt-3 text-2xl font-extrabold uppercase tracking-tight text-white sm:text-3xl">
+              Choose your brand and price
+            </h2>
+            <p className="mt-4 text-base sm:text-lg leading-relaxed text-carbon-200">
+              Choose from Worcester Bosch, Ideal, Vokera and Navien. All prices include installation, parts, labour and VAT. No hidden extras, no surprises. We install ALL boiler brands, get your FREE quote now!
+            </p>
+          </ScrollReveal>
+        </Container>
+      </section>
+
       <section className="bg-carbon-900 py-14 sm:py-20">
         <Container>
           <ScrollReveal>
             <header className="max-w-3xl">
               <p className="mb-3 text-xs sm:text-sm font-bold uppercase tracking-[0.2em] text-mint-400">
-                Fitted boiler prices
+                Unbeatable boiler prices
               </p>
               <h2 className="text-2xl font-extrabold uppercase tracking-tight text-white sm:text-3xl lg:text-4xl">
                 Compare Worcester Bosch, Ideal, Vokera and Navien
@@ -114,20 +150,20 @@ export function BoilerPricesTemplate() {
                 return (
                   <div
                     key={brand.id}
-                    className="grid grid-cols-1 gap-4 bg-carbon-900 px-5 py-5 md:grid-cols-[1.4fr_1fr_1fr_1fr_1fr] md:items-center"
+                    className="grid grid-cols-1 gap-5 bg-carbon-900 px-5 py-6 md:grid-cols-[1.4fr_1fr_1fr_1fr_1fr] md:items-center"
                   >
-                    <div className="flex items-center gap-3">
-                      <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-lg border border-carbon-700 bg-carbon-950">
+                    <div className="flex items-center gap-4">
+                      <div className="relative h-32 w-32 shrink-0 overflow-hidden rounded-xl border border-carbon-700 bg-carbon-950 sm:h-36 sm:w-36 md:h-32 md:w-32 lg:h-40 lg:w-40">
                         <Image
                           src={brand.image}
                           alt={`${brand.name} combi boiler`}
                           fill
-                          sizes="56px"
-                          className="object-contain p-1.5"
+                          sizes="(max-width: 768px) 128px, (max-width: 1024px) 128px, 160px"
+                          className="object-contain p-3"
                         />
                       </div>
                       <div>
-                        <p className="text-sm font-bold text-white">
+                        <p className="text-base font-bold text-white sm:text-lg">
                           {brand.name}
                         </p>
                         <p className="text-[11px] uppercase tracking-wider text-mint-400">
@@ -169,7 +205,7 @@ export function BoilerPricesTemplate() {
       <ContentBlocks
         intro="A new combi is a long-term decision. This section pulls together the practical detail we get asked about most often by East Kilbride homeowners before they commit."
         blocks={page.contentBlocks ?? []}
-        eyebrow="Fitted boiler buying guide"
+        eyebrow="NEW BOILER BUYING GUIDE"
         heading="What to look at before you choose a boiler"
       />
 
@@ -193,8 +229,6 @@ export function BoilerPricesTemplate() {
               "Free wireless thermostat",
               "Full system flush",
               "Standard pipework, fittings and flue",
-              "Old boiler removal and tidy-up",
-              "Building control notification through Gas Safe",
               "Fixed price, no separate call-out fees",
               "Installed by experienced self-employed Gas Safe engineers",
             ].map((item) => (

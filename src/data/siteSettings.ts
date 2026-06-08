@@ -22,7 +22,7 @@ export const siteSettings: SiteSettings = {
   maxWarranty: "12",
   installationSpeed: "24",
   socialLinks: {
-    facebook: "#",
+    facebook: "https://www.facebook.com/share/1BrT7CG5So/?mibextid=wwXIfr",
     instagram: "#",
     youtube: "#",
     tiktok: "#",

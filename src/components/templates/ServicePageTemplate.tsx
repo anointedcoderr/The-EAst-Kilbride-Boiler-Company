@@ -1,4 +1,7 @@
+import Image from "next/image";
 import { PageHero } from "./PageHero";
+import { Container } from "@/components/ui/Container";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { ContentBlocks } from "@/components/sections/ContentBlocks";
 import { LocalFAQSection } from "@/components/sections/LocalFAQSection";
 import { SiloLinks } from "@/components/sections/SiloLinks";
@@ -60,6 +63,26 @@ export function ServicePageTemplate({
       />
 
       <TrustBadgesBar />
+
+      <section className="bg-carbon-900 py-10 sm:py-14">
+        <Container>
+          <ScrollReveal>
+            <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-carbon-700">
+              <Image
+                src="/images/hero-engineer.jpg"
+                alt={`Gas Safe engineer in front of EKBC van - ${page.label} across East Kilbride`}
+                fill
+                sizes="(max-width: 1024px) 100vw, 1024px"
+                className="object-cover object-center"
+              />
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 bg-gradient-to-t from-carbon-950/60 via-transparent to-transparent"
+              />
+            </div>
+          </ScrollReveal>
+        </Container>
+      </section>
 
       {page.contentBlocks && page.contentBlocks.length > 0 && (
         <ContentBlocks

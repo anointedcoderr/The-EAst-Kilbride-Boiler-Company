@@ -48,7 +48,7 @@ const faqCategories: FaqCategory[] = [
       {
         question: "Do you dispose of the old boiler?",
         answer:
-          "Yes. Removal of the old boiler, any old hot water tank in the loft and the associated scrap metal is included in the fixed installation price. We leave the property tidy and recycle the metal responsibly.",
+          "Old boiler and packaging disposal can be discussed with the nominated gas engineer and is at their discretion. Our Terms cover the disposal policy in full.",
       },
       {
         question: "Will you need to replace my radiators as well?",
@@ -152,7 +152,7 @@ const faqCategories: FaqCategory[] = [
       {
         question: "What is included in the boiler installation price?",
         answer:
-          "The boiler, fitting by Gas Safe engineers, all standard pipework, the manufacturer warranty, a free wireless thermostat, a full system flush, all materials, labour and VAT. Removal of the old boiler and tidy-up are included as standard.",
+          "The boiler, fitting by Gas Safe engineers, all standard pipework, the manufacturer warranty, a free wireless thermostat, a full system flush, all materials, labour and VAT.",
       },
       {
         question: "Why do boiler prices vary?",
@@ -288,7 +288,7 @@ const faqCategories: FaqCategory[] = [
       {
         question: "Do you sub-contract gas work?",
         answer:
-          "No. There is no middle man between you and the engineer. The person who quotes the job is the person standing on the doorstep on installation day, and the manufacturer warranty is registered in your name on the day.",
+          "No. The nominated gas engineer is the one who carries out and signs off the work. The customer is responsible for registering the manufacturer warranty directly with the manufacturer within 30 days of installation - we cover this in our Terms.",
       },
     ],
   },

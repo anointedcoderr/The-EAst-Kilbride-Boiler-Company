@@ -43,7 +43,7 @@ const internalLinks: PageInternalLink[] = [
 const areasFaqs = [
   {
     question: "How many East Kilbride districts do you cover?",
-    answer: `We cover all 35 districts of East Kilbride - 17 in G74 and 18 in G75 - as part of our standard service area. There is no extra travel charge for any East Kilbride postcode.`,
+    answer: `We cover all 35 districts of East Kilbride - 20 in G74 and 15 in G75 - as part of our standard service area. There is no extra travel charge for any East Kilbride postcode.`,
   },
   {
     question: "Is your service the same in G74 as it is in G75?",
@@ -123,9 +123,10 @@ export default function AreasWeServePage() {
                   G74 - North and Central East Kilbride
                 </h2>
                 <p className="mt-3 text-sm leading-relaxed text-carbon-300">
-                  17 G74 districts covering the north and central parts of East
-                  Kilbride, from The Village out to Stewartfield, Thorntonhall and the
-                  semi-rural edges around Kittochside and Philipshill.
+                  20 G74 districts covering the north and central parts of East
+                  Kilbride, from The Village out to Stewartfield and Thorntonhall,
+                  The Murray to the south-east and the semi-rural edge around
+                  Kittochside.
                 </p>
 
                 <ul className="mt-6 grid grid-cols-1 gap-1.5 sm:grid-cols-2">
@@ -164,9 +165,10 @@ export default function AreasWeServePage() {
                   G75 - South and West East Kilbride
                 </h2>
                 <p className="mt-3 text-sm leading-relaxed text-carbon-300">
-                  18 G75 districts covering the south and west, from The Murray
-                  and Westwood through to Hairmyres, Lindsayfield and the
-                  newer family estates in Jackton.
+                  15 G75 districts covering the south and west, from Westwood
+                  through to Hairmyres, Lindsayfield and the newer family
+                  estates in Jackton, plus Ballerup Village and the semi-rural
+                  Philipshill edge.
                 </p>
 
                 <ul className="mt-6 grid grid-cols-1 gap-1.5 sm:grid-cols-2">

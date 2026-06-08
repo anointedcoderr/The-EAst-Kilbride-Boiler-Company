@@ -101,6 +101,8 @@ export default function Footer() {
               <a
                 href={siteSettings.socialLinks.facebook}
                 aria-label="Facebook"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-carbon-400 hover:text-mint-500 transition-colors"
               >
                 <FacebookIcon />

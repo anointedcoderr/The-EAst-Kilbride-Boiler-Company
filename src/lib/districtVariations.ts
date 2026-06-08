@@ -115,7 +115,7 @@ const sections: Record<SectionId, SectionDef> = {
       (d) =>
         `Our fixed-price boiler replacement service in ${d.name} starts from £1,299 fully fitted by the Gas Safe engineers we work with. Most jobs across ${d.position} are completed in a single day, with no separate call-out fee and no extra travel charge for the ${postcodeDisplay(d)} postcode. The figure on the quote is the figure you pay.`,
       (d) =>
-        `Replacing a boiler in ${d.name} is the most common job we are called for in the ${postcodeDisplay(d)} area. ${d.localAngle} Every replacement is fully fitted by experienced self-employed Gas Safe engineers with the manufacturer warranty registered in your name on the day.`,
+        `Replacing a boiler in ${d.name} is the most common job we are called for in the ${postcodeDisplay(d)} area. ${d.localAngle} Every replacement is fully fitted by experienced self-employed Gas Safe engineers. As covered in our Terms, the customer is responsible for registering the manufacturer warranty directly with the manufacturer within 30 days of installation.`,
       (d) =>
         `When the boiler in your ${d.name} home is past its tenth birthday, costing too much in winter bills, or letting the family down on cold mornings, replacement is usually cheaper across the next few years than another patch repair. We give homeowners a fixed price up front, with the boiler, parts, labour, VAT, a wireless thermostat and a full system flush all included.`,
     ],
@@ -253,7 +253,7 @@ const sections: Record<SectionId, SectionDef> = {
       (d) =>
         `We do not run loss-leader installation deals in ${d.name} because the fixed-price model already takes the games out of the quote. The four brands we fit cover every sensible budget bracket - Vokera at £1,299, Ideal at £1,495, Worcester Bosch at £1,695, Navien at £1,835 - all fitted by Gas Safe engineers.`,
       (d) =>
-        `${d.localAngle} The most-fitted brand in ${d.name} is the ${d.preferredBrands[0]}, with the ${d.preferredBrands[1]} as the popular next choice. Either way, the price you see is fully fitted with the warranty in your name on the day.`,
+        `${d.localAngle} The most-fitted brand in ${d.name} is the ${d.preferredBrands[0]}, with the ${d.preferredBrands[1]} as the popular next choice. Either way, the price you see is fully fitted. The customer is responsible for registering the manufacturer warranty directly within 30 days of installation.`,
     ],
   },
 };
@@ -302,12 +302,12 @@ const faqPool: Array<{
   {
     question: (area) => `Do you offer new boiler installation in ${area}?`,
     answer: (d) =>
-      `Yes. We install new boilers across every street in ${d.name} as part of our standard ${postcodeDisplay(d)} service area. The install is carried out by the Gas Safe engineers we work with, with a single fixed price and the manufacturer warranty registered in your name on the day.`,
+      `Yes. We install new boilers across every street in ${d.name} as part of our standard ${postcodeDisplay(d)} service area. The install is carried out by the Gas Safe engineers we work with, with a single fixed price. The customer is responsible for registering the manufacturer warranty directly within 30 days of installation.`,
   },
   {
     question: (area) => `Can I get a combi boiler upgrade in ${area}?`,
     answer: (d) =>
-      `Yes. Conversions from regular, system or back boilers to a modern A-rated combi are a routine job for us in ${d.name}. The fixed quote covers the new combi, any extra pipework, removal of the old tank, the system flush and Building Control notification through Gas Safe.`,
+      `Yes. Conversions from regular, system or back boilers to a modern A-rated combi are a routine job for us in ${d.name}. The fixed quote covers the new combi, any extra pipework and the system flush. Disposal of the old tank and packaging is at the nominated gas engineer's discretion.`,
   },
   {
     question: (area) => `Do you cover emergency boiler replacement in ${area}?`,

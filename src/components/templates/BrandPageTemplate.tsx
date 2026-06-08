@@ -52,9 +52,9 @@ const brandCopy: Record<string, BrandCopy> = {
     positioning:
       "Vokera at £1,299 fitted is our best-value installation. It is a reliable build that suits one-bathroom flats and smaller terraced homes where keeping the up-front cost sensible matters most.",
     bestFor:
-      "Vokera is the right fit for one-bathroom flats and 2 to 3 bed terraces in The Murray, Greenhills, Westwood, Mossneuk and Law Place. It is also a popular landlord choice for rented family homes across G75.",
+      "Vokera is the right fit for one-bathroom flats and 2 to 3 bed terraces in The Murray, Greenhills, Westwood, Mossneuk and Law Place. It is also a popular landlord choice for rented family homes across East Kilbride.",
     localAngle:
-      "Vokera is our highest-volume fit in G75, especially in The Murray, Greenhills and Westwood. The price is lower because the badge is less premium, not because the boiler is short on quality.",
+      "Vokera is our highest-volume fit across East Kilbride, especially in The Murray, Greenhills and Westwood. The price is lower because the badge is less premium, not because the boiler is short on quality.",
     warrantyHook:
       "Vokera comes with a 5-year warranty as standard. The manufacturer requires an annual service from a Gas Safe registered engineer to keep the warranty valid.",
   },

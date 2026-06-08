@@ -20,10 +20,13 @@ import type { District } from "@/types";
 //   supplied by the client, or from an authoritative source such as Royal
 //   Mail's address finder. If a district's postcode is not confirmed, set
 //   needsReview: true and avoid using the postcode in public SEO copy
-//   until the client signs it off. Ballerup Village was corrected from
-//   G74 to G75 after a client-supplied screenshot showed the area sits
-//   in G75 9FR. Re-verify every district on the needsReview list before
-//   removing the flag.
+//   until the client signs it off. The full 35-district postcode list was
+//   verified by the client (revision dated 2026-06-08) and 7 entries were
+//   flipped at that revision: The Murray, Birniehill, Mossside, Playsport
+//   and Redwood moved from G75 to G74; Langlands and Philipshill moved
+//   from G74 to G75. No entries currently carry needsReview - the flag
+//   stays defined on the District type for future use if a new district
+//   is added without a verified postcode.
 
 export const districts: District[] = [
   // G75 Districts
@@ -94,7 +97,6 @@ export const districts: District[] = [
     localAngle:
       "High Common homes are newer-build family houses, so most fits are straightforward A-rated combi replacements rather than full system overhauls.",
     typicalJob: "A-rated combi replacement",
-    needsReview: true,
   },
   {
     name: "Kingsgate",
@@ -109,7 +111,6 @@ export const districts: District[] = [
       "Kingsgate properties tend to be 3 to 4 bedroom family homes with two bathrooms, which is where the Worcester Bosch and Navien ranges really earn their place.",
     notableNearby: "near Kingsgate Park retail area",
     typicalJob: "two-bathroom family home upgrade",
-    needsReview: true,
   },
   {
     name: "Kittochside",
@@ -127,7 +128,7 @@ export const districts: District[] = [
   {
     name: "Langlands",
     slug: "langlands",
-    postcodeHub: "G74",
+    postcodeHub: "G75",
     description:
       "Langlands is a residential area in East Kilbride. We offer fixed-price boiler installations, repairs and annual servicing across Langlands.",
     position: "west East Kilbride",
@@ -136,7 +137,6 @@ export const districts: District[] = [
     localAngle:
       "Langlands is a popular area for first-time movers, so plenty of fits here are first proper boiler upgrades from an old G-rated or D-rated unit to a modern A-rated combi.",
     typicalJob: "G-rated to A-rated combi upgrade",
-    needsReview: true,
   },
   {
     name: "Law Place",
@@ -150,7 +150,6 @@ export const districts: District[] = [
     localAngle:
       "Law Place homes are typically compact 2 bed properties, so the Vokera range at £1,299 fitted is the most popular pick here for homeowners keeping costs sensible.",
     typicalJob: "compact home like-for-like swap",
-    needsReview: true,
   },
   {
     name: "Nerston",
@@ -177,12 +176,11 @@ export const districts: District[] = [
     localAngle:
       "Peel Park homes are predominantly newer family builds with combis already in place from the original fit, so the upgrade conversation here is usually about brand and warranty length, not pipework.",
     typicalJob: "warranty-led brand upgrade",
-    needsReview: true,
   },
   {
     name: "Philipshill",
     slug: "philipshill",
-    postcodeHub: "G74",
+    postcodeHub: "G75",
     description:
       "Philipshill is part of East Kilbride. We provide fixed-price boiler installations, emergency repairs and annual servicing across Philipshill.",
     position: "south-east edge of East Kilbride",
@@ -191,7 +189,6 @@ export const districts: District[] = [
     localAngle:
       "Philipshill sits on the rural side of East Kilbride, so we deal with longer hot-water runs and bigger radiator counts more often than in the centre of town, which is exactly where Navien's flow rate matters.",
     typicalJob: "large detached full heating upgrade",
-    needsReview: true,
   },
   {
     name: "St Leonards",
@@ -224,7 +221,7 @@ export const districts: District[] = [
     slug: "the-village",
     postcodeHub: "G74",
     description:
-      "The Village is the original heart of East Kilbride in the G74 postcode. The Gas Safe engineers we work with deliver fixed-price boiler installations, repairs and annual servicing to The Village.",
+      "The Village is the original heart of East Kilbride in the G74 postcode, also known locally as the East Kilbride Town Centre. The Gas Safe engineers we work with deliver fixed-price boiler installations, repairs and annual servicing to The Village.",
     position: "central historic East Kilbride",
     housingMix: "older stone properties, converted cottages and traditional terraces",
     preferredBrands: ["Worcester Bosch", "Ideal"],
@@ -276,9 +273,9 @@ export const districts: District[] = [
   {
     name: "Birniehill",
     slug: "birniehill",
-    postcodeHub: "G75",
+    postcodeHub: "G74",
     description:
-      "Birniehill is a residential area in the G75 postcode of East Kilbride. We provide fixed-price boiler installations, same-day repairs and annual servicing across Birniehill.",
+      "Birniehill is a residential area in the G74 postcode of East Kilbride. We provide fixed-price boiler installations, same-day repairs and annual servicing across Birniehill.",
     position: "south-east East Kilbride",
     housingMix: "1970s and 80s semis with modern infill builds",
     preferredBrands: ["Ideal", "Worcester Bosch"],
@@ -365,7 +362,6 @@ export const districts: District[] = [
     localAngle:
       "Kelvin is a settled area with plenty of long-standing homeowners, and many of the boilers we replace here are second or third units in the same property, which means we know the pipework patterns well.",
     typicalJob: "second-generation replacement",
-    needsReview: true,
   },
   {
     name: "Lindsayfield",
@@ -396,7 +392,7 @@ export const districts: District[] = [
   {
     name: "Mossside",
     slug: "mossside",
-    postcodeHub: "G75",
+    postcodeHub: "G74",
     description:
       "Mossside is a residential area in East Kilbride. We deliver fixed-price boiler installations, same-day repairs and annual servicing to Mossside residents.",
     position: "south East Kilbride",
@@ -405,7 +401,6 @@ export const districts: District[] = [
     localAngle:
       "Mossside is a tight-knit residential area where we have done multiple installations on the same streets, so neighbours often recommend us by name when their own boiler needs attention.",
     typicalJob: "neighbour-referral replacement",
-    needsReview: true,
   },
   {
     name: "Newlandsmuir",
@@ -423,7 +418,7 @@ export const districts: District[] = [
   {
     name: "Playsport",
     slug: "playsport",
-    postcodeHub: "G75",
+    postcodeHub: "G74",
     description:
       "Playsport is an area in East Kilbride. We offer fixed-price boiler installations, same-day repair call-outs and annual servicing to Playsport residents.",
     position: "south East Kilbride",
@@ -433,12 +428,11 @@ export const districts: District[] = [
       "Playsport sits alongside one of East Kilbride's leisure complexes, and homeowners here often ask for the quietest combi we can fit, which makes the Worcester and Ideal ranges with low noise ratings the natural choice.",
     notableNearby: "near East Kilbride Playsport",
     typicalJob: "low-noise combi fit",
-    needsReview: true,
   },
   {
     name: "Redwood",
     slug: "redwood",
-    postcodeHub: "G75",
+    postcodeHub: "G74",
     description:
       "Redwood is a residential neighbourhood in East Kilbride. We provide fixed-price boiler installations, repairs and annual servicing across Redwood.",
     position: "south-central East Kilbride",
@@ -447,7 +441,6 @@ export const districts: District[] = [
     localAngle:
       "Redwood homes are settled family properties, and many of the boilers here are second-generation replacements where homeowners already know the brand they want to stay with.",
     typicalJob: "brand-loyal replacement",
-    needsReview: true,
   },
   {
     name: "Strathaven Rd",
@@ -461,15 +454,14 @@ export const districts: District[] = [
     localAngle:
       "Strathaven Rd is a busy through-route, so we often plan installations here for weekdays when access is easier and noise is less of an issue for neighbours.",
     typicalJob: "access-aware installation planning",
-    needsReview: true,
   },
   {
     name: "The Murray",
     slug: "the-murray",
-    postcodeHub: "G75",
+    postcodeHub: "G74",
     description:
-      "The Murray is one of East Kilbride's largest neighbourhoods in the G75 postcode. We offer fixed-price boiler installations, same-day repairs and professional servicing across The Murray.",
-    position: "central G75 East Kilbride",
+      "The Murray is one of East Kilbride's largest neighbourhoods in the G74 postcode. We offer fixed-price boiler installations, same-day repairs and professional servicing across The Murray.",
+    position: "central G74 East Kilbride",
     housingMix: "1960s and 70s ex-local-authority terraces, semis and modern flats",
     preferredBrands: ["Vokera", "Ideal"],
     localAngle:

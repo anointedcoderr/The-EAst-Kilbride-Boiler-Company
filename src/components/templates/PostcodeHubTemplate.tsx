@@ -33,23 +33,23 @@ const hubConfigs: Record<"G74" | "G75", PostcodeHubConfig> = {
     code: "G74",
     label: "G74 - North and Central East Kilbride",
     intro:
-      "G74 covers the north and central parts of East Kilbride, from the original town centre at The Village out to Stewartfield in the north and the semi-rural edges of Thorntonhall, Philipshill and Kittochside. The housing stock mixes 1960s ex-council semis, modern family detached homes and a healthy share of newer-build estates, which is why we recommend a slightly different boiler for different streets.",
+      "G74 covers the north and central parts of East Kilbride, from the original town centre at The Village out to Stewartfield in the north, The Murray to the south-east and the semi-rural edges of Thorntonhall and Kittochside. The housing stock mixes 1960s ex-council semis, modern family detached homes and a healthy share of newer-build estates, which is why we recommend a slightly different boiler for different streets.",
     position: "north and central",
     description:
-      "Fixed-price boiler installations, repairs and annual servicing across all 17 G74 districts of East Kilbride. Worcester Bosch, Ideal, Vokera and Navien fitted by Gas Safe engineers.",
+      "Fixed-price boiler installations, repairs and annual servicing across all 20 G74 districts of East Kilbride. Worcester Bosch, Ideal, Vokera and Navien fitted by Gas Safe engineers.",
     bestForBrands:
-      "Across G74 our most-fitted ranges are the Worcester Bosch from £1,695 with a 5-year warranty for premium reliability and the Ideal from £1,495 with a 5-year warranty as the popular mid-range pick. For larger detached homes in Stewartfield, Thorntonhall and Philipshill the Navien from £1,835 with a 10-year warranty is a strong choice.",
+      "Across G74 the Vokera at £1,299 with a 5-year warranty is our highest-volume fit, especially in The Murray. Worcester Bosch from £1,695 with a 5-year warranty is the popular premium pick for Calderwood, Stewartfield and Whitemoss. For larger detached homes in Stewartfield, Thorntonhall and Kittochside the Navien from £1,835 with a 10-year warranty is a strong choice.",
   },
   G75: {
     code: "G75",
     label: "G75 - South and West East Kilbride",
     intro:
-      "G75 covers the south and west of East Kilbride, from the busy residential heart of The Murray and Westwood through to Hairmyres in the south-west and the newer family estates in Lindsayfield and Jackton. We cover every G75 postcode as part of our standard service area, with no extra travel charge.",
+      "G75 covers the south and west of East Kilbride, from Westwood through to Hairmyres in the south-west, the newer family estates in Lindsayfield and Jackton, Ballerup Village to the south and the semi-rural edge around Philipshill. We cover every G75 postcode as part of our standard service area, with no extra travel charge.",
     position: "south and west",
     description:
-      "Fixed-price boiler installations, repairs and annual servicing across all 18 G75 districts of East Kilbride. Worcester Bosch, Ideal, Vokera and Navien fitted by Gas Safe engineers.",
+      "Fixed-price boiler installations, repairs and annual servicing across all 15 G75 districts of East Kilbride. Worcester Bosch, Ideal, Vokera and Navien fitted by Gas Safe engineers.",
     bestForBrands:
-      "Across G75 the Vokera at £1,299 with a 5-year warranty is our highest-volume fit, especially in The Murray, Greenhills and Westwood. Ideal at £1,495 is the popular step up, and the Worcester Bosch from £1,695 and Navien from £1,835 work best in the newer 3 and 4 bed family homes in Lindsayfield, Jackton and Crutherland.",
+      "Across G75 the Vokera at £1,299 with a 5-year warranty is our most-fitted entry-level combi, especially in Greenhills and Westwood. Ideal at £1,495 is the popular step up, and the Worcester Bosch from £1,695 and Navien from £1,835 work best in the newer 3 and 4 bed family homes in Lindsayfield, Jackton and Crutherland.",
   },
 };
 
@@ -68,8 +68,8 @@ function hubFAQs(code: "G74" | "G75") {
       question: `Which boiler suits a ${code} home best?`,
       answer:
         code === "G74"
-          ? `For most G74 homes, Worcester Bosch or Ideal is the right fit for a 2 to 3 bed semi. For larger detached properties in Stewartfield, Thorntonhall or Kittochside, Navien with the 10-year warranty is the more comfortable choice.`
-          : `For most G75 homes, Vokera or Ideal is the right fit for a 1 to 2 bed property in The Murray, Greenhills or Westwood. For larger 3 and 4 bed family homes in Lindsayfield, Jackton or Crutherland, Worcester Bosch or Navien is the stronger fit.`,
+          ? `For most G74 homes, Vokera or Ideal is the right fit for a 1 to 2 bed property in The Murray. Worcester Bosch suits 2 to 3 bed semis in Calderwood and Stewartfield. For larger detached properties in Stewartfield, Thorntonhall or Kittochside, Navien with the 10-year warranty is the more comfortable choice.`
+          : `For most G75 homes, Vokera or Ideal is the right fit for a 1 to 2 bed property in Greenhills, Westwood or Hairmyres. For larger 3 and 4 bed family homes in Lindsayfield, Jackton or Crutherland, Worcester Bosch or Navien is the stronger fit.`,
     },
     {
       question: `Do you offer same-day boiler repair in ${code}?`,
