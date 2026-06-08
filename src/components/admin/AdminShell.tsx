@@ -74,13 +74,14 @@ export function AdminShell({
             </span>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <Link
               href="/admin/leads"
               className="inline-flex items-center gap-1.5 rounded-full border border-mint-500/40 bg-mint-500/10 px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-mint-300 transition-colors hover:border-mint-500/60 hover:bg-mint-500/15 hover:text-mint-200"
             >
               <Inbox className="h-3.5 w-3.5" />
-              View leads
+              <span className="hidden xs:inline">View leads</span>
+              <span className="xs:hidden">Leads</span>
             </Link>
             <Link
               href="/"
@@ -88,14 +89,16 @@ export function AdminShell({
             >
               View site
             </Link>
-            <button
-              type="button"
-              className="inline-flex items-center gap-2 rounded-full border border-carbon-700 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-carbon-300 transition-colors hover:border-mint-500/50 hover:text-mint-400"
-              aria-label="Sign out (preview only)"
-            >
-              <LogOut className="h-3.5 w-3.5" />
-              Sign out
-            </button>
+            <form method="POST" action="/api/admin/logout" className="inline-flex">
+              <button
+                type="submit"
+                className="inline-flex items-center gap-2 rounded-full border border-carbon-700 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-carbon-300 transition-colors hover:border-mint-500/50 hover:text-mint-400"
+                aria-label="Sign out"
+              >
+                <LogOut className="h-3.5 w-3.5" />
+                Sign out
+              </button>
+            </form>
           </div>
         </div>
       </header>

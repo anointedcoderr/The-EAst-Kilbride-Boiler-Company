@@ -302,24 +302,50 @@ list (verified). With real Hostinger SMTP_PASS set, mail lands at
 ### Admin route protection
 
 `src/proxy.ts` (Next.js 16 renamed "middleware") gates `/admin` and any
-sub-path behind HTTP Basic Auth. Credentials are read at request time from
-`ADMIN_USER` and `ADMIN_PASS` environment variables - never committed to
-the repo.
+sub-path behind a cookie-based login form at `/admin/login`. Credentials
+are read at request time from `ADMIN_USER` and `ADMIN_PASS` environment
+variables - never committed to the repo.
 
 | Variable | Notes |
 |---|---|
-| `ADMIN_USER` | the email or username that should unlock /admin |
+| `ADMIN_USER` | the email used to sign in at /admin/login |
 | `ADMIN_PASS` | the password (keep secret) |
+| `ADMIN_SESSION_SECRET` | optional. HMAC key for signing the session cookie. If unset, ADMIN_PASS is used as the secret. |
 
-If either var is missing or empty the route returns HTTP 503 with a clear
-"Admin not configured" message, so an unconfigured deploy can never ship
-an open admin page. With both vars set the route returns 401 +
-`WWW-Authenticate: Basic` until the browser sends a matching
-`Authorization: Basic` header (the native browser auth dialog). Credentials
-are compared using a constant-time string equality routine.
+If `ADMIN_USER` or `ADMIN_PASS` is missing, every /admin route returns
+HTTP 503 with a clear "Admin not configured" message, so an
+unconfigured deploy can never ship an open admin page.
 
-To set credentials in production, open Hostinger Node.js -> Environment
-Variables and add `ADMIN_USER` and `ADMIN_PASS`, then restart the app.
+#### Flow
+
+1. Unauthenticated visit to `/admin` (or any sub-route) -> 303 redirect
+   to `/admin/login?next=<original path>`.
+2. User posts the login form to `/api/admin/login`.
+3. Credentials compared in constant time. On mismatch: redirect back to
+   `/admin/login?error=invalid&next=...` so the form re-renders with a
+   clear error.
+4. On match: HMAC-signed session token set in `ekbc_admin_session`
+   cookie (httpOnly, Secure, SameSite=Lax, 7 day max-age). User is
+   redirected to the `next` path (or `/admin` by default).
+5. Subsequent visits to any /admin or /api/admin route check the cookie
+   signature and expiry. Valid -> request passes. Invalid -> redirect
+   to login (page routes) or 401 JSON (API routes).
+6. `POST /api/admin/logout` (or `GET`) clears the cookie and redirects
+   back to /admin/login. The AdminShell header has a Sign out button
+   that posts to this endpoint.
+
+#### Open-redirect protection
+
+The `next` query param is sanitised in the login handler - any value
+that doesn't start with `/admin` falls back to `/admin`. So an attacker
+can't craft `/admin/login?next=https://evil.example.com`.
+
+#### Setting credentials in production
+
+Open Hostinger Node.js -> Environment Variables and set `ADMIN_USER`
+and `ADMIN_PASS`. Optionally also set `ADMIN_SESSION_SECRET` to a
+random 32+ character string (otherwise ADMIN_PASS doubles as the HMAC
+key). Restart the Node app so the new env vars load.
 
 ### Supabase lead store + admin leads page
 

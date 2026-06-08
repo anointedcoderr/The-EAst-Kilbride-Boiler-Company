@@ -1,77 +1,70 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import {
+  ADMIN_COOKIE_NAME,
+  isAdminConfigured,
+  verifySession,
+} from "@/lib/adminAuth";
 
-// HTTP Basic Auth gate for the /admin route. Credentials are read at
-// request time from ADMIN_USER and ADMIN_PASS environment variables - set
-// these in the Hostinger Node.js environment configuration. Secrets are
-// never embedded in source.
+// Cookie-session gate for the /admin area.
 //
-// Note for Next.js 16: this file used to be called middleware.ts and has
-// been renamed to proxy.ts per the framework change. Function name and
-// matcher behaviour are otherwise unchanged.
+// Public endpoints (no session required):
+//   - /admin/login
+//   - /api/admin/login   (used to create the session)
+//
+// Everything else under /admin and /api/admin requires a valid signed
+// session cookie. Page routes get a 303 redirect to /admin/login with
+// a ?next= param so we can come back after sign-in. API routes get a
+// 401 JSON response so client fetches can react sensibly.
+//
+// Note for Next.js 16: this file used to be called middleware.ts and
+// has been renamed to proxy.ts. Function name and matcher behaviour
+// are otherwise unchanged.
 
-const REALM = 'Basic realm="EKBC Admin", charset="UTF-8"';
-
-function safeEqual(a: string, b: string): boolean {
-  if (a.length !== b.length) return false;
-  let diff = 0;
-  for (let i = 0; i < a.length; i++) {
-    diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
+function isPublicAdminPath(pathname: string): boolean {
+  if (pathname === "/admin/login" || pathname === "/admin/login/") return true;
+  if (pathname === "/api/admin/login" || pathname === "/api/admin/login/") {
+    return true;
   }
-  return diff === 0;
-}
-
-function unauthorized(): NextResponse {
-  return new NextResponse("Authentication required.", {
-    status: 401,
-    headers: {
-      "WWW-Authenticate": REALM,
-      "Cache-Control": "no-store",
-    },
-  });
+  return false;
 }
 
 export function proxy(request: NextRequest): NextResponse {
-  const expectedUser = process.env.ADMIN_USER?.trim() ?? "";
-  const expectedPass = process.env.ADMIN_PASS ?? "";
+  const { pathname } = request.nextUrl;
 
-  // Deny by default if credentials are not configured. This is safer than
-  // letting an unconfigured deploy ship an open admin route.
-  if (!expectedUser || !expectedPass) {
+  // Deny by default if admin credentials aren't set in env. Safer than
+  // shipping an open admin area when ADMIN_USER / ADMIN_PASS are missing.
+  if (!isAdminConfigured()) {
     return new NextResponse(
       "Admin is not configured. Set ADMIN_USER and ADMIN_PASS environment variables.",
       { status: 503, headers: { "Cache-Control": "no-store" } }
     );
   }
 
-  const header = request.headers.get("authorization");
-  if (!header || !header.toLowerCase().startsWith("basic ")) {
-    return unauthorized();
-  }
-
-  let decoded = "";
-  try {
-    decoded = atob(header.slice(6).trim());
-  } catch {
-    return unauthorized();
-  }
-
-  const sep = decoded.indexOf(":");
-  if (sep < 0) return unauthorized();
-  const user = decoded.slice(0, sep);
-  const pass = decoded.slice(sep + 1);
-
-  if (safeEqual(user, expectedUser) && safeEqual(pass, expectedPass)) {
+  if (isPublicAdminPath(pathname)) {
     return NextResponse.next();
   }
 
-  return unauthorized();
+  const token = request.cookies.get(ADMIN_COOKIE_NAME)?.value;
+  const session = token ? verifySession(token) : null;
+  if (session) {
+    return NextResponse.next();
+  }
+
+  if (pathname.startsWith("/api/")) {
+    return NextResponse.json(
+      { ok: false, message: "Not signed in" },
+      { status: 401, headers: { "Cache-Control": "no-store" } }
+    );
+  }
+
+  const loginUrl = new URL("/admin/login", request.nextUrl);
+  loginUrl.searchParams.set("next", pathname);
+  const res = NextResponse.redirect(loginUrl, { status: 303 });
+  res.headers.set("Cache-Control", "no-store");
+  return res;
 }
 
 export const config = {
-  matcher: [
-    "/admin",
-    "/admin/:path*",
-    "/api/admin/:path*",
-  ],
+  matcher: ["/admin", "/admin/:path*", "/api/admin/:path*"],
 };
