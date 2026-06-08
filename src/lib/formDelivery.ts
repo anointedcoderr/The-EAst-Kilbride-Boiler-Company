@@ -227,6 +227,62 @@ function formatSubmittedAt(iso: string): string {
   }
 }
 
+// Basic shape check for an email address. Strict RFC validation is
+// overkill at this layer - the goal is just to avoid sending the auto
+// response to a string that obviously isn't an inbox (so nodemailer
+// doesn't 5xx on a malformed To: header).
+function isValidEmail(value: string | undefined): value is string {
+  if (!value) return false;
+  const trimmed = value.trim();
+  if (trimmed.length < 5 || trimmed.length > 254) return false;
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed);
+}
+
+function buildCustomerAutoResponseBodies(
+  customerName: string
+): { text: string; html: string } {
+  const greetingName = customerName.trim() || "there";
+  const text = [
+    `Hi ${greetingName},`,
+    "",
+    "Thank you for requesting a quote from The East Kilbride Boiler Company.",
+    "",
+    "We've received your details and our team will review your request. We'll reach out within 24 hours to confirm the next steps and let you know what photos / details we need from your current boiler setup so we can prepare your fixed price quote remotely.",
+    "",
+    "If your request is urgent, you can call us directly on 01355 204045.",
+    "",
+    "Thanks,",
+    "The East Kilbride Boiler Company",
+    "info@eastkilbrideboilercompany.co.uk",
+    "01355 204045",
+  ].join("\n");
+
+  const html = `<!doctype html>
+<html lang="en">
+  <body style="margin:0;padding:24px;background:#f4f4f5;font-family:Arial,Helvetica,sans-serif;color:#111827;">
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="max-width:640px;margin:0 auto;background:#ffffff;border-radius:12px;overflow:hidden;border:1px solid #e5e7eb;">
+      <tr>
+        <td style="background:#0a3d26;color:#ffffff;padding:20px 24px;">
+          <h1 style="margin:0;font-size:18px;font-weight:700;">We've received your quote request</h1>
+          <p style="margin:4px 0 0;font-size:13px;color:#A3FED6;">The East Kilbride Boiler Company</p>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding:20px 24px;font-size:14px;color:#374151;line-height:1.6;">
+          <p style="margin:0 0 12px;">Hi ${escapeHtml(greetingName)},</p>
+          <p style="margin:0 0 12px;">Thank you for requesting a quote from The East Kilbride Boiler Company.</p>
+          <p style="margin:0 0 12px;">We've received your details and our team will review your request. We'll reach out within 24 hours to confirm the next steps and let you know what photos / details we need from your current boiler setup so we can prepare your fixed price quote remotely.</p>
+          <p style="margin:0 0 12px;">If your request is urgent, you can call us directly on <a href="tel:01355204045" style="color:#0a3d26;font-weight:600;text-decoration:underline;">01355 204045</a>.</p>
+          <p style="margin:16px 0 0;">Thanks,<br/>The East Kilbride Boiler Company<br/><a href="mailto:info@eastkilbrideboilercompany.co.uk" style="color:#0a3d26;">info@eastkilbrideboilercompany.co.uk</a><br/>01355 204045</p>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>`;
+
+  return { text, html };
+}
+
 function buildEmailBodies(
   submission: QuoteFormSubmission,
   reference: string
@@ -324,11 +380,14 @@ async function deliverSmtp(
   const transporter = nodemailer.createTransport(transportOptions);
   const { text, html } = buildEmailBodies(submission, reference);
 
+  // 1) Internal lead email - this is the must-succeed path. If this
+  //    fails the customer auto response is skipped and the route
+  //    returns the failure to the API caller.
   try {
     const info = await transporter.sendMail({
       from: config.from,
       to: config.to,
-      replyTo: submission.email || undefined,
+      replyTo: isValidEmail(submission.email) ? submission.email : undefined,
       subject: "New Quote Request - East Kilbride Boiler Company",
       text,
       html,
@@ -337,17 +396,52 @@ async function deliverSmtp(
       reference,
       messageId: info.messageId,
     });
-    return {
-      ok: true,
-      mode: "smtp",
-      message: "Quote request emailed.",
-      reference,
-    };
   } catch (err) {
     const message = `SMTP send failed: ${(err as Error).message}`;
     console.error("[ekbc.quote.smtp]", message, { reference });
     return { ok: false, mode: "smtp", message, reference };
   }
+
+  // 2) Customer auto response - best effort. Skipped if the email
+  //    address is missing or obviously malformed. Failure here is
+  //    logged but does not flip the overall result to false, because
+  //    the lead has already landed at info@... and the customer will
+  //    still be contacted directly by the team.
+  if (isValidEmail(submission.email)) {
+    const customer = buildCustomerAutoResponseBodies(submission.name);
+    try {
+      const ack = await transporter.sendMail({
+        from: config.from,
+        to: submission.email,
+        replyTo: config.to,
+        subject:
+          "We've received your quote request - East Kilbride Boiler Company",
+        text: customer.text,
+        html: customer.html,
+      });
+      console.log("[ekbc.quote.smtp.ack]", "sent", {
+        reference,
+        messageId: ack.messageId,
+      });
+    } catch (err) {
+      console.error(
+        "[ekbc.quote.smtp.ack]",
+        `Customer auto response failed: ${(err as Error).message}`,
+        { reference }
+      );
+    }
+  } else {
+    console.log("[ekbc.quote.smtp.ack]", "skipped (no valid customer email)", {
+      reference,
+    });
+  }
+
+  return {
+    ok: true,
+    mode: "smtp",
+    message: "Quote request emailed.",
+    reference,
+  };
 }
 
 export async function deliverQuoteForm(

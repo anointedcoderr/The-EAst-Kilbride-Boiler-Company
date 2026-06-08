@@ -253,11 +253,30 @@ so the new values are picked up.
 
 #### Email format
 
-Subject: `New Quote Request - East Kilbride Boiler Company`
-Reply-To: customer's email (so replying in Outlook / Gmail responds direct).
-Body: dual plain text + Carbon Mint HTML, with fields - Customer name, Phone
-number, Email address, Service selected, Property type, Area / postcode,
-Message / details, Page submitted from, Date / time submitted, Reference.
+Two emails are sent per submission when delivery mode is `smtp`:
+
+1. **Internal lead** to `QUOTE_FORM_TO`.
+   - Subject: `New Quote Request - East Kilbride Boiler Company`
+   - Reply-To: customer email (when present and well formed) so replying
+     in Outlook / Gmail responds direct to the homeowner.
+   - Body: dual plain text + Carbon Mint HTML, with fields - Customer
+     name, Phone number, Email address, Service selected, Property type,
+     Area / postcode, Message / details, Page submitted from, Date /
+     time submitted, Reference.
+   - Must succeed for the API route to return ok. If this throws, no
+     auto response is attempted and the route returns 502.
+
+2. **Customer auto response** to the email the customer typed.
+   - Sent only if the email passes a basic shape check
+     (`/^[^\s@]+@[^\s@]+\.[^\s@]+$/`, 5 to 254 chars).
+   - Subject: `We've received your quote request - East Kilbride Boiler Company`
+   - Reply-To: `info@eastkilbrideboilercompany.co.uk` so any reply lands
+     in the business inbox.
+   - Body: thanks, "we will reach out within 24 hours", phone number,
+     plain text + Carbon Mint HTML.
+   - Best effort: a failure is logged under `[ekbc.quote.smtp.ack]` but
+     does not flip the API response to `ok: false`. The lead has already
+     landed at info@ and the team will still contact the customer.
 
 #### Failure handling
 
