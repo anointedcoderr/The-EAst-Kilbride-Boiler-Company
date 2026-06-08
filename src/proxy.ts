@@ -6,6 +6,27 @@ import {
   verifySession,
 } from "@/lib/adminAuth";
 
+// Build the public-facing origin (https://your-domain) from request
+// headers. Hostinger's reverse proxy forwards the public hostname in
+// the Host (and sometimes X-Forwarded-Host) header even though the
+// underlying Node process binds to 0.0.0.0:3000. Without this, redirects
+// leak the internal "0.0.0.0:3000" address to the browser and produce
+// ERR_ADDRESS_INVALID.
+function publicOrigin(request: NextRequest): string {
+  const xfh = request.headers.get("x-forwarded-host");
+  const host = xfh || request.headers.get("host");
+  if (host && !host.startsWith("0.0.0.0")) {
+    const xfp = request.headers.get("x-forwarded-proto");
+    const isLocal =
+      host.startsWith("localhost") ||
+      host.startsWith("127.0.0.1") ||
+      /:\d+$/.test(host);
+    const proto = xfp || (isLocal ? "http" : "https");
+    return `${proto}://${host}`;
+  }
+  return request.nextUrl.origin;
+}
+
 // Cookie-session gate for the /admin area.
 //
 // Public endpoints (no session required):
@@ -58,7 +79,7 @@ export function proxy(request: NextRequest): NextResponse {
     );
   }
 
-  const loginUrl = new URL("/admin/login", request.nextUrl);
+  const loginUrl = new URL("/admin/login", publicOrigin(request));
   loginUrl.searchParams.set("next", pathname);
   const res = NextResponse.redirect(loginUrl, { status: 303 });
   res.headers.set("Cache-Control", "no-store");

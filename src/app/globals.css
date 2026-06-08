@@ -249,64 +249,86 @@ body {
   background: linear-gradient(180deg, var(--color-carbon-700) 0%, var(--color-carbon-800) 100%);
 }
 
-/* Scroll reveal animations */
+/* Scroll reveal animations.
+ *
+ * Each .reveal* class runs a CSS keyframe animation immediately so the
+ * content paints without waiting for JS hydration + IntersectionObserver
+ * (which on a slow CDN cold-start can take 1-2s and leaves the hero
+ * looking dimmed/empty). When JS does run, the ScrollReveal component
+ * adds .revealed which is a no-op visually (the animation already
+ * ended at the same final state) but keeps existing markup correct.
+ *
+ * forwards = retain final state after animation. ease = standard
+ * decelerating curve. Delays match the staggered look from the old
+ * IntersectionObserver-driven version.
+ */
 .reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.reveal.revealed {
-  opacity: 1;
-  transform: translateY(0);
+  animation: ekbc-reveal-up 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .reveal-left {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.reveal-left.revealed {
-  opacity: 1;
-  transform: translateY(0);
+  animation: ekbc-reveal-up 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .reveal-right {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.reveal-right.revealed {
-  opacity: 1;
-  transform: translateY(0);
+  animation: ekbc-reveal-up 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @media (min-width: 1024px) {
   .reveal-left {
-    transform: translateX(-40px);
-  }
-  .reveal-left.revealed {
-    transform: translateX(0);
+    animation-name: ekbc-reveal-from-left;
   }
   .reveal-right {
-    transform: translateX(40px);
-  }
-  .reveal-right.revealed {
-    transform: translateX(0);
+    animation-name: ekbc-reveal-from-right;
   }
 }
 
 .reveal-scale {
-  opacity: 0;
-  transform: scale(0.92);
-  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: ekbc-reveal-scale 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.reveal-scale.revealed {
-  opacity: 1;
-  transform: scale(1);
+@keyframes ekbc-reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ekbc-reveal-from-left {
+  from {
+    opacity: 0;
+    transform: translateX(-36px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes ekbc-reveal-from-right {
+  from {
+    opacity: 0;
+    transform: translateX(36px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes ekbc-reveal-scale {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 /* Stagger children delays */

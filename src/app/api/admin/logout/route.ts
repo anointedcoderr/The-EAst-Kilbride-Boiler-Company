@@ -4,6 +4,21 @@ import { ADMIN_COOKIE_NAME, destroySession } from "@/lib/adminAuth";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
+function publicOrigin(request: Request): string {
+  const xfh = request.headers.get("x-forwarded-host");
+  const host = xfh || request.headers.get("host");
+  if (host && !host.startsWith("0.0.0.0")) {
+    const xfp = request.headers.get("x-forwarded-proto");
+    const isLocal =
+      host.startsWith("localhost") ||
+      host.startsWith("127.0.0.1") ||
+      /:\d+$/.test(host);
+    const proto = xfp || (isLocal ? "http" : "https");
+    return `${proto}://${host}`;
+  }
+  return new URL(request.url).origin;
+}
+
 function clearAndRedirect(request: Request): NextResponse {
   const token = request.headers
     .get("cookie")
@@ -12,7 +27,7 @@ function clearAndRedirect(request: Request): NextResponse {
     ?.slice(ADMIN_COOKIE_NAME.length + 1);
   if (token) destroySession(token);
 
-  const url = new URL("/admin/login", request.url);
+  const url = new URL("/admin/login", publicOrigin(request));
   const res = NextResponse.redirect(url, { status: 303 });
   res.cookies.set(ADMIN_COOKIE_NAME, "", {
     path: "/",
