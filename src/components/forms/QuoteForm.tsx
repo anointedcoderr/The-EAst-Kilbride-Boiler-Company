@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Lock, CheckCircle, ArrowRight } from "lucide-react";
+import { Lock, CheckCircle, ArrowRight, AlertTriangle, Phone } from "lucide-react";
 import { FormProgress } from "./FormProgress";
 import { StepOne } from "./steps/StepOne";
 import { StepTwo } from "./steps/StepTwo";
@@ -23,6 +23,7 @@ function QuoteForm() {
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submissionFailed, setSubmissionFailed] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     serviceType: "",
     propertyType: "",
@@ -65,18 +66,19 @@ function QuoteForm() {
 
   async function handleSubmit() {
     setIsSubmitting(true);
+    setSubmissionFailed(false);
+
+    // Bound the wait so a slow or 5xx origin can never trap the button on
+    // "Sending..." forever. 15s is generous for a single SMTP send; if it
+    // overruns, fall through to the visible failure UI.
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 15000);
+    let delivered = false;
+
     try {
-      // Quote submissions go to /api/quote. The server-side adapter selects
-      // mock, webhook or smtp delivery based on env vars. In staging the
-      // mock mode logs to the server console. Either way the customer sees
-      // the agreed thank you message - we never claim "email sent" unless
-      // production SMTP is wired.
-      // Capture the page the form was submitted from so the lead email
-      // shows context. window is available because this is a client
-      // component; guarded for safety in case of SSR.
       const pageUrl =
         typeof window !== "undefined" ? window.location.href : "";
-      await fetch("/api/quote", {
+      const res = await fetch("/api/quote", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -84,15 +86,23 @@ function QuoteForm() {
           source: "website-quote-form",
           pageUrl,
         }),
+        signal: controller.signal,
       });
+      // 2xx -> server says the lead was captured (either mock log or real
+      // SMTP send). Anything else (4xx, 5xx, origin 503 from Hostinger
+      // during a restart) is a failure the customer needs to know about.
+      delivered = res.ok;
     } catch {
-      // Swallow network errors silently in staging; the form still shows
-      // the thank you message so the customer is not left hanging. Real
-      // failure handling lives in the API route which logs to the server.
+      delivered = false;
     } finally {
+      clearTimeout(timeoutId);
       setIsSubmitting(false);
-      setIsSubmitted(true);
-      setCurrentStep(5);
+      if (delivered) {
+        setIsSubmitted(true);
+        setCurrentStep(5);
+      } else {
+        setSubmissionFailed(true);
+      }
     }
   }
 
@@ -110,6 +120,11 @@ function QuoteForm() {
         </div>
       </div>
     );
+  }
+
+  function handleRetry() {
+    setSubmissionFailed(false);
+    handleSubmit();
   }
 
   return (
@@ -176,14 +191,38 @@ function QuoteForm() {
         )}
       </div>
 
+      {submissionFailed && (
+        <div className="mb-4 rounded-lg border border-amber-400/40 bg-amber-500/10 p-4 text-left">
+          <div className="flex items-start gap-3">
+            <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-amber-300" />
+            <div className="text-sm leading-relaxed text-amber-100">
+              <p className="font-bold">We couldn't send your request just now.</p>
+              <p className="mt-1 text-amber-100/90">
+                Please try again or call us directly on{" "}
+                <a
+                  href="tel:01355204045"
+                  className="inline-flex items-center gap-1 font-bold text-white underline underline-offset-2 hover:text-mint-300"
+                >
+                  <Phone className="h-3.5 w-3.5" />
+                  01355 204045
+                </a>
+                {" "}and we will get you sorted.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
       <button
         type="button"
-        onClick={handleContinue}
+        onClick={submissionFailed ? handleRetry : handleContinue}
         disabled={!canProceed() || isSubmitting}
         className="flex w-full items-center justify-center gap-2 rounded-lg bg-mint-500 px-6 py-3 text-sm font-bold uppercase tracking-wider text-carbon-900 transition-colors hover:bg-mint-400 disabled:cursor-not-allowed disabled:opacity-50"
       >
         {isSubmitting ? (
           "Sending..."
+        ) : submissionFailed ? (
+          "Try again"
         ) : currentStep === 4 ? (
           "Send My Quote Request"
         ) : (
