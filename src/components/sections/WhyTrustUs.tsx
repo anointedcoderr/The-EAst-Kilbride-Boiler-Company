@@ -47,6 +47,8 @@ function WhyTrustUs() {
                     fill
                     sizes="(max-width: 1024px) 100vw, 50vw"
                     className="object-cover object-center"
+                    loading="lazy"
+                    decoding="async"
                   />
                   <div
                     aria-hidden="true"

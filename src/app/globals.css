@@ -1,5 +1,7 @@
 @import "tailwindcss";
-@import "leaflet/dist/leaflet.css";
+
+/* Leaflet CSS is loaded lazily inside src/components/ui/EkbcMap.tsx so it
+   only ships on routes that mount the map. Do not re-import it here. */
 
 @theme inline {
   --color-carbon-950: #050505;

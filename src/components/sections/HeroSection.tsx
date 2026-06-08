@@ -21,7 +21,8 @@ function HeroSection() {
         alt="EKBC engineer standing next to The East Kilbride Boiler Company branded van"
         fill
         priority
-        sizes="100vw"
+        fetchPriority="high"
+        sizes="(max-width: 768px) 100vw, (max-width: 1280px) 100vw, 1280px"
         className="object-cover object-center opacity-60"
       />
       <div
@@ -73,7 +74,7 @@ function HeroSection() {
               </div>
             </ScrollReveal>
 
-            <ScrollReveal direction="up" delay={0.1}>
+            <ScrollReveal direction="up" delay={0}>
               <div>
                 <p className="mb-1 text-xs sm:text-sm font-bold uppercase tracking-[0.2em] text-white/90">
                   East Kilbride&apos;s #1

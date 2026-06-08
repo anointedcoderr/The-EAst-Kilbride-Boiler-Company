@@ -160,6 +160,8 @@ export function BoilerPricesTemplate() {
                           fill
                           sizes="(max-width: 768px) 128px, (max-width: 1024px) 128px, 160px"
                           className="object-contain p-3"
+                          loading="lazy"
+                          decoding="async"
                         />
                       </div>
                       <div>
