@@ -20,6 +20,7 @@ import {
   defaultBlock,
   type Block,
 } from "@/lib/cmsBlocks";
+import { MediaPicker } from "./MediaPicker";
 
 interface SectionsEditorProps {
   value: Block[];
@@ -243,36 +244,7 @@ function BlockEditor({
       );
 
     case "image":
-      return (
-        <>
-          <input
-            type="url"
-            value={block.url}
-            onChange={(e) => onChange({ ...block, url: e.target.value })}
-            placeholder="Image URL (https://...)"
-            className={inputClass}
-          />
-          <input
-            type="text"
-            value={block.alt}
-            onChange={(e) => onChange({ ...block, alt: e.target.value })}
-            placeholder="Image description (alt text - what's in the image)"
-            className={inputClass}
-          />
-          <input
-            type="text"
-            value={block.caption ?? ""}
-            onChange={(e) =>
-              onChange({ ...block, caption: e.target.value })
-            }
-            placeholder="Caption (optional)"
-            className={inputClass}
-          />
-          <p className="text-[11px] text-carbon-400">
-            Tip: media library upload comes in the next phase. For now, paste a hosted image URL.
-          </p>
-        </>
-      );
+      return <ImageBlockEditor block={block} onChange={onChange} />;
 
     case "video":
       return (
@@ -344,6 +316,88 @@ function BlockEditor({
         />
       );
   }
+}
+
+function ImageBlockEditor({
+  block,
+  onChange,
+}: {
+  block: { type: "image"; url: string; alt: string; caption?: string };
+  onChange: (next: Block) => void;
+}) {
+  const [pickerOpen, setPickerOpen] = useState(false);
+  const inputClass =
+    "w-full rounded-lg border border-carbon-600 bg-carbon-800 px-3 py-2 text-sm text-white placeholder:text-carbon-500 focus:border-mint-500 focus:outline-none focus:ring-1 focus:ring-mint-500";
+
+  return (
+    <>
+      {block.url && (
+        <div className="overflow-hidden rounded-lg border border-carbon-800 bg-black">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={block.url}
+            alt={block.alt}
+            className="block max-h-48 w-full object-contain"
+          />
+        </div>
+      )}
+      <div className="flex gap-2">
+        <button
+          type="button"
+          onClick={() => setPickerOpen(true)}
+          className="inline-flex items-center gap-1.5 rounded-lg bg-mint-500 px-3 py-2 text-xs font-bold uppercase tracking-wider text-carbon-900 hover:bg-mint-400"
+        >
+          <ImageIcon className="h-3.5 w-3.5" />
+          {block.url ? "Replace image" : "Choose image"}
+        </button>
+        {block.url && (
+          <button
+            type="button"
+            onClick={() => onChange({ ...block, url: "", alt: "" })}
+            className="inline-flex items-center gap-1.5 rounded-lg border border-carbon-700 px-3 py-2 text-xs font-bold uppercase tracking-wider text-carbon-300 hover:border-rose-400/40 hover:text-rose-200"
+          >
+            <Trash2 className="h-3.5 w-3.5" />
+            Remove
+          </button>
+        )}
+      </div>
+      <input
+        type="url"
+        value={block.url}
+        onChange={(e) => onChange({ ...block, url: e.target.value })}
+        placeholder="Or paste an image URL"
+        className={inputClass}
+      />
+      <input
+        type="text"
+        value={block.alt}
+        onChange={(e) => onChange({ ...block, alt: e.target.value })}
+        placeholder="Alt text - describe what is in the image"
+        className={inputClass}
+      />
+      <input
+        type="text"
+        value={block.caption ?? ""}
+        onChange={(e) => onChange({ ...block, caption: e.target.value })}
+        placeholder="Caption (optional)"
+        className={inputClass}
+      />
+      {pickerOpen && (
+        <MediaPicker
+          onClose={() => setPickerOpen(false)}
+          onSelect={(row) => {
+            onChange({
+              ...block,
+              url: row.file_url,
+              alt: block.alt || row.alt_text || "",
+              caption: block.caption ?? row.caption,
+            });
+            setPickerOpen(false);
+          }}
+        />
+      )}
+    </>
+  );
 }
 
 function FaqEditor({

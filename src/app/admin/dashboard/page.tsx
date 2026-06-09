@@ -72,9 +72,8 @@ const quickLinks: Array<{
   {
     href: "/admin/media",
     label: "Media library",
-    description: "Upload and manage site images. Coming in Phase 4.",
+    description: "Upload site images, copy URLs, edit alt text and captions.",
     icon: ImageIcon,
-    comingSoon: true,
   },
 ];
 
