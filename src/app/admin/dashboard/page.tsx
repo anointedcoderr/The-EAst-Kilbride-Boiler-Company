@@ -58,9 +58,9 @@ const quickLinks: Array<{
   {
     href: "/admin/pages",
     label: "Manage pages",
-    description: "Page editor with hero, meta and FAQs. Coming in Phase 2.",
+    description:
+      "Edit page titles, hero, meta and SEO settings across all 60+ pages.",
     icon: FileText,
-    comingSoon: true,
   },
   {
     href: "/admin/blogs",
