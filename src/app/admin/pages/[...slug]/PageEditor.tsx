@@ -7,6 +7,8 @@ import {
   Loader2,
   Save,
 } from "lucide-react";
+import { type Block } from "@/lib/cmsBlocks";
+import { SectionsEditor } from "./SectionsEditor";
 
 interface PageEditorInitial {
   slug: string;
@@ -18,6 +20,7 @@ interface PageEditorInitial {
   heroSubtitle: string;
   status: "draft" | "published";
   isIndexable: boolean;
+  sections: Block[];
 }
 
 interface PageEditorProps {
@@ -60,6 +63,7 @@ export function PageEditor({ slug, initial }: PageEditorProps) {
             hero_subtitle: values.heroSubtitle,
             status: values.status,
             is_indexable: values.isIndexable,
+            sections: values.sections,
           },
         }),
       });
@@ -120,6 +124,18 @@ export function PageEditor({ slug, initial }: PageEditorProps) {
           onChange={(v) => update("heroSubtitle", v)}
           helper="Smaller line under the hero title."
           multiline
+        />
+      </Section>
+
+      <Section title="Body content">
+        <p className="-mt-2 mb-2 text-[11px] text-carbon-400">
+          Add headings, paragraphs, images, video embeds, calls-to-action and
+          FAQs. Drag-and-drop ordering and image library come later in the
+          roadmap; for now reorder with the arrows.
+        </p>
+        <SectionsEditor
+          value={values.sections}
+          onChange={(next) => update("sections", next)}
         />
       </Section>
 

@@ -15,6 +15,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { localBusinessSchema, faqSchema } from "@/lib/schemas";
 import { faqs } from "@/data/faqs";
 import { publicGetPageContent } from "@/lib/cmsPages";
+import { CmsExtraSections } from "@/components/cms/CmsExtraSections";
 
 // Defaults match the existing static metadata - the CMS only overrides
 // these fields when the homepage row exists in cms_pages with a
@@ -54,6 +55,7 @@ export default function HomePage() {
       <ReviewsCarousel />
       <AreasCoverage />
       <FAQSection />
+      <CmsExtraSections slug="/" />
       <BottomQuoteSection id="bottom-quote-form" />
       <CTABanner />
       <NeedBoilerCTA />

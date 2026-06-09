@@ -334,6 +334,7 @@ export interface PageEditPatch {
   hero_subtitle?: string;
   status?: CmsPageStatus;
   is_indexable?: boolean;
+  sections?: unknown; // Block[] - validated by parseBlocks before render
 }
 
 export async function savePageBySlug(
@@ -348,7 +349,7 @@ export async function savePageBySlug(
 
   // Upsert by slug. Slug is unique; if a row exists we patch, if not
   // we insert a row using the known defaults plus the patch.
-  const upsertRow = {
+  const upsertRow: Record<string, unknown> = {
     slug,
     page_type: known.pageType,
     postcode_area: known.postcodeArea,
@@ -362,6 +363,9 @@ export async function savePageBySlug(
     status: patch.status ?? "published",
     is_indexable: patch.is_indexable ?? true,
   };
+  if (patch.sections !== undefined) {
+    upsertRow.sections = patch.sections;
+  }
 
   const { error } = await supabase
     .from("cms_pages")

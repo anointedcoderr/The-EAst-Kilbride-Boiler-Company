@@ -29,6 +29,12 @@ function pickPatch(input: unknown): PageEditPatch {
   if (typeof src.is_indexable === "boolean") {
     out.is_indexable = src.is_indexable;
   }
+  // Sections come through as an array of plain JSON objects. The
+  // public renderer revalidates each block via parseBlocks() before
+  // rendering, so it's safe to pass through any array shape here.
+  if (Array.isArray(src.sections)) {
+    out.sections = src.sections;
+  }
   return out;
 }
 

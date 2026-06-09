@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ExternalLink } from "lucide-react";
 import { getCmsPageBySlug } from "@/lib/cmsPages";
+import { parseBlocks } from "@/lib/cmsBlocks";
 import { PageEditor } from "./PageEditor";
 
 export const metadata: Metadata = {
@@ -45,6 +46,9 @@ export default async function AdminEditPage({ params }: PageProps) {
       page.cmsRow?.hero_subtitle ?? known.defaultHeroSubtitle ?? "",
     status: (page.cmsRow?.status ?? "published") as "draft" | "published",
     isIndexable: page.cmsRow?.is_indexable ?? true,
+    sections: parseBlocks(
+      (page.cmsRow as { sections?: unknown } | null)?.sections
+    ),
   };
 
   return (
