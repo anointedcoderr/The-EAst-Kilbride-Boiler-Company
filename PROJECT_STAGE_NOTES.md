@@ -518,3 +518,50 @@ Stage 2 delivers the technical and content foundation to target these
 searches. We do not guarantee Google rankings, Google Map Pack top 3
 placement, or visibility in AI answer engines. Indexation and ranking depend
 on Google's algorithm and timeline.
+
+---
+
+## CMS Phase 1 - foundation, dashboard, settings (2026-06-09)
+
+The custom CMS scope (18 sections, WordPress-like editing) is being shipped in phases. Phase 1 establishes the foundation and ships the most-used everyday tools.
+
+### What's in Phase 1
+
+**Database (run `db/cms-phase-1.sql` once in Supabase SQL Editor):**
+
+- `cms_site_settings` - key/value store for editable global settings (phone, email, address, hours, CTA copy, footer text, etc.)
+- `cms_media` - file metadata for the media library (Phase 4)
+- `cms_pages` - page content with flexible `sections jsonb` for the block editor (Phase 2/3)
+- `cms_blog_posts` - blog posts with `content_blocks jsonb` (Phase 3)
+- Triggers to auto-update `updated_at` on every row change
+- RLS policies for server-side anon access (no-op for service-role setups)
+- Seed inserts populating `cms_site_settings` with the current static values
+
+**Admin pages:**
+
+- `/admin/dashboard` - the new admin home. Stats cards (Total leads, New leads, In progress, Blog posts) read live from Supabase. Quick-link cards to every section, with "Soon" badges on Phase 2-4 items.
+- `/admin/settings` - editable site settings form. Updates `cms_site_settings` via `POST /api/admin/settings`. Includes business name, phone, phone tel link, public email, address (street/city/region/postcode), opening hours, main CTA text, emergency message, footer text, areas-served count, Facebook URL.
+- `/admin/help` - client guide. Plain-language steps for editing pages, changing images, adding videos, adding blog posts, managing leads, updating settings.
+- `/admin/leads` (upgraded) - now has a search bar (matches across name, phone, email, service, postcode, notes, reference) and an inline notes editor. Notes persist via the existing `PATCH /api/admin/leads/[id]` endpoint.
+
+**Public site fallback layer:**
+
+- `src/lib/siteContent.ts` exports `getSiteSettings()` returning a `SiteSettingsView` with CMS values merged onto the existing static `siteSettings`. If Supabase is unreachable or a key is missing, the static value wins. Public pages can adopt this incrementally - Phase 2/3 will migrate header, footer and component reads.
+- `getDashboardCounts()` for the admin home stats.
+- `saveSiteSettings()` and `getEditableSiteSettings()` for the admin form.
+
+**Login redirect** updated to land on `/admin/dashboard` after sign-in (was `/admin`). The legacy `/admin` page is still reachable as the "Content preview" tile on the dashboard.
+
+### What's still pending across the remaining phases
+
+- Phase 2: Pages manager list, simple page editor, public read-from-CMS for pages
+- Phase 3: Block-based editor (rich text, image+text, video, FAQ, CTA blocks)
+- Phase 4: Media library + Supabase Storage uploads + image picker
+- Phase 5: Blog manager + blog editor + public blog rendering
+- Phase 6: Seed existing 45 pages into `cms_pages`, final polish, full testing pass
+
+### Operator action required after the Phase 1 deploy
+
+1. Open Supabase SQL Editor and run the full contents of `db/cms-phase-1.sql`. Safe to re-run if you ever want to reset.
+2. Confirm in Supabase Table Editor that `cms_site_settings` has 14 seeded rows and the three other CMS tables exist (empty).
+3. After redeploy, sign in to `/admin/login` - you'll land on the new dashboard. Open Site settings, change a field (e.g. opening hours), save. Confirm the "Saved" banner appears. The change reaches every public page on the next request (CDN cache window is 60s).

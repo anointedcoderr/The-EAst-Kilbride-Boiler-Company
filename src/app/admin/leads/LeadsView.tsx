@@ -11,6 +11,10 @@ import {
   Phone,
   MapPin,
   Inbox,
+  Search,
+  StickyNote,
+  Save,
+  X,
 } from "lucide-react";
 import {
   QUOTE_LEAD_STATUSES,
@@ -80,6 +84,10 @@ export function LeadsView({ initialRows }: LeadsViewProps) {
   const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
   const [pendingId, setPendingId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [search, setSearch] = useState("");
+  const [openNotesId, setOpenNotesId] = useState<string | null>(null);
+  const [notesDraft, setNotesDraft] = useState("");
+  const [notesSaving, setNotesSaving] = useState(false);
 
   const counts = useMemo(() => {
     const c: Record<QuoteLeadStatus | "all", number> = {
@@ -95,16 +103,31 @@ export function LeadsView({ initialRows }: LeadsViewProps) {
   }, [rows]);
 
   const visible = useMemo(() => {
-    const filtered =
-      statusFilter === "all"
-        ? rows
-        : rows.filter((r) => r.status === statusFilter);
+    const q = search.trim().toLowerCase();
+    const filtered = rows.filter((r) => {
+      if (statusFilter !== "all" && r.status !== statusFilter) return false;
+      if (!q) return true;
+      const haystack = [
+        r.name,
+        r.phone,
+        r.email,
+        r.service_type ?? "",
+        r.property_type ?? "",
+        r.district ?? "",
+        r.postcode ?? "",
+        r.notes ?? "",
+        r.reference,
+      ]
+        .join(" ")
+        .toLowerCase();
+      return haystack.includes(q);
+    });
     const sorted = [...filtered].sort((a, b) => {
       const diff = compare(a, b, sortKey);
       return sortDir === "asc" ? diff : -diff;
     });
     return sorted;
-  }, [rows, statusFilter, sortKey, sortDir]);
+  }, [rows, statusFilter, sortKey, sortDir, search]);
 
   function toggleSort(key: SortKey) {
     if (sortKey === key) {
@@ -112,6 +135,43 @@ export function LeadsView({ initialRows }: LeadsViewProps) {
     } else {
       setSortKey(key);
       setSortDir(key === "submitted_at" ? "desc" : "asc");
+    }
+  }
+
+  function openNotes(row: QuoteLeadRow) {
+    setOpenNotesId(row.id);
+    setNotesDraft(row.notes ?? "");
+    setError(null);
+  }
+
+  function closeNotes() {
+    setOpenNotesId(null);
+    setNotesDraft("");
+    setNotesSaving(false);
+  }
+
+  async function saveNotes(id: string) {
+    setNotesSaving(true);
+    setError(null);
+    const previous = rows;
+    setRows((r) =>
+      r.map((row) => (row.id === id ? { ...row, notes: notesDraft } : row))
+    );
+    try {
+      const res = await fetch(`/api/admin/leads/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ notes: notesDraft }),
+      });
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        throw new Error(body.message || `HTTP ${res.status}`);
+      }
+      closeNotes();
+    } catch (err) {
+      setRows(previous);
+      setError((err as Error).message);
+      setNotesSaving(false);
     }
   }
 
@@ -140,6 +200,17 @@ export function LeadsView({ initialRows }: LeadsViewProps) {
 
   return (
     <div className="space-y-5">
+      <div className="relative">
+        <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-carbon-500" />
+        <input
+          type="search"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search by name, phone, email, service, postcode or notes"
+          className="w-full rounded-xl border border-carbon-700 bg-carbon-900/60 py-2.5 pl-10 pr-3 text-sm text-white placeholder:text-carbon-500 focus:border-mint-500/60 focus:outline-none focus:ring-1 focus:ring-mint-500/40"
+        />
+      </div>
+
       <div className="flex flex-wrap items-center gap-2">
         {(["all", ...QUOTE_LEAD_STATUSES] as const).map((s) => {
           const active = statusFilter === s;
@@ -307,7 +378,20 @@ export function LeadsView({ initialRows }: LeadsViewProps) {
                             {row.message}
                           </p>
                         )}
-                        <div className="mt-1 inline-flex items-center gap-1 text-[11px]">
+                        {row.notes && (
+                          <p className="mt-2 line-clamp-2 max-w-[280px] whitespace-pre-wrap rounded border border-mint-500/30 bg-mint-500/5 px-2 py-1 text-[11px] text-mint-200">
+                            {row.notes}
+                          </p>
+                        )}
+                        <button
+                          type="button"
+                          onClick={() => openNotes(row)}
+                          className="mt-2 inline-flex items-center gap-1 text-[11px] text-mint-300 hover:text-mint-200"
+                        >
+                          <StickyNote className="h-3 w-3" />
+                          {row.notes ? "Edit note" : "Add note"}
+                        </button>
+                        <div className="mt-2 inline-flex items-center gap-1 text-[11px]">
                           {row.delivery_ok ? (
                             <CheckCircle2 className="h-3 w-3 text-mint-400" />
                           ) : (
@@ -327,6 +411,90 @@ export function LeadsView({ initialRows }: LeadsViewProps) {
           </div>
         </div>
       )}
+
+      {openNotesId && (
+        <NotesDialog
+          row={rows.find((r) => r.id === openNotesId) ?? null}
+          draft={notesDraft}
+          onDraft={setNotesDraft}
+          saving={notesSaving}
+          onSave={() => openNotesId && saveNotes(openNotesId)}
+          onClose={closeNotes}
+        />
+      )}
+    </div>
+  );
+}
+
+function NotesDialog({
+  row,
+  draft,
+  onDraft,
+  saving,
+  onSave,
+  onClose,
+}: {
+  row: QuoteLeadRow | null;
+  draft: string;
+  onDraft: (value: string) => void;
+  saving: boolean;
+  onSave: () => void;
+  onClose: () => void;
+}) {
+  if (!row) return null;
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
+      onClick={onClose}
+    >
+      <div
+        className="w-full max-w-md rounded-2xl border border-mint-500/30 bg-carbon-900 p-5 shadow-xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="mb-4 flex items-start justify-between gap-2">
+          <div>
+            <h3 className="text-sm font-bold uppercase tracking-wider text-white">
+              Internal note
+            </h3>
+            <p className="mt-1 text-xs text-carbon-400">
+              For {row.name} - only visible inside the admin.
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close"
+            className="rounded p-1 text-carbon-400 hover:text-white"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+        <textarea
+          value={draft}
+          onChange={(e) => onDraft(e.target.value)}
+          rows={5}
+          placeholder="What did the customer say? Next action? Quoted price?"
+          className="w-full rounded-lg border border-carbon-700 bg-carbon-800 px-3 py-2 text-sm text-white placeholder:text-carbon-500 focus:border-mint-500/60 focus:outline-none focus:ring-1 focus:ring-mint-500/40"
+        />
+        <div className="mt-4 flex items-center justify-end gap-2">
+          <button
+            type="button"
+            onClick={onClose}
+            className="rounded-lg border border-carbon-700 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-carbon-300 hover:border-mint-500/50"
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            onClick={onSave}
+            disabled={saving}
+            className="inline-flex items-center gap-1.5 rounded-lg bg-mint-500 px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-carbon-900 hover:bg-mint-400 disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            <Save className="h-3.5 w-3.5" />
+            {saving ? "Saving..." : "Save note"}
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

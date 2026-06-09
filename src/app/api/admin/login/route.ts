@@ -31,7 +31,7 @@ function publicOrigin(request: Request): string {
 function safeNext(input: string): string {
   // Refuse anything that isn't an /admin path so an attacker can't craft
   // an open-redirect via ?next=https://evil.example.com.
-  if (!input.startsWith("/admin")) return "/admin";
+  if (!input.startsWith("/admin")) return "/admin/dashboard";
   return input;
 }
 
@@ -85,7 +85,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const target = safeNext(next || "/admin");
+  const target = safeNext(next || "/admin/dashboard");
   const res = NextResponse.redirect(new URL(target, publicOrigin(request)), {
     status: 303,
   });
