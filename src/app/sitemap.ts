@@ -4,6 +4,7 @@ import { blogPosts } from "@/data/blogPosts";
 import { brands } from "@/data/brands";
 import { districts } from "@/data/districts";
 import { getSupabaseServer } from "@/lib/supabase";
+import { listPublishedCustomSlugs } from "@/lib/cmsPages";
 
 const SITE_URL = "https://www.eastkilbrideboilercompany.co.uk";
 
@@ -58,9 +59,10 @@ async function getExcludedCmsSlugs(): Promise<Set<string>> {
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
-  const [cmsBlogSlugs, excluded] = await Promise.all([
+  const [cmsBlogSlugs, excluded, customSlugs] = await Promise.all([
     getCmsBlogSlugs(),
     getExcludedCmsSlugs(),
+    listPublishedCustomSlugs(),
   ]);
 
   const staticRoutes: Array<{
@@ -115,6 +117,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly" as const,
     }));
 
+  const customRoutes = customSlugs.map((slug) => ({
+    path: slug,
+    priority: 0.6,
+    changeFrequency: "monthly" as const,
+  }));
+
   const allRoutes = [
     ...staticRoutes,
     ...serviceRoutes,
@@ -122,6 +130,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...districtRoutes,
     ...blogRoutes,
     ...cmsBlogRoutes,
+    ...customRoutes,
   ];
 
   return allRoutes

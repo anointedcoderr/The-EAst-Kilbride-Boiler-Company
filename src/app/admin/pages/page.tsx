@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Plus } from "lucide-react";
 import { listAllPages } from "@/lib/cmsPages";
 import { PagesListView } from "./PagesListView";
 
@@ -34,13 +34,22 @@ export default async function AdminPagesPage() {
               {pages.length} pages
             </span>
           </div>
-          <Link
-            href="/"
-            target="_blank"
-            className="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-carbon-300 hover:text-mint-400"
-          >
-            Open live site
-          </Link>
+          <div className="flex items-center gap-2">
+            <Link
+              href="/admin/pages/new"
+              className="inline-flex items-center gap-1.5 rounded-full bg-mint-500 px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-carbon-900 hover:bg-mint-400"
+            >
+              <Plus className="h-3.5 w-3.5" />
+              Add new page
+            </Link>
+            <Link
+              href="/"
+              target="_blank"
+              className="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-carbon-300 hover:text-mint-400"
+            >
+              Open live site
+            </Link>
+          </div>
         </div>
       </header>
 
