@@ -136,7 +136,14 @@ export function PagesListView({ initialPages }: PagesListViewProps) {
 }
 
 function PageRow({ page }: { page: PageListing }) {
-  const editHref = `/admin/pages${page.slug.replace(/\/$/, "")}`;
+  // The homepage's slug is "/" which would otherwise produce
+  // /admin/pages + "" = /admin/pages (the list itself). Route it to
+  // a "home" sentinel that the catch-all editor recognises and maps
+  // back to "/".
+  const editHref =
+    page.slug === "/"
+      ? "/admin/pages/home"
+      : `/admin/pages${page.slug.replace(/\/$/, "")}`;
   return (
     <tr className="align-top hover:bg-carbon-900/60">
       <td className="px-3 py-3">

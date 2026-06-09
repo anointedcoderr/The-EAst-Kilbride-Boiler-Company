@@ -19,6 +19,19 @@ interface MediaLibraryProps {
   initial: MediaRow[];
 }
 
+const MAX_BYTES = 50 * 1024 * 1024;
+const MAX_LABEL = "50 MB";
+
+function formatBytes(bytes: number): string {
+  if (bytes >= 1024 * 1024) {
+    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+  }
+  if (bytes >= 1024) {
+    return `${(bytes / 1024).toFixed(0)} KB`;
+  }
+  return `${bytes} bytes`;
+}
+
 export function MediaLibrary({ initial }: MediaLibraryProps) {
   const [rows, setRows] = useState<MediaRow[]>(initial);
   const [search, setSearch] = useState("");
@@ -44,6 +57,25 @@ export function MediaLibrary({ initial }: MediaLibraryProps) {
 
   async function handleFiles(files: FileList) {
     setError(null);
+
+    // Client-side size check before we waste bandwidth. The API
+    // enforces the same limit, but rejecting up front gives instant
+    // feedback and a clear message.
+    const oversize: string[] = [];
+    for (const file of Array.from(files)) {
+      if (file.size > MAX_BYTES) {
+        oversize.push(`${file.name} (${formatBytes(file.size)})`);
+      }
+    }
+    if (oversize.length > 0) {
+      setError(
+        `Files larger than ${MAX_LABEL} can't be uploaded: ${oversize.join(", ")}. ` +
+          "For longer videos, paste a YouTube or Vimeo URL into a video block instead."
+      );
+      if (fileInput.current) fileInput.current.value = "";
+      return;
+    }
+
     setUploading(true);
     const uploaded: MediaRow[] = [];
     try {
@@ -60,7 +92,17 @@ export function MediaLibrary({ initial }: MediaLibraryProps) {
           message?: string;
         };
         if (!res.ok || !body.ok || !body.row) {
-          throw new Error(body.message || `HTTP ${res.status}`);
+          // Translate common Supabase Storage errors into clearer
+          // language. The most common one is the bucket's own file
+          // size limit being lower than our API's 50 MB cap.
+          let msg = body.message || `HTTP ${res.status}`;
+          if (/payload|maximum allowed size|too large/i.test(msg)) {
+            msg =
+              `Upload rejected by storage: ${file.name} (${formatBytes(file.size)}) ` +
+              "is larger than the Supabase bucket's file size limit. " +
+              "Raise it in Supabase Dashboard -> Storage -> ekbc-media -> Edit bucket.";
+          }
+          throw new Error(msg);
         }
         uploaded.push(body.row);
       }
@@ -185,6 +227,11 @@ export function MediaLibrary({ initial }: MediaLibraryProps) {
           )}
         </button>
       </div>
+
+      <p className="-mt-2 text-[11px] text-carbon-400">
+        Images and videos up to <strong className="text-carbon-200">{MAX_LABEL}</strong> per file. For longer
+        videos, paste a YouTube or Vimeo URL into a video block instead.
+      </p>
 
       {toast && (
         <div className="flex items-center gap-2 rounded-lg border border-mint-500/40 bg-mint-500/10 p-3 text-sm text-mint-200">

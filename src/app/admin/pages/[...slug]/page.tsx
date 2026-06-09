@@ -19,11 +19,14 @@ interface PageProps {
 }
 
 function partsToSlug(parts: string[]): string {
+  // The PagesListView links the homepage to /admin/pages/home so the
+  // catch-all has at least one URL segment. Translate that back to "/".
+  if (parts.length === 1 && parts[0] === "home") return "/";
   return "/" + parts.map((p) => decodeURIComponent(p)).join("/") + "/";
 }
 
 function normaliseHomepage(slug: string): string {
-  // The homepage's slug is "/". Anything that reduces to "//" maps to "/".
+  // Defensive: anything that reduces to "//" also maps to "/".
   return slug === "//" ? "/" : slug;
 }
 
