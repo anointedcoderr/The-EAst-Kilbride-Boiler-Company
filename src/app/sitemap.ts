@@ -3,11 +3,65 @@ import { services } from "@/data/services";
 import { blogPosts } from "@/data/blogPosts";
 import { brands } from "@/data/brands";
 import { districts } from "@/data/districts";
+import { getSupabaseServer } from "@/lib/supabase";
 
 const SITE_URL = "https://www.eastkilbrideboilercompany.co.uk";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+// Pulled at sitemap-render time so newly published CMS blog posts
+// show up the next time a crawler hits /sitemap.xml without needing
+// a deploy.
+async function getCmsBlogSlugs(): Promise<string[]> {
+  try {
+    const supabase = await getSupabaseServer();
+    if (!supabase) return [];
+    const { data } = await supabase
+      .from("cms_blog_posts")
+      .select("slug")
+      .eq("status", "published")
+      .limit(2000);
+    if (!Array.isArray(data)) return [];
+    return (data as Array<{ slug: string }>)
+      .map((r) => r.slug)
+      .filter((s): s is string => typeof s === "string" && s.length > 0);
+  } catch {
+    return [];
+  }
+}
+
+// Pages that have been marked noindex in the CMS shouldn't appear in
+// the sitemap. We fetch the set of slugs that are either in draft
+// status or flagged is_indexable: false and exclude them below.
+async function getExcludedCmsSlugs(): Promise<Set<string>> {
+  try {
+    const supabase = await getSupabaseServer();
+    if (!supabase) return new Set();
+    const { data } = await supabase
+      .from("cms_pages")
+      .select("slug, status, is_indexable")
+      .limit(2000);
+    if (!Array.isArray(data)) return new Set();
+    const excluded = new Set<string>();
+    for (const raw of data as Array<{
+      slug: string;
+      status: string;
+      is_indexable: boolean;
+    }>) {
+      if (raw.status === "draft" || raw.is_indexable === false) {
+        excluded.add(raw.slug);
+      }
+    }
+    return excluded;
+  } catch {
+    return new Set();
+  }
+}
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
+  const [cmsBlogSlugs, excluded] = await Promise.all([
+    getCmsBlogSlugs(),
+    getExcludedCmsSlugs(),
+  ]);
 
   const staticRoutes: Array<{
     path: string;
@@ -51,16 +105,31 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: "monthly" as const,
   }));
 
-  return [
+  // CMS blog posts that aren't already in the static list.
+  const staticBlogSlugs = new Set(blogPosts.map((p) => p.slug));
+  const cmsBlogRoutes = cmsBlogSlugs
+    .filter((slug) => !staticBlogSlugs.has(slug))
+    .map((slug) => ({
+      path: `/blogs/${slug}/`,
+      priority: 0.6,
+      changeFrequency: "monthly" as const,
+    }));
+
+  const allRoutes = [
     ...staticRoutes,
     ...serviceRoutes,
     ...brandRoutes,
     ...districtRoutes,
     ...blogRoutes,
-  ].map((route) => ({
-    url: `${SITE_URL}${route.path}`,
-    lastModified: now,
-    changeFrequency: route.changeFrequency,
-    priority: route.priority,
-  }));
+    ...cmsBlogRoutes,
+  ];
+
+  return allRoutes
+    .filter((route) => !excluded.has(route.path))
+    .map((route) => ({
+      url: `${SITE_URL}${route.path}`,
+      lastModified: now,
+      changeFrequency: route.changeFrequency,
+      priority: route.priority,
+    }));
 }

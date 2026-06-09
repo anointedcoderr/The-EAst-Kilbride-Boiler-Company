@@ -565,3 +565,145 @@ The custom CMS scope (18 sections, WordPress-like editing) is being shipped in p
 1. Open Supabase SQL Editor and run the full contents of `db/cms-phase-1.sql`. Safe to re-run if you ever want to reset.
 2. Confirm in Supabase Table Editor that `cms_site_settings` has 14 seeded rows and the three other CMS tables exist (empty).
 3. After redeploy, sign in to `/admin/login` - you'll land on the new dashboard. Open Site settings, change a field (e.g. opening hours), save. Confirm the "Saved" banner appears. The change reaches every public page on the next request (CDN cache window is 60s).
+
+---
+
+## CMS Phases 2-6 - full WordPress-style CMS (2026-06-09)
+
+Builds the full custom CMS on top of the Phase 1 foundation. Six phases,
+each shipping a complete slice the client can use immediately.
+
+### Operator action across all phases
+
+**Database / storage setup (one-time):**
+
+1. Run `db/cms-phase-1.sql` in Supabase SQL Editor (creates the four CMS
+   tables, triggers, RLS policies, seeds settings).
+2. Supabase Dashboard -> Storage -> "New bucket" -> name `ekbc-media`,
+   public, 10 MB file size limit.
+3. Run `db/cms-phase-4-storage.sql` (RLS policies on the bucket).
+
+After those, no SQL is needed for any future content - everything is
+managed through the admin UI.
+
+**Environment variables:** unchanged from Phase 1. The CMS uses the
+existing `SUPABASE_URL` + `SUPABASE_SERVICE_ROLE_KEY` (or anon).
+
+### Phase 2 - pages manager + page editor
+
+- `/admin/pages` lists every public URL (~60 pages: homepage, 3 services,
+  4 brands, 35 districts, G74/G75 hubs, blog index, About, Contact, FAQ,
+  Terms, Privacy). Built from a known-pages registry (`src/lib/cmsPages.ts`)
+  that combines hardcoded standalone entries with brands.ts, districts.ts
+  and blogPosts.ts.
+- Filter chips by page type with live counts; search across title, URL,
+  type, postcode.
+- `/admin/pages/[...slug]/` editor. Catch-all so slugs with slashes
+  (e.g. `areas-we-serve/g74`) work natively. Fields: Page title, H1,
+  Hero title, Hero subtitle, Meta title, Meta description, Allow indexing,
+  Draft / Published toggle.
+- Save via `POST /api/admin/pages` upserts a row keyed on slug.
+- Public proof: homepage's metadata (title, description) now reads from
+  `cms_pages` row "/" if a published row exists, otherwise the static
+  defaults from layout.tsx.
+
+### Phase 3 - block-based body editor
+
+- `cms_pages.sections` (jsonb from Phase 1) holds an ordered array of
+  content blocks. Six block types ship: Heading (H2/H3), Text (paragraphs
+  split on blank lines), Image (URL + alt + caption), Video (YouTube or
+  Vimeo URL parsed into safe iframe), CTA (heading + subtext + button +
+  URL), FAQ (array of Q/A pairs).
+- Admin editor `SectionsEditor.tsx` lists blocks with move up/down/delete
+  controls and an "Add block" picker. Each block type has its own form.
+- Public renderer `src/components/cms/PublicBlocks.tsx` is a server
+  component that validates the stored jsonb via `parseBlocks()` and
+  silently drops unknown shapes - bad data can't crash the public site.
+- `<CmsExtraSections slug="/" />` is mounted on the homepage as a
+  non-destructive demo: add blocks in admin, save, reload the homepage,
+  and the new content appears above the bottom quote section.
+
+### Phase 4 - media library + Supabase Storage
+
+- `/admin/media` grid view of all uploaded files. Multi-file upload,
+  search, per-file Copy URL / Edit alt+caption / Delete.
+- Storage bucket `ekbc-media` (operator step above) backs the binaries;
+  `cms_media` table holds metadata + public URLs.
+- `src/lib/cmsMedia.ts` exposes `listMedia`, `uploadMedia`, `updateMediaMeta`,
+  `deleteMedia`. Upload rolls back the binary if the metadata insert
+  fails.
+- API: `POST /api/admin/media` (multipart, 10 MB cap), `GET /api/admin/media/list`,
+  `PATCH /api/admin/media/[id]`, `DELETE /api/admin/media/[id]`.
+- Image block in the page editor gets a "Choose image" / "Replace image"
+  button opening the `MediaPicker` modal. Selecting a media row sets the
+  block's url and pre-fills alt/caption.
+
+### Phase 5 - blog manager + editor + public CMS posts
+
+- `/admin/blogs` card grid of posts with featured image thumb, title,
+  excerpt, status, category, last-updated. Filters: All / Published /
+  Drafts. "Add post" CTA.
+- `/admin/blogs/new` and `/admin/blogs/[id]` use the same `BlogEditor`:
+  title (auto-slugifies into the slug field), slug, category, excerpt,
+  featured image picker (reuses MediaPicker), body content blocks (the
+  same SectionsEditor), meta title / description, draft / published
+  toggle, delete button.
+- `src/lib/cmsBlogs.ts` exposes full CRUD + `getBlogBySlug` for public
+  rendering. Auto-sets `published_at` when transitioning to published.
+- Public `/blogs/[slug]/` route now falls back to CMS lookup when the
+  slug isn't in static `blogPosts.ts`. CMS posts render via the new
+  `CmsBlogPostView` which reuses `PageHero` + `PublicBlocks` and ships
+  its own Article + BreadcrumbList schema.
+
+### Phase 6 - sitemap integration + polish
+
+- `src/app/sitemap.ts` now async. Includes published CMS blog post slugs
+  (deduped against static posts). Excludes any `cms_pages` slug that's
+  in draft status or has `is_indexable: false` from the sitemap entirely.
+- Dashboard tiles: Manage pages / Manage blog / Media library all
+  promoted from "Coming soon" to live links.
+
+### What the client can do without a developer
+
+- Edit page titles, H1s, hero copy, meta tags on any of the ~60 pages
+- Toggle pages between draft and published; control whether search
+  engines see them via the indexing checkbox
+- Add page body content blocks (text, images, videos, FAQs, CTAs)
+- Upload site images and reuse them across pages
+- Write, edit, schedule and delete blog posts
+- Pick featured images from the media library
+- Update phone, email, address, hours, footer copy from Site Settings
+- Search and filter quote leads, change lead status, add internal notes
+- See dashboard stats (new leads, total leads, contacted leads, posts)
+
+### What still requires a developer
+
+- Adding new page TYPES to the registry (a brand new section of the
+  site that doesn't exist yet)
+- Adding new content block types (the six shipping types cover the
+  common cases; new ones - pricing tables, comparison cards, etc. -
+  need code)
+- Changes to the global Carbon Mint design system
+- Changes to public component layouts (header, footer, hero structure)
+- Anything outside Supabase that the CMS touches
+
+### Routes added across CMS phases 1-5
+
+Admin pages:
+
+- `/admin/dashboard`, `/admin/help`, `/admin/settings`
+- `/admin/pages`, `/admin/pages/[...slug]/`
+- `/admin/blogs`, `/admin/blogs/new`, `/admin/blogs/[id]`
+- `/admin/media`
+- `/admin/leads` (upgraded with search + notes)
+
+Admin APIs:
+
+- `POST /api/admin/settings`
+- `POST /api/admin/pages`
+- `POST /api/admin/blogs`, `PATCH /api/admin/blogs/[id]`, `DELETE /api/admin/blogs/[id]`
+- `POST /api/admin/media`, `GET /api/admin/media/list`,
+  `PATCH /api/admin/media/[id]`, `DELETE /api/admin/media/[id]`
+
+All admin pages and APIs are gated by the cookie-session proxy from
+`src/proxy.ts`.
