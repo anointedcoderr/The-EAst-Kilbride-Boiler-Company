@@ -65,9 +65,8 @@ const quickLinks: Array<{
   {
     href: "/admin/blogs",
     label: "Manage blog",
-    description: "Add and edit blog posts. Coming in Phase 3.",
+    description: "Write, edit and publish blog posts with featured images.",
     icon: Newspaper,
-    comingSoon: true,
   },
   {
     href: "/admin/media",
