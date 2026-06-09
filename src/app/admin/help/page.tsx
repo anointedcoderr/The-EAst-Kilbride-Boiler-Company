@@ -89,7 +89,7 @@ export default function AdminHelpPage() {
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3">
             <Link
-              href="/admin"
+              href="/admin/dashboard"
               className="inline-flex items-center gap-1.5 rounded-full border border-carbon-700 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-carbon-300 transition-colors hover:border-mint-500/50 hover:text-mint-400"
             >
               <ArrowLeft className="h-3.5 w-3.5" />

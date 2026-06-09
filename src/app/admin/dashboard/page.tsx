@@ -49,10 +49,10 @@ const quickLinks: Array<{
     icon: HelpCircle,
   },
   {
-    href: "/admin",
-    label: "Content preview",
+    href: "/admin/preview",
+    label: "Stage 1 preview",
     description:
-      "Legacy admin sections (pages, brand pricing, promotions, SEO).",
+      "Legacy admin sections from the Stage 1 build (brand pricing, promotions, SEO preview). Kept for reference.",
     icon: FileText,
   },
   {
