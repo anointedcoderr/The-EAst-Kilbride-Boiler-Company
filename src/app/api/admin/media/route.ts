@@ -4,7 +4,7 @@ import { uploadMedia } from "@/lib/cmsMedia";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const MAX_BYTES = 10 * 1024 * 1024; // 10 MB
+const MAX_BYTES = 50 * 1024 * 1024; // 50 MB - enough for short videos
 
 export async function POST(request: Request) {
   let form: FormData;
@@ -31,7 +31,7 @@ export async function POST(request: Request) {
   }
   if (file.size > MAX_BYTES) {
     return NextResponse.json(
-      { ok: false, message: "File is larger than 10 MB." },
+      { ok: false, message: "File is larger than 50 MB." },
       { status: 413 }
     );
   }

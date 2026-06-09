@@ -182,6 +182,15 @@ function coerceBlock(raw: unknown): Block | null {
   }
 }
 
+// Return true if the URL points at a directly-playable video file
+// (mp4, webm, ogg, mov). These render in a native <video> element
+// rather than an iframe embed.
+export function isDirectVideoFile(url: string): boolean {
+  if (!url) return false;
+  // Match the extension before any query string / fragment.
+  return /\.(mp4|webm|ogg|ogv|mov|m4v)(\?|#|$)/i.test(url);
+}
+
 // Parse a YouTube or Vimeo URL into an embed URL we can safely drop
 // into an iframe src. Returns null for any other URL so the renderer
 // can show a fallback link instead.

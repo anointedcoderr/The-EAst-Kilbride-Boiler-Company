@@ -7,9 +7,16 @@ import type { MediaRow } from "@/lib/cmsMedia";
 interface MediaPickerProps {
   onSelect: (row: MediaRow) => void;
   onClose: () => void;
+  // Limit the picker to a specific kind of asset. Defaults to images
+  // (used by image blocks); video blocks pass "video".
+  filter?: "image" | "video" | "any";
 }
 
-export function MediaPicker({ onSelect, onClose }: MediaPickerProps) {
+export function MediaPicker({
+  onSelect,
+  onClose,
+  filter = "image",
+}: MediaPickerProps) {
   const [rows, setRows] = useState<MediaRow[] | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState("");
@@ -38,6 +45,8 @@ export function MediaPicker({ onSelect, onClose }: MediaPickerProps) {
   }, []);
 
   const visible = (rows ?? []).filter((r) => {
+    if (filter === "image" && !r.file_type.startsWith("image/")) return false;
+    if (filter === "video" && !r.file_type.startsWith("video/")) return false;
     if (!search) return true;
     const q = search.trim().toLowerCase();
     return [r.file_name, r.alt_text, r.caption]
@@ -58,10 +67,13 @@ export function MediaPicker({ onSelect, onClose }: MediaPickerProps) {
         <div className="flex items-start justify-between gap-2 border-b border-carbon-800 p-4">
           <div>
             <h3 className="text-sm font-bold uppercase tracking-wider text-white">
-              Pick an image
+              {filter === "video" ? "Pick a video" : "Pick an image"}
             </h3>
             <p className="mt-1 text-xs text-carbon-400">
-              Click an image to use it. Upload new files in the
+              {filter === "video"
+                ? "Click a video to use it, or paste a YouTube / Vimeo URL in the block instead."
+                : "Click an image to use it."}{" "}
+              Upload new files in the
               <span className="text-mint-400"> Media library</span> first.
             </p>
           </div>
@@ -117,7 +129,7 @@ export function MediaPicker({ onSelect, onClose }: MediaPickerProps) {
                   onClick={() => onSelect(row)}
                   className="overflow-hidden rounded-xl border border-carbon-800 bg-carbon-900/40 text-left transition-colors hover:border-mint-500/60"
                 >
-                  <div className="aspect-square bg-black">
+                  <div className="relative aspect-square bg-black">
                     {row.file_type.startsWith("image/") ? (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img
@@ -127,10 +139,23 @@ export function MediaPicker({ onSelect, onClose }: MediaPickerProps) {
                         decoding="async"
                         className="block h-full w-full object-cover"
                       />
+                    ) : row.file_type.startsWith("video/") ? (
+                      <video
+                        src={row.file_url}
+                        muted
+                        playsInline
+                        preload="metadata"
+                        className="block h-full w-full object-cover"
+                      />
                     ) : (
                       <div className="flex h-full items-center justify-center text-xs text-carbon-400">
                         {row.file_type}
                       </div>
+                    )}
+                    {row.file_type.startsWith("video/") && (
+                      <span className="absolute right-1.5 top-1.5 rounded-full bg-black/70 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-mint-300">
+                        Video
+                      </span>
                     )}
                   </div>
                   <div className="p-2">

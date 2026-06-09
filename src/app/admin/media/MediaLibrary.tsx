@@ -162,7 +162,7 @@ export function MediaLibrary({ initial }: MediaLibraryProps) {
           ref={fileInput}
           type="file"
           multiple
-          accept="image/*"
+          accept="image/*,video/*"
           onChange={(e) => e.target.files && handleFiles(e.target.files)}
           className="hidden"
         />
@@ -226,10 +226,23 @@ export function MediaLibrary({ initial }: MediaLibraryProps) {
                     decoding="async"
                     className="block h-full w-full object-cover"
                   />
+                ) : row.file_type.startsWith("video/") ? (
+                  <video
+                    src={row.file_url}
+                    muted
+                    playsInline
+                    preload="metadata"
+                    className="block h-full w-full object-cover"
+                  />
                 ) : (
                   <div className="flex h-full items-center justify-center text-xs text-carbon-400">
                     {row.file_type}
                   </div>
+                )}
+                {row.file_type.startsWith("video/") && (
+                  <span className="absolute right-2 top-2 rounded-full bg-black/70 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-mint-300">
+                    Video
+                  </span>
                 )}
               </div>
               <div className="p-3">

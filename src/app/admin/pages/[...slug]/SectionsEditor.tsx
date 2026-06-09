@@ -247,26 +247,7 @@ function BlockEditor({
       return <ImageBlockEditor block={block} onChange={onChange} />;
 
     case "video":
-      return (
-        <>
-          <input
-            type="url"
-            value={block.url}
-            onChange={(e) => onChange({ ...block, url: e.target.value })}
-            placeholder="YouTube or Vimeo URL"
-            className={inputClass}
-          />
-          <input
-            type="text"
-            value={block.caption ?? ""}
-            onChange={(e) =>
-              onChange({ ...block, caption: e.target.value })
-            }
-            placeholder="Caption (optional)"
-            className={inputClass}
-          />
-        </>
-      );
+      return <VideoBlockEditor block={block} onChange={onChange} />;
 
     case "cta":
       return (
@@ -316,6 +297,75 @@ function BlockEditor({
         />
       );
   }
+}
+
+function VideoBlockEditor({
+  block,
+  onChange,
+}: {
+  block: { type: "video"; url: string; caption?: string };
+  onChange: (next: Block) => void;
+}) {
+  const [pickerOpen, setPickerOpen] = useState(false);
+  const inputClass =
+    "w-full rounded-lg border border-carbon-600 bg-carbon-800 px-3 py-2 text-sm text-white placeholder:text-carbon-500 focus:border-mint-500 focus:outline-none focus:ring-1 focus:ring-mint-500";
+
+  return (
+    <>
+      <div className="flex flex-wrap gap-2">
+        <button
+          type="button"
+          onClick={() => setPickerOpen(true)}
+          className="inline-flex items-center gap-1.5 rounded-lg bg-mint-500 px-3 py-2 text-xs font-bold uppercase tracking-wider text-carbon-900 hover:bg-mint-400"
+        >
+          <PlayCircle className="h-3.5 w-3.5" />
+          {block.url ? "Replace video" : "Pick uploaded video"}
+        </button>
+        {block.url && (
+          <button
+            type="button"
+            onClick={() => onChange({ ...block, url: "" })}
+            className="inline-flex items-center gap-1.5 rounded-lg border border-carbon-700 px-3 py-2 text-xs font-bold uppercase tracking-wider text-carbon-300 hover:border-rose-400/40 hover:text-rose-200"
+          >
+            <Trash2 className="h-3.5 w-3.5" />
+            Remove
+          </button>
+        )}
+      </div>
+      <input
+        type="url"
+        value={block.url}
+        onChange={(e) => onChange({ ...block, url: e.target.value })}
+        placeholder="Or paste a YouTube / Vimeo URL"
+        className={inputClass}
+      />
+      <input
+        type="text"
+        value={block.caption ?? ""}
+        onChange={(e) => onChange({ ...block, caption: e.target.value })}
+        placeholder="Caption (optional)"
+        className={inputClass}
+      />
+      <p className="text-[11px] text-carbon-400">
+        Uploaded MP4 / WebM videos play in a native video player. YouTube
+        and Vimeo URLs embed automatically.
+      </p>
+      {pickerOpen && (
+        <MediaPicker
+          filter="video"
+          onClose={() => setPickerOpen(false)}
+          onSelect={(row) => {
+            onChange({
+              ...block,
+              url: row.file_url,
+              caption: block.caption ?? row.caption,
+            });
+            setPickerOpen(false);
+          }}
+        />
+      )}
+    </>
+  );
 }
 
 function ImageBlockEditor({

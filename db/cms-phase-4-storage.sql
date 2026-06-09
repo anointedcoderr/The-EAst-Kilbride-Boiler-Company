@@ -5,8 +5,12 @@
 -- Step 1: Supabase Dashboard -> Storage -> "New bucket"
 --   - Bucket name: ekbc-media
 --   - Public bucket: ON (so file_url can be served directly)
---   - File size limit: 10 MB (sensible default for site images)
+--   - File size limit: 50 MB (covers short videos plus all images)
 --   - Allowed MIME types: image/*, video/*, application/pdf
+--
+-- If you already created the bucket with a 10 MB limit, raise it now:
+--   Dashboard -> Storage -> ekbc-media -> "..." menu -> Edit bucket
+--   -> set "File size limit" to 50 MB and save.
 --
 -- Step 2: run the SQL below. It adds RLS policies on
 -- storage.objects so the server (anon role) can upload, read and

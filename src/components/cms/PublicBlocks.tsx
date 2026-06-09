@@ -2,6 +2,7 @@ import Link from "next/link";
 import {
   parseBlocks,
   videoEmbedSrc,
+  isDirectVideoFile,
   type Block,
   type HeadingBlock,
   type RichTextBlock,
@@ -107,10 +108,34 @@ function ImageRender({ block }: { block: ImageBlock }) {
 }
 
 function VideoRender({ block }: { block: VideoBlock }) {
+  if (!block.url) return null;
+
+  // Direct video file (uploaded mp4 / webm) renders in a native
+  // <video> player. YouTube and Vimeo URLs render as an iframe embed.
+  // Anything else falls back to an external link.
+  if (isDirectVideoFile(block.url)) {
+    return (
+      <figure>
+        <div className="overflow-hidden rounded-2xl border border-carbon-800 bg-black">
+          <video
+            src={block.url}
+            controls
+            preload="metadata"
+            playsInline
+            className="block h-auto w-full"
+          />
+        </div>
+        {block.caption && (
+          <figcaption className="mt-2 text-center text-xs text-carbon-400">
+            {block.caption}
+          </figcaption>
+        )}
+      </figure>
+    );
+  }
+
   const src = videoEmbedSrc(block.url);
   if (!src) {
-    if (!block.url) return null;
-    // Fallback: external link if the URL isn't a recognised embed host.
     return (
       <a
         href={block.url}
