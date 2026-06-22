@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 
-// ─────────────────────────────────────────────────────────────────────────────
-// SITE PARKED — Anointed Coder lead-generation landing page.
+// SITE PARKED - Anointed Coder lead-generation landing page.
 //
 // Next.js 16 renamed Middleware to Proxy. While this version of the file is in
 // place, EVERY route serves the Anointed Coder pitch page below and nothing
@@ -12,17 +11,16 @@ import { NextResponse } from "next/server";
 // version of this file (the admin-session gate) is preserved on the
 // `full-site` branch.
 //
-// ▶ TO RESTORE THE LIVE SITE (brings back the real site + its admin gate):
+// TO RESTORE THE LIVE SITE (brings back the real site + its admin gate):
 //     git checkout full-site -- src/proxy.ts
 //     git commit -m "restore: bring site back live"
 //     git push
 //   Vercel auto-redeploys the full website.
 //
-// 503 + Retry-After + noindex keep this off search engines so it doesn't
+// 503 + Retry-After + noindex keep this off search engines so it does not
 // pollute the parked domain's SEO. The page still renders normally in every
 // browser. To make it a normal indexable page instead, change status to 200
 // and remove the robots meta tag.
-// ─────────────────────────────────────────────────────────────────────────────
 
 const WEBSITE_URL = "https://www.anointedcoder.com";
 const TELEGRAM_URL = "https://t.me/AnointedCoder";
@@ -34,8 +32,8 @@ const HOLDING_PAGE = `<!doctype html>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="robots" content="noindex, nofollow" />
-  <title>Anointed Coder — Custom Website &amp; Web App Development</title>
-  <meta name="description" content="Anointed Coder builds premium, custom websites and web apps that grow your business. From concept to launch in weeks." />
+  <title>Anointed Coder | Custom Websites &amp; Web Apps</title>
+  <meta name="description" content="Anointed Coder builds fast, high converting custom websites and web apps that win your business more customers." />
   <style>
     :root {
       --bg: #0b0710;
@@ -148,7 +146,7 @@ const HOLDING_PAGE = `<!doctype html>
     }
     .cta-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 38px rgba(124, 58, 237, 0.6); }
     .cta-primary svg { width: 18px; height: 18px; }
-    .or { text-align: center; font-size: 12.5px; color: var(--muted-2); margin: 20px 0 14px; letter-spacing: 0.3px; }
+    .prompt { text-align: center; font-size: 14px; font-weight: 600; color: var(--text); margin: 24px 0 14px; line-height: 1.5; }
     .contacts { display: flex; gap: 12px; }
     .btn {
       flex: 1;
@@ -185,22 +183,22 @@ const HOLDING_PAGE = `<!doctype html>
       <div class="brand">Anointed Coder<small>Custom Web Development Agency</small></div>
     </div>
 
-    <span class="eyebrow">Custom Websites &amp; Web Apps</span>
-    <h1>A website that actually <span class="grad">grows your business</span>.</h1>
-    <p class="lede">Anointed Coder designs and builds premium, custom websites and web applications — fast. If your online presence isn't winning you customers, we'll build one that does.</p>
+    <span class="eyebrow">Web Design &amp; Development That Sells</span>
+    <h1>Your website should be <span class="grad">winning you customers</span>.</h1>
+    <p class="lede">We build fast, high converting websites that make your business look world class and turn visitors into paying customers. No templates. No fluff. Just results you can measure.</p>
 
     <ul class="features">
-      <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Custom design &amp; build — never templates</li>
-      <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> From concept to launch in weeks, not months</li>
-      <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Trusted by businesses across the UK, US &amp; Europe</li>
+      <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Custom built to convert. No templates, ever.</li>
+      <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Live in weeks, not months.</li>
+      <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Trusted by businesses across the UK, US &amp; Europe.</li>
     </ul>
 
     <a class="cta-primary" href="${WEBSITE_URL}" target="_blank" rel="noopener">
-      Explore Anointed Coder
+      See What We Build
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
     </a>
 
-    <div class="or">Have a project in mind? Message us directly</div>
+    <div class="prompt">Ready to build a new website or upgrade your current one?</div>
     <div class="contacts">
       <a class="btn btn-telegram" href="${TELEGRAM_URL}" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.94 4.6 18.6 20.3c-.25 1.1-.91 1.37-1.84.85l-5.1-3.76-2.46 2.37c-.27.27-.5.5-1.02.5l.36-5.18 9.42-8.51c.41-.36-.09-.56-.63-.2L5.05 13.1l-5.01-1.57c-1.09-.34-1.11-1.09.23-1.61L20.53 3.05c.91-.34 1.71.2 1.41 1.55z"/></svg>
